@@ -13,7 +13,7 @@ var firstTime = Bool()
 
 class TutorialScene: SKScene {
     
-    var backButton = SKSpriteNode(imageNamed: "back")
+    var backButton = SKSpriteNode(imageNamed: "arrow")
     var x = SKSpriteNode();
     var map = SKSpriteNode();
     var o = SKSpriteNode();
@@ -39,7 +39,7 @@ class TutorialScene: SKScene {
         self.addChild(Title)
         Title.run(fadeIn)
         
-        backButton.xScale = 0.5; backButton.yScale = 0.5; backButton.alpha = 0;
+        backButton.xScale = 1.0; backButton.yScale = 1.0; backButton.alpha = 0;
         backButton.position = CGPoint(x: self.frame.midX - 275, y: self.frame.midY - 550)
         
         self.addChild(backButton)
@@ -68,8 +68,8 @@ class TutorialScene: SKScene {
         self.addChild(map);
         self.addChild(x);
         
-        arrow = SKSpriteNode(imageNamed: "arrow"); arrow.alpha = 0;
-        arrow.position = CGPoint(x: self.frame.midX - 110, y: self.frame.midY - 570)
+        //arrow = SKSpriteNode(imageNamed: "arrow"); arrow.alpha = 0;
+        //arrow.position = CGPoint(x: self.frame.midX - 110, y: self.frame.midY - 570)
         
         fadeTut1(self: self, tut: tut1, img: map, piece1: x, piece2: o)
         
@@ -132,11 +132,10 @@ class TutorialScene: SKScene {
                         
                         self.addChild(self.simple)
                         self.addChild(self.shot)
-                        self.addChild(self.arrow)
                         
                         self.simple.run(SKAction.sequence([wait, fadeIn]))
                         self.shot.run(SKAction.sequence([wait, wait, fadeIn]))
-                        self.arrow.run(SKAction.sequence([wait, wait, wait, SKAction.repeatForever(SKAction.sequence([fadeIn, fadeOut]))]))
+                        self.backButton.run(SKAction.sequence([wait, wait, wait, SKAction.repeatForever(SKAction.sequence([fadeIn, fadeOut]))]))
                     }
                     
                 }

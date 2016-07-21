@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6332F031D24723C00EA8367 /* TestParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = D6332F011D24723C00EA8367 /* TestParticle.sks */; };
+		D6332F041D24723C00EA8367 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D6332F021D24723C00EA8367 /* spark.png */; };
 		D654DB581D10E8DE00CE3485 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654DB571D10E8DE00CE3485 /* AppDelegate.swift */; };
 		D654DB5A1D10E8DE00CE3485 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D654DB591D10E8DE00CE3485 /* GameScene.sks */; };
 		D654DB5C1D10E8DE00CE3485 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654DB5B1D10E8DE00CE3485 /* GameScene.swift */; };
@@ -45,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D6332F011D24723C00EA8367 /* TestParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TestParticle.sks; sourceTree = "<group>"; };
+		D6332F021D24723C00EA8367 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		D654DB541D10E8DE00CE3485 /* X vs O.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X vs O.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D654DB571D10E8DE00CE3485 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D654DB591D10E8DE00CE3485 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 			children = (
 				D654DB571D10E8DE00CE3485 /* AppDelegate.swift */,
 				D68549AC1D1396F000F44353 /* MenuScene.swift */,
+				D6332F011D24723C00EA8367 /* TestParticle.sks */,
+				D6332F021D24723C00EA8367 /* spark.png */,
 				D654DB5B1D10E8DE00CE3485 /* GameScene.swift */,
 				D658F58F1D15221700E602F0 /* CreditsScene.swift */,
 				D658F5911D15481700E602F0 /* SettingsScene.swift */,
@@ -268,7 +274,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6332F041D24723C00EA8367 /* spark.png in Resources */,
 				D654DB5A1D10E8DE00CE3485 /* GameScene.sks in Resources */,
+				D6332F031D24723C00EA8367 /* TestParticle.sks in Resources */,
 				D654DB661D10E8DE00CE3485 /* LaunchScreen.storyboard in Resources */,
 				D654DB631D10E8DE00CE3485 /* Assets.xcassets in Resources */,
 				D6FA196C1D14546A007C23CB /* LaunchScreen.storyboard in Resources */,

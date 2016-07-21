@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TutorialScene.swift"
-            timestampString = "488103521.703351"
+            timestampString = "490781917.807615"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "touchesBegan(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GameTestSprite/GameScene.swift"
-            timestampString = "488132462.359234"
+            timestampString = "490785144.834499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "restart(self:)"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "checkForWin(myArr:)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

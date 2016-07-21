@@ -17,6 +17,7 @@ class MenuScene: SKScene {
     var settings = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
     var credits = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
     var help = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
+    var redfx = SKEmitterNode(fileNamed: "TestParticle.sks")
     
     override func didMove(to view: SKView) {
         
@@ -41,6 +42,7 @@ class MenuScene: SKScene {
         credits.position = CGPoint(x:self.frame.midX, y:(self.frame.midY)-600)
         sPlayer.name = "1"; mPlayer.name = "2"; settings.name = "settings"; credits.name = "credits"; help.name = "help"
         sPlayer.alpha = 0; mPlayer.alpha = 0; settings.alpha = 0; credits.alpha = 0; help.alpha = 0;
+        sPlayer.zPosition = 1;
         
         self.addChild(sPlayer); self.addChild(mPlayer); self.addChild(settings); self.addChild(credits); self.addChild(help);
         
@@ -48,6 +50,13 @@ class MenuScene: SKScene {
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 1)
         sPlayer.run(fadeIn); mPlayer.run(fadeIn); settings.run(fadeIn); credits.run(fadeIn); help.run(fadeIn);
         
+        
+        redfx?.position = CGPoint(x: self.frame.midX, y: self.frame.midY+400)
+        redfx?.particleAlpha = 0;
+        redfx?.run(fadeIn)
+        
+        self.addChild(redfx!);
+        redfx?.particleZPosition = -1
         
     }
         

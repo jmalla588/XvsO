@@ -11,7 +11,7 @@ import SpriteKit
 
 class CreditsScene: SKScene {
     
-    var backButton = SKSpriteNode(imageNamed: "back")
+    var backButton = SKSpriteNode(imageNamed: "arrow")
     
     override func didMove(to view: SKView) {
         let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
@@ -23,7 +23,7 @@ class CreditsScene: SKScene {
         self.addChild(Title)
         Title.run(fadeIn)
         
-        backButton.xScale = 0.5; backButton.yScale = 0.5; backButton.alpha = 0;
+        backButton.xScale = 1.0; backButton.yScale = 1.0; backButton.alpha = 0;
         backButton.position = CGPoint(x: self.frame.midX - 275, y: self.frame.midY - 550)
         
         self.addChild(backButton)

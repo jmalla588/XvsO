@@ -10,10 +10,16 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
-
+    
+    let defaults = UserDefaults.standard;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+            defaults().set("Player 1", forKey: "NameOne")
+            defaults().set("Player 2", forKey: "NameTwo")
+            defaults().set("medium", forKey: "difficulty")
+        
         if let scene = MenuScene(fileNamed:"MenuScene") {
             // Configure the view.
             let skView = self.view as! SKView
@@ -28,10 +34,7 @@ class GameViewController: UIViewController {
             
             skView.presentScene(scene)
             
-            let defaults = UserDefaults.standard;
-            
-            defaults().set("Player 1", forKey: "NameOne")
-            defaults().set("Player 2", forKey: "NameTwo")
+
         }
     }
 

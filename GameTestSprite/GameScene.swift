@@ -91,6 +91,7 @@ class GameScene: SKScene {
                 sprite.position = CGPoint(x:self.frame.midX*xPoint, y:self.frame.midY*yPoint)
                 self.addChild(sprite)
                 let fadeIn = SKAction.fadeIn(withDuration: 0.50)
+
                 sprite.run(fadeIn)
             }
             
@@ -101,18 +102,33 @@ class GameScene: SKScene {
             winner = checkForWin(myArr: myArr)
             
             if winner != 0 {
-                Title.text = "Player " + String(winner) + " wins"
-                retry.position = CGPoint(x: self.frame.midX*1.35, y: self.frame.midY*0.11)
-                retry.alpha = 0.0; retry.xScale = 0.25; retry.yScale = 0.25; retry.name = "retry"
+                
+                let fadeIn1 = SKAction.fadeIn(withDuration: 1)
+                let fadeOut1 = SKAction.fadeOut(withDuration:1)
+                let wait = SKAction.wait(forDuration: 1)
+                let waitTiny = SKAction.wait(forDuration: 0.1)
+                
+                let winLine = findWinningLine(myArr: myArr)
+                drawWinLine(lineNum: winLine, self: self)
+                
+                Title.text = "Player " + String(winner) + " wins!"
+                retry.position = CGPoint(x: self.frame.midX*1.335, y: self.frame.midY*0.15)
+                retry.alpha = 0.0; retry.xScale = 0.6; retry.yScale = 0.6; retry.name = "retry"
                 self.addChild(retry)
-                retry.run(fadeIn)
+                retry.run(SKAction.sequence([wait, SKAction.repeatForever(SKAction.sequence([fadeIn1, waitTiny, fadeOut1]))]))
                 
             } else if (checkForDraw(myArr: myArr)){
+                
+                let fadeIn1 = SKAction.fadeIn(withDuration: 1)
+                let fadeOut1 = SKAction.fadeOut(withDuration:1)
+                let wait = SKAction.wait(forDuration: 1)
+                let waitTiny = SKAction.wait(forDuration:0.1)
+                
                 Title.text = "Draw"
-                retry.position = CGPoint(x: self.frame.midX*1.35, y: self.frame.midY*0.11)
-                retry.alpha = 0.0; retry.xScale = 0.25; retry.yScale = 0.25; retry.name = "retry"
+                retry.position = CGPoint(x: self.frame.midX*1.335, y: self.frame.midY*0.15)
+                retry.alpha = 0.0; retry.xScale = 0.6; retry.yScale = 0.6; retry.name = "retry"
                 self.addChild(retry)
-                retry.run(fadeIn)
+                retry.run(SKAction.sequence([wait, SKAction.repeatForever(SKAction.sequence([fadeOut1, waitTiny, fadeIn1]))]))
 
             }
             
@@ -165,27 +181,149 @@ func checkForWin(myArr: [Int]) -> Int {
     if turn < 3 {return 0}
 
     if ((myArr[0] != 0) || (myArr[4] != 0) || (myArr[8] != 0)) {
-        if (myArr[0] == myArr[1] && myArr[1] == myArr[2]) ||
-           (myArr[0] == myArr[3] && myArr[3] == myArr[6]) ||
-           (myArr[0] == myArr[4] && myArr[4] == myArr[8]) {
+        if (myArr[0] == myArr[1] && myArr[1] == myArr[2] && myArr[2] != 0) ||
+           (myArr[0] == myArr[3] && myArr[3] == myArr[6] && myArr[6] != 0) ||
+           (myArr[0] == myArr[4] && myArr[4] == myArr[8] && myArr[8] != 0) {
             return myArr[0]
         }
         
         else if (myArr[4] == myArr[0] && myArr[0] == myArr[8]) ||
-           (myArr[4] == myArr[1] && myArr[1] == myArr[7]) ||
-           (myArr[4] == myArr[6] && myArr[6] == myArr[2]) ||
-           (myArr[4] == myArr[3] && myArr[3] == myArr[5]) {
+           (myArr[4] == myArr[1] && myArr[1] == myArr[7] && myArr[7] != 0) ||
+           (myArr[4] == myArr[6] && myArr[6] == myArr[2] && myArr[2] != 0) ||
+           (myArr[4] == myArr[3] && myArr[3] == myArr[5] && myArr[5] != 0) {
             return myArr[4]
         }
         
         else if (myArr[8] == myArr[4] && myArr[4] == myArr[0]) ||
-           (myArr[8] == myArr[2] && myArr[2] == myArr[5]) ||
-           (myArr[8] == myArr[6] && myArr[6] == myArr[7]) {
+           (myArr[8] == myArr[2] && myArr[2] == myArr[5] && myArr[5] != 0) ||
+           (myArr[8] == myArr[6] && myArr[6] == myArr[7] && myArr[7] != 0) {
             return myArr[8]
         }
     }
 
 return 0
+}
+
+
+/*
+ WinLines
+ 
+ 0   |   1   |   2
+ -------------------
+ 3   |   4   |   5
+ -------------------
+ 6   |   7   |   8
+ 
+ WinLine1 = 012
+ WinLine2 = 345
+ WinLine3 = 678
+ WinLine4 = 036
+ WinLine5 = 147
+ WinLine6 = 258
+ WinLine7 = 048
+ WinLine8 = 246
+ 
+ 
+ */
+func findWinningLine(myArr: [Int]) -> Int {
+    
+    //WinLine1
+    if (myArr[0] == myArr[1] && myArr[1] == myArr[2] && myArr[2] != 0) {
+        return 1;
+    }
+    
+    //WinLine2
+    if (myArr[3] == myArr[4] && myArr[4] == myArr[5] && myArr[5] != 0) {
+        return 2;
+    }
+    
+    //WinLine3
+    if (myArr[6] == myArr[7] && myArr[7] == myArr[8] && myArr[8] != 0) {
+        return 3;
+    }
+    
+    //WinLine4
+    if (myArr[0] == myArr[3] && myArr[3] == myArr[6] && myArr[6] != 0) {
+        return 4;
+    }
+    
+    //WinLine5
+    if (myArr[1] == myArr[4] && myArr[4] == myArr[7] && myArr[7] != 0) {
+        return 5;
+    }
+    
+    //WinLine6
+    if (myArr[2] == myArr[5] && myArr[5] == myArr[8] && myArr[8] != 0) {
+        return 6;
+    }
+    
+    //WinLine7
+    if (myArr[0] == myArr[4] && myArr[4] == myArr[8] && myArr[8] != 0) {
+        return 7;
+    }
+    
+    //WinLine8
+    if (myArr[2] == myArr[4] && myArr[4] == myArr[6] && myArr[6] != 0) {
+        return 8;
+    }
+    
+    return 0;
+}
+
+func drawWinLine(lineNum: Int, self: GameScene) {
+    let line = SKSpriteNode(imageNamed: "line")
+    line.alpha = 0
+    line.zPosition = 2
+    line.xScale = 0.15
+    line.yScale = 1.05
+
+    
+    let rotate90 = SKAction.rotate(byAngle: 1.57079632, duration: 0)
+    let rotate45 = SKAction.rotate(byAngle: 0.70539816, duration: 0)
+    let rotate45ish = SKAction.rotate(byAngle: 0.87839816, duration: 0)
+    
+    if lineNum == 1 {
+        line.position = CGPoint(x:self.frame.midX, y:self.frame.midY*1.4)
+        line.run(rotate90)
+    }
+    
+    if lineNum == 2 {
+        line.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
+        line.run(rotate90)
+    }
+    
+    if lineNum == 3 {
+        line.position = CGPoint(x:self.frame.midX, y:self.frame.midY*0.6)
+        line.run(rotate90)
+    }
+    
+    if lineNum == 4 {
+        line.position = CGPoint(x:self.frame.midX*0.73, y:self.frame.midY)
+    }
+    
+    if lineNum == 5 {
+        line.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
+    }
+    
+    if lineNum == 6 {
+        line.position = CGPoint(x:self.frame.midX*1.27, y:self.frame.midY)
+    }
+    
+    if lineNum == 7 {
+        line.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
+        line.run(rotate45)
+        line.yScale = 1.15
+    }
+    
+    if lineNum == 8 {
+        line.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
+        line.run(rotate90)
+        line.run(rotate45ish)
+        line.yScale = 1.15
+    }
+    
+    self.addChild(line)
+    line.run(fadeIn)
 }
 
 
@@ -235,9 +373,9 @@ func createSceneContents(self: GameScene) {
     self.addChild(o)
     x.run(fadeIn); o.run(fadeIn)
     
-    let back = SKSpriteNode(imageNamed:"back")
-    back.xScale = 0.25; back.yScale = 0.25; back.name = "back"; back.alpha = 0;
-    back.position = CGPoint(x:self.frame.midX*0.65, y: self.frame.midY*0.11)
+    let back = SKSpriteNode(imageNamed:"arrow")
+    back.xScale = 0.6; back.yScale = 0.6; back.name = "back"; back.alpha = 0;
+    back.position = CGPoint(x:self.frame.midX*0.69, y: self.frame.midY*0.15)
     
     self.addChild(back)
     back.run(fadeIn)
