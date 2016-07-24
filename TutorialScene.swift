@@ -95,6 +95,7 @@ class TutorialScene: SKScene {
             let fadeOut = SKAction.fadeOut(withDuration: 1)
             
             if node == backButton {
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 if let view = view {
                     let scene = MenuScene(fileNamed: "MenuScene")
                     let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.75)
@@ -104,6 +105,7 @@ class TutorialScene: SKScene {
             }
             
             if node == x && firstTime == true {
+                run(SKAction.playSoundFileNamed("X.wav", waitForCompletion: false))
                 x.removeAction(forKey: "stopKey")
                 fadeTut2(self: self, outTut: tut1, tut: tut2, img: map, piece1: x, piece2: x2, piece3: x3)
             }
@@ -111,6 +113,7 @@ class TutorialScene: SKScene {
             else if node == x && firstTime == false {
                 
                 self.x.run(fadeIn)
+                run(SKAction.playSoundFileNamed("X.wav", waitForCompletion: false))
                 
                 let delayTime = DispatchTime.now() + 1.0
                 DispatchQueue.main.after(when: delayTime) {

@@ -14,6 +14,7 @@ class CreditsScene: SKScene {
     var backButton = SKSpriteNode(imageNamed: "arrow")
     
     override func didMove(to view: SKView) {
+        
         let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
         Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray();
         Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
@@ -72,6 +73,7 @@ class CreditsScene: SKScene {
             let node = self.atPoint(pos)
             
             if node == backButton {
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 if let view = view {
                     let scene = MenuScene(fileNamed: "MenuScene")
                     let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.75)

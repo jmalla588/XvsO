@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import AVFoundation
 
 class MenuScene: SKScene {
     
@@ -18,8 +19,9 @@ class MenuScene: SKScene {
     var credits = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
     var help = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
     var redfx = SKEmitterNode(fileNamed: "TestParticle.sks")
-    
+
     override func didMove(to view: SKView) {
+
         
         let background = SKSpriteNode(imageNamed: "launchnocopy")
         background.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
@@ -46,10 +48,8 @@ class MenuScene: SKScene {
         
         self.addChild(sPlayer); self.addChild(mPlayer); self.addChild(settings); self.addChild(credits); self.addChild(help);
         
-
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 1)
         sPlayer.run(fadeIn); mPlayer.run(fadeIn); settings.run(fadeIn); credits.run(fadeIn); help.run(fadeIn);
-        
         
         redfx?.position = CGPoint(x: self.frame.midX, y: self.frame.midY+400)
         redfx?.particleAlpha = 0;
@@ -66,32 +66,26 @@ class MenuScene: SKScene {
         for touch in touches {
             let pos = touch.location(in: self)
             let node = self.atPoint(pos)
-
             
-            if node == sPlayer {
-                sPlayer.fontColor = UIColor.white()
-            }
-            
-            if node == mPlayer {
-                mPlayer.fontColor = UIColor.white()
-            }
-            
-            if node == settings {
-                settings.fontColor = UIColor.white()
-            }
-            
-            if node == credits {
-                credits.fontColor = UIColor.white()
-            }
-            
-            if node == help {
-                help.fontColor = UIColor.white()
-            }
-            
+            if node == sPlayer  {sPlayer.fontColor  = UIColor.white()
+            self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))}
+            if node == mPlayer  {mPlayer.fontColor  = UIColor.white()
+            self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))}
+            if node == settings {settings.fontColor = UIColor.white()
+            self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))}
+            if node == credits  {credits.fontColor  = UIColor.white()
+            self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))}
+            if node == help     {help.fontColor     = UIColor.white()
+            self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))}
         }
 
     }
     
+    //SIMPLE DELAY FUNCTION
+    func delay(_ delay:Double, closure:()->()) {
+        let when = DispatchTime.now() + delay
+        DispatchQueue.main.after(when: when, execute: closure)
+    }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -99,9 +93,9 @@ class MenuScene: SKScene {
             let node = self.atPoint(pos)
             let transition = SKTransition.fade(with: UIColor.lightGray(), duration: 0.50)
             
-            
             if node == sPlayer {
                 sPlayer.fontColor = UIColor.darkGray()
+                defaults.set(1, forKey: "gametype")
                 if let view = view {
                     let scene = GameScene(fileNamed:"GameScene")
                     scene?.scaleMode = SKSceneScaleMode.aspectFill
@@ -111,6 +105,7 @@ class MenuScene: SKScene {
             
             if node == mPlayer {
                 mPlayer.fontColor = UIColor.darkGray()
+                defaults.set(2, forKey: "gametype")
                 if let view = view {
                     let scene = GameScene(fileNamed:"GameScene")
                     scene?.scaleMode = SKSceneScaleMode.aspectFill

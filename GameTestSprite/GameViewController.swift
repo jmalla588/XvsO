@@ -8,17 +8,15 @@
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 class GameViewController: UIViewController {
     
-    let defaults = UserDefaults.standard;
+    let defaults = UserDefaults.standard()
+    var backgroundMusicPlayer = AVAudioPlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-            defaults().set("Player 1", forKey: "NameOne")
-            defaults().set("Player 2", forKey: "NameTwo")
-            defaults().set("medium", forKey: "difficulty")
         
         if let scene = MenuScene(fileNamed:"MenuScene") {
             // Configure the view.
@@ -38,6 +36,19 @@ class GameViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        let backgroundMusicURL = Bundle.main().urlForResource("bg.wav", withExtension: nil)
+        do {
+            backgroundMusicPlayer = try AVAudioPlayer(contentsOf: backgroundMusicURL!)
+            backgroundMusicPlayer.numberOfLoops = -1
+            backgroundMusicPlayer.prepareToPlay()
+            backgroundMusicPlayer.play()
+            
+        } catch let error as NSError {
+            print(error.description)
+        }
+    }
+    
     override func shouldAutorotate() -> Bool {
         return true
     }

@@ -8,9 +8,9 @@
 
 import SpriteKit
 
-class SettingsScene: SKScene {
+class SettingsScene: SKScene, UITextFieldDelegate {
     
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.standard()
     
     var backButton = SKSpriteNode(imageNamed: "arrow")
     var themes = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
@@ -34,14 +34,15 @@ class SettingsScene: SKScene {
     
     
     override func didMove(to view: SKView) {
+        
         let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
         Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray();
         Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
         Title.text = "Settings"
         
-        let diffString = defaults().string(forKey: "difficulty")
+        let diffString = defaults.string(forKey: "difficulty")
  
-        let fadeIn = SKAction.fadeAlpha(to: 1, duration: 1)
+        let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.5)
         self.addChild(Title)
         Title.run(fadeIn)
         
@@ -116,17 +117,49 @@ class SettingsScene: SKScene {
         nameOne.alpha = 0; nameTwo.alpha = 0;
         nameOne.name = "p1"; nameTwo.name = "p2";
         nameOne.fontSize = 80; nameTwo.fontSize = 80;
+        nameOneField.frame = CGRect(x:self.frame.midX+200, y:self.frame.midY+295, width:150, height:60)
+        nameTwoField.frame = CGRect(x:self.frame.midX+200, y:self.frame.midY+395, width:150, height:60)
+        nameOneField.backgroundColor = SKColor.lightGray()
+        nameTwoField.backgroundColor = SKColor.lightGray()
+        nameOneField.borderStyle = UITextBorderStyle.roundedRect
+        nameTwoField.borderStyle = UITextBorderStyle.roundedRect
+        nameOneField.textColor = SKColor.red()
+        nameTwoField.textColor = SKColor.blue()
+        nameOneField.autocorrectionType = UITextAutocorrectionType.no
+        nameTwoField.autocorrectionType = UITextAutocorrectionType.no
+        nameOneField.keyboardAppearance = UIKeyboardAppearance.dark
+        nameTwoField.keyboardAppearance = UIKeyboardAppearance.dark
         
-       // nameOneField.frame = CGRectMake(self.frame.midX+200, self.frame.midY, 400, 100)
+        let lightRed = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
+        let lightBlue = SKColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.2)
+        let p1 = AttributedString(string: "Player 1", attributes: [NSForegroundColorAttributeName:lightRed])
+        let p2 = AttributedString(string: "Player 2", attributes: [NSForegroundColorAttributeName:lightBlue])
+        nameOneField.attributedPlaceholder = p1
+        nameTwoField.attributedPlaceholder = p2
+        nameOneField.text = defaults.string(forKey: "nameOne")
+        nameTwoField.text = defaults.string(forKey: "nameTwo")
+        nameOneField.delegate = self
+        nameTwoField.delegate = self
         
-        
-        nameOneField.placeholder = "Player 1"
-        nameTwoField.placeholder = "Player 2"
         
         
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currCharCount = textField.text?.characters.count ?? 0
+        if (range.length + range.location > currCharCount){
+            return false
+        }
+        let newLength = currCharCount + string.characters.count - range.length
+        return newLength <= 8
+    }
+    
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -136,9 +169,8 @@ class SettingsScene: SKScene {
             let node = self.atPoint(pos)
             
             if node == backButton {
-                
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 if let view = view {
-                    
                     let scene = MenuScene(fileNamed: "MenuScene")
                     let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.75)
                     scene?.scaleMode = SKSceneScaleMode.aspectFill
@@ -149,38 +181,45 @@ class SettingsScene: SKScene {
             
             if node == themes {
                 themes.fontColor = UIColor.white()
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
             }
             
             if node == pNames {
                 pNames.fontColor = UIColor.white()
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
             }
             
             if node == diff {
                 diff.fontColor = UIColor.white()
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
             }
             
             if node == easy {
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 easy.fontColor = UIColor.white();
                 med.fontColor = UIColor.darkGray();
                 hard.fontColor = UIColor.darkGray();
-                defaults().set("easy", forKey: "difficulty")
+                defaults.set("easy", forKey: "difficulty")
             }
             
             if node == med {
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 easy.fontColor = UIColor.darkGray()
                 med.fontColor = UIColor.white()
                 hard.fontColor = UIColor.darkGray()
-                defaults().set("medium", forKey: "difficulty")
+                defaults.set("medium", forKey: "difficulty")
             }
             
             if node == hard {
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 easy.fontColor = UIColor.darkGray()
                 med.fontColor = UIColor.darkGray()
                 hard.fontColor = UIColor.white()
-                defaults().set("hard", forKey: "difficulty")
+                defaults.set("hard", forKey: "difficulty")
             }
             
             if node == checkButton {
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 checkButton.texture = SKTexture(imageNamed: "checkWhite")
             }
         }
@@ -221,8 +260,8 @@ class SettingsScene: SKScene {
     //
     
     func saveNames() {
-        defaults().set("test", forKey: "nameOne")
-        defaults().set("test2", forKey: "nameTwo")
+        defaults.set(nameOneField.text, forKey: "nameOne")
+        defaults.set(nameTwoField.text, forKey: "nameTwo")
     }
 
     //Called when checkmark is pressed and released
@@ -234,6 +273,8 @@ class SettingsScene: SKScene {
         checkButton.run(quickFadeOut)
         nameOne.run(quickFadeOut)
         nameTwo.run(quickFadeOut)
+        nameOneField.removeFromSuperview()
+        nameTwoField.removeFromSuperview()
         
         DispatchQueue.main.after(when: delayTimeHalf) {
             self.nameTree.removeAllChildren()
@@ -260,10 +301,13 @@ class SettingsScene: SKScene {
         nameTree.addChild(nameOne)
         nameTree.addChild(nameTwo)
         
+        
         DispatchQueue.main.after(when: delayTimeHalf) {
             self.checkButton.run(self.quickFadeIn)
             self.nameOne.run(self.quickFadeIn)
             self.nameTwo.run(self.quickFadeIn)
+            self.view!.addSubview(self.nameOneField)
+            self.view!.addSubview(self.nameTwoField)
         }
         
         
