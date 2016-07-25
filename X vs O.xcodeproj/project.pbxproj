@@ -28,8 +28,8 @@
 		D694C38B1D4348DC002AE9F8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D694C38A1D4348DC002AE9F8 /* GameScene.sks */; };
 		D694C3981D436804002AE9F8 /* O.wav in Resources */ = {isa = PBXBuildFile; fileRef = D694C3961D436804002AE9F8 /* O.wav */; };
 		D694C3991D436804002AE9F8 /* X.wav in Resources */ = {isa = PBXBuildFile; fileRef = D694C3971D436804002AE9F8 /* X.wav */; };
-		D6F1A93E1D44AD56007D3A88 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6F1A93D1D44AD56007D3A88 /* click.wav */; };
 		D6F1A9401D44D255007D3A88 /* bg.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6F1A93F1D44D255007D3A88 /* bg.wav */; };
+		D6F1A9421D44E043007D3A88 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6F1A9411D44E043007D3A88 /* click.wav */; };
 		D6FA196C1D14546A007C23CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6FA196B1D14546A007C23CB /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -78,8 +78,8 @@
 		D694C38A1D4348DC002AE9F8 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		D694C3961D436804002AE9F8 /* O.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = O.wav; sourceTree = "<group>"; };
 		D694C3971D436804002AE9F8 /* X.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = X.wav; sourceTree = "<group>"; };
-		D6F1A93D1D44AD56007D3A88 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		D6F1A93F1D44D255007D3A88 /* bg.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bg.wav; sourceTree = "<group>"; };
+		D6F1A9411D44E043007D3A88 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		D6FA196B1D14546A007C23CB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,7 +187,7 @@
 				D6F1A93F1D44D255007D3A88 /* bg.wav */,
 				D694C3961D436804002AE9F8 /* O.wav */,
 				D694C3971D436804002AE9F8 /* X.wav */,
-				D6F1A93D1D44AD56007D3A88 /* click.wav */,
+				D6F1A9411D44E043007D3A88 /* click.wav */,
 			);
 			name = sfx;
 			sourceTree = "<group>";
@@ -314,9 +314,9 @@
 				D658F5961D15B2D300E602F0 /* TutorialScene.sks in Resources */,
 				D68549AB1D13965F00F44353 /* MenuScene.sks in Resources */,
 				D694C3991D436804002AE9F8 /* X.wav in Resources */,
+				D6F1A9421D44E043007D3A88 /* click.wav in Resources */,
 				D654DB611D10E8DE00CE3485 /* Main.storyboard in Resources */,
 				D658F5941D15482F00E602F0 /* SettingsScene.sks in Resources */,
-				D6F1A93E1D44AD56007D3A88 /* click.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

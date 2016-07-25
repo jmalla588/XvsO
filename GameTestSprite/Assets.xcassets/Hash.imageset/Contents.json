@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Hash.png",
+      "filename" : "Hash@1x.png",
       "scale" : "1x"
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "Hash-2.png",
+      "filename" : "Hash@3x.png",
       "scale" : "3x"
     }
   ],

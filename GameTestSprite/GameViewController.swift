@@ -12,7 +12,7 @@ import AVFoundation
 
 class GameViewController: UIViewController {
     
-    let defaults = UserDefaults.standard()
+    let defaults = UserDefaults.standard
     var backgroundMusicPlayer = AVAudioPlayer()
     
     override func viewDidLoad() {
@@ -37,7 +37,7 @@ class GameViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        let backgroundMusicURL = Bundle.main().urlForResource("bg.wav", withExtension: nil)
+        let backgroundMusicURL = Bundle.main.urlForResource("bg.wav", withExtension: nil)
         do {
             backgroundMusicPlayer = try AVAudioPlayer(contentsOf: backgroundMusicURL!)
             backgroundMusicPlayer.numberOfLoops = -1

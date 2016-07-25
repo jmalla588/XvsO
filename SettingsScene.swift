@@ -10,7 +10,7 @@ import SpriteKit
 
 class SettingsScene: SKScene, UITextFieldDelegate {
     
-    let defaults = UserDefaults.standard()
+    let defaults = UserDefaults.standard
     
     var backButton = SKSpriteNode(imageNamed: "arrow")
     var themes = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
