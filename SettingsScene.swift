@@ -16,9 +16,11 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     var themes = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
     var pNames = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
     var diff = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
+    var hs = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
     
     let diffTree = SKNode()
     let nameTree = SKNode()
+    let themeTree = SKNode()
     
     var easy = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
     var med = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
@@ -32,6 +34,7 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     let nameOneField = UITextField()
     let nameTwoField = UITextField()
     
+    var diffFadeIn = Bool() //Fixes animation bug on quickly tapping diff->names
     
     override func didMove(to view: SKView) {
         
@@ -53,18 +56,20 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         //backButton.run(SKAction.fadeAlpha(to: 1, duration: 3))
         backButton.run(fadeIn)
         
-        themes.text = "Themes"; pNames.text = "Player Names"; diff.text = "CPU Difficulty";
-        themes.fontSize = 100; pNames.fontSize = 100; diff.fontSize = 100;
-        themes.fontColor = UIColor.darkGray(); pNames.fontColor = UIColor.darkGray(); diff.fontColor = UIColor.darkGray();
+        themes.text = "Themes"; pNames.text = "Player Names"; diff.text = "CPU Difficulty"; hs.text = "High Scores"
+        themes.fontSize = 100; pNames.fontSize = 100; diff.fontSize = 100; hs.fontSize = 100;
+        themes.fontColor = UIColor.darkGray(); pNames.fontColor = UIColor.darkGray();
+        diff.fontColor = UIColor.darkGray(); hs.fontColor = UIColor.darkGray()
         diff.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
         pNames.position = CGPoint(x:self.frame.midX, y:(self.frame.midY)-150)
         themes.position = CGPoint(x:self.frame.midX, y:(self.frame.midY)-300)
-        themes.name = "themes"; pNames.name = "players"; diff.name = "diff";
-        themes.alpha = 0; pNames.alpha = 0; diff.alpha = 0;
+        hs.position = CGPoint(x:self.frame.midX, y:(self.frame.midY)-450)
+        themes.name = "themes"; pNames.name = "players"; diff.name = "diff"; hs.name = "hs"
+        themes.alpha = 0; pNames.alpha = 0; diff.alpha = 0; hs.alpha = 0;
         
-        self.addChild(themes); self.addChild(pNames); self.addChild(diff);
+        self.addChild(themes); self.addChild(pNames); self.addChild(diff); self.addChild(hs)
 
-        themes.run(fadeIn); pNames.run(fadeIn); diff.run(fadeIn);
+        themes.run(fadeIn); pNames.run(fadeIn); diff.run(fadeIn); hs.run(fadeIn)
         
         let gear = SKSpriteNode(imageNamed: "gear")
         gear.xScale = 0.25; gear.yScale = 0.25; gear.alpha = 0;
@@ -141,6 +146,7 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         nameOneField.delegate = self
         nameTwoField.delegate = self
         
+        diffFadeIn = true; //Stupid animation bug
         
         
     }
@@ -182,6 +188,20 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             if node == themes {
                 themes.fontColor = UIColor.white()
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+                //comingSoon(thisLabel: themes)
+                
+                
+                
+                if let view = view {
+                    let scene = ThemeScene(fileNamed: "ThemeScene")
+                    let transition = SKTransition.fade(with: SKColor.lightGray(), duration: 0.75)
+                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    view.presentScene(scene!, transition: transition)
+                }
+                
+                
+                
+                
             }
             
             if node == pNames {
@@ -192,6 +212,12 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             if node == diff {
                 diff.fontColor = UIColor.white()
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+            }
+            
+            if node == hs {
+                hs.fontColor = UIColor.white()
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+                comingSoon(thisLabel: hs)
             }
             
             if node == easy {
@@ -247,10 +273,15 @@ class SettingsScene: SKScene, UITextFieldDelegate {
                 setDiff()
             }
             
+            if node == hs {
+                hs.fontColor = UIColor.darkGray()
+            }
+            
             if node == checkButton {
                 checkButton.texture = SKTexture(imageNamed: "checkGray")
                 saveNames()
                 fadeInSettings()
+                diffFadeIn = true
             }
             
         }
@@ -281,6 +312,7 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             self.pNames.run(self.quickFadeIn)
             self.diff.run(self.quickFadeIn)
             self.themes.run(self.quickFadeIn)
+            self.hs.run(self.quickFadeIn)
             self.backButton.run(self.quickFadeIn)
         }
         
@@ -290,12 +322,19 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     
     func setName() {
         
+        diffFadeIn = false; //fixes animation bug
+        
         let delayTimeHalf = DispatchTime.now() + 0.5
         
         pNames.run(quickFadeOut)
         themes.run(quickFadeOut)
         diff.run(quickFadeOut)
+        hs.run(quickFadeOut)
         backButton.run(quickFadeOut)
+        
+        easy.run(quickFadeOut)
+        med.run(quickFadeOut)
+        hard.run(quickFadeOut)
         
         nameTree.addChild(checkButton)
         nameTree.addChild(nameOne)
@@ -324,12 +363,14 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         
         let delayTime3 = DispatchTime.now() + 3
         let delayTimeHalf = DispatchTime.now() + 0.5
-        let delayTime4 = DispatchTime.now() + 4.0
+        let delayTime4 = DispatchTime.now() + 3.7
         
         DispatchQueue.main.after(when: delayTimeHalf) {
-            self.easy.run(self.quickFadeIn)
-            self.med.run(self.quickFadeIn)
-            self.hard.run(self.quickFadeIn)
+            if self.diffFadeIn {
+                self.easy.run(self.quickFadeIn)
+                self.med.run(self.quickFadeIn)
+                self.hard.run(self.quickFadeIn)
+            }
         }
 
         DispatchQueue.main.after(when: delayTime3) {
@@ -337,7 +378,7 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             self.med.run(self.quickFadeOut)
             self.hard.run(self.quickFadeOut)
             DispatchQueue.main.after(when: delayTime4) {
-                self.diff.run(self.quickFadeIn)
+                if self.diffFadeIn {self.diff.run(self.quickFadeIn) }
                 self.diffTree.removeAllChildren()
             }
             
@@ -346,7 +387,32 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     }
     
     
+    func comingSoon(thisLabel: SKLabelNode) {
+        let origText = thisLabel.text
+        
+        if diffFadeIn {
+            thisLabel.run(quickFadeOut)
+            delay(0.5) {
+                thisLabel.text = "Coming Soon!"
+                thisLabel.fontColor = SKColor.white()
+                if self.diffFadeIn {thisLabel.run(self.quickFadeIn) }
+
+            }
+            delay(3.0) {
+                thisLabel.run(self.quickFadeOut)
+            }
+            delay(3.7) {
+                thisLabel.text = origText
+                thisLabel.fontColor = SKColor.darkGray()
+                if self.diffFadeIn {thisLabel.run(self.quickFadeIn)}
+            }
+        }
+    }
     
+    func delay(_ delay:Double, closure:()->()) {
+        let when = DispatchTime.now() + delay
+        DispatchQueue.main.after(when: when, execute: closure)
+    }
     
     
     

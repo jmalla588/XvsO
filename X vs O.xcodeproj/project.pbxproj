@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D6332F031D24723C00EA8367 /* TestParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = D6332F011D24723C00EA8367 /* TestParticle.sks */; };
 		D6332F041D24723C00EA8367 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D6332F021D24723C00EA8367 /* spark.png */; };
+		D64E4F0C1D46B7CB007E806E /* ThemeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64E4F0B1D46B7CB007E806E /* ThemeScene.swift */; };
+		D64E4F0E1D46FC8E007E806E /* ThemeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D64E4F0D1D46FC8E007E806E /* ThemeScene.sks */; };
 		D654DB581D10E8DE00CE3485 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654DB571D10E8DE00CE3485 /* AppDelegate.swift */; };
 		D654DB5C1D10E8DE00CE3485 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654DB5B1D10E8DE00CE3485 /* GameScene.swift */; };
 		D654DB5E1D10E8DE00CE3485 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D654DB5D1D10E8DE00CE3485 /* GameViewController.swift */; };
@@ -53,6 +55,8 @@
 /* Begin PBXFileReference section */
 		D6332F011D24723C00EA8367 /* TestParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TestParticle.sks; sourceTree = "<group>"; };
 		D6332F021D24723C00EA8367 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		D64E4F0B1D46B7CB007E806E /* ThemeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeScene.swift; sourceTree = "<group>"; };
+		D64E4F0D1D46FC8E007E806E /* ThemeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ThemeScene.sks; sourceTree = "<group>"; };
 		D654DB541D10E8DE00CE3485 /* X vs O.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X vs O.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D654DB571D10E8DE00CE3485 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D654DB5B1D10E8DE00CE3485 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 				D654DB5B1D10E8DE00CE3485 /* GameScene.swift */,
 				D658F58F1D15221700E602F0 /* CreditsScene.swift */,
 				D658F5911D15481700E602F0 /* SettingsScene.swift */,
+				D64E4F0B1D46B7CB007E806E /* ThemeScene.swift */,
 				D658F5971D15B2E700E602F0 /* TutorialScene.swift */,
 				D654DB5D1D10E8DE00CE3485 /* GameViewController.swift */,
 				D694C3951D4366C1002AE9F8 /* sfx */,
@@ -177,6 +182,7 @@
 				D658F58D1D1521FF00E602F0 /* CreditsScene.sks */,
 				D658F5931D15482F00E602F0 /* SettingsScene.sks */,
 				D658F5951D15B2D300E602F0 /* TutorialScene.sks */,
+				D64E4F0D1D46FC8E007E806E /* ThemeScene.sks */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -260,7 +266,8 @@
 				TargetAttributes = {
 					D654DB531D10E8DE00CE3485 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = L25F4GYLCH;
+						DevelopmentTeam = LG9F9UCJZ5;
+						DevelopmentTeamName = "Janak Malla";
 						LastSwiftMigration = 0800;
 					};
 					D654DB6B1D10E8DE00CE3485 = {
@@ -316,6 +323,7 @@
 				D694C3991D436804002AE9F8 /* X.wav in Resources */,
 				D6F1A9421D44E043007D3A88 /* click.wav in Resources */,
 				D654DB611D10E8DE00CE3485 /* Main.storyboard in Resources */,
+				D64E4F0E1D46FC8E007E806E /* ThemeScene.sks in Resources */,
 				D658F5941D15482F00E602F0 /* SettingsScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,6 +353,7 @@
 				D658F5901D15221700E602F0 /* CreditsScene.swift in Sources */,
 				D68549AD1D1396F000F44353 /* MenuScene.swift in Sources */,
 				D658F5981D15B2E700E602F0 /* TutorialScene.swift in Sources */,
+				D64E4F0C1D46B7CB007E806E /* ThemeScene.swift in Sources */,
 				D658F5921D15481700E602F0 /* SettingsScene.swift in Sources */,
 				D654DB5E1D10E8DE00CE3485 /* GameViewController.swift in Sources */,
 				D654DB581D10E8DE00CE3485 /* AppDelegate.swift in Sources */,
@@ -439,7 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -479,7 +488,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -494,7 +503,7 @@
 				INFOPLIST_FILE = GameTestSprite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = MallaInc.GameTestSprite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MallaInc.XvsO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -508,7 +517,7 @@
 				INFOPLIST_FILE = GameTestSprite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = MallaInc.GameTestSprite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MallaInc.XvsO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
