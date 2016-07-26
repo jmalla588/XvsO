@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GameTestSprite/GameScene.swift"
-            timestampString = "491190956.554887"
+            timestampString = "491214634.553487"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "playGame(location:self:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -74,13 +74,93 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GameTestSprite/GameScene.swift"
-            timestampString = "491190956.554887"
+            timestampString = "491214634.553487"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "playGame(location:self:)"
             landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GameTestSprite/GameScene.swift"
+            timestampString = "491215351.458625"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "655"
+            endingLineNumber = "655"
+            landmarkName = "createSceneContents(self:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "X_vs_O.createSceneContents (self : X_vs_O.GameScene) -&gt; ()"
+                  moduleName = "X vs O"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/janakmalla/Documents/Swift%20Projects/GameTestSprite/GameTestSprite/GameScene.swift"
+                  timestampString = "491215351.611441"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "655"
+                  endingLineNumber = "655"
+                  offsetFromSymbolStart = "11208">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "X_vs_O.createSceneContents (self : X_vs_O.GameScene) -&gt; ()"
+                  moduleName = "X vs O"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/janakmalla/Documents/Swift%20Projects/GameTestSprite/GameTestSprite/GameScene.swift"
+                  timestampString = "491215351.6149"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "655"
+                  endingLineNumber = "655"
+                  offsetFromSymbolStart = "11332">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GameTestSprite/ThemeScene.swift"
+            timestampString = "491258013.92563"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "didMove(to:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SettingsScene.swift"
+            timestampString = "491256849.523159"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
+            landmarkName = "touchesEnded(_:with:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

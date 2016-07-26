@@ -21,6 +21,7 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     let diffTree = SKNode()
     let nameTree = SKNode()
     let themeTree = SKNode()
+    let hsTree = SKNode()
     
     var easy = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
     var med = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
@@ -33,6 +34,10 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     var nameTwo = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 80, weight: UIFontWeightUltraLight).fontName)
     let nameOneField = UITextField()
     let nameTwoField = UITextField()
+    
+    var easyHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
+    var medHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
+    var hardHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
     
     var diffFadeIn = Bool() //Fixes animation bug on quickly tapping diff->names
     
@@ -79,6 +84,7 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         
         self.addChild(diffTree)
         self.addChild(nameTree)
+        self.addChild(hsTree)
         
         let spin = SKAction.repeatForever(SKAction.rotate(byAngle: 6.2831853, duration: 4.0))
         gear.run(spin)
@@ -117,8 +123,8 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         nameTwo.fontColor = UIColor.darkGray()
         nameOne.text = "Player 1: "
         nameTwo.text = "Player 2: "
-        nameOne.position = CGPoint(x:self.frame.midX - 200, y:self.frame.midY)
-        nameTwo.position = CGPoint(x:self.frame.midX - 200, y:self.frame.midY - 200)
+        nameOne.position = CGPoint(x:self.frame.midX - 207, y:self.frame.midY + 30)
+        nameTwo.position = CGPoint(x:self.frame.midX - 200, y:self.frame.midY - 135)
         nameOne.alpha = 0; nameTwo.alpha = 0;
         nameOne.name = "p1"; nameTwo.name = "p2";
         nameOne.fontSize = 80; nameTwo.fontSize = 80;
@@ -147,6 +153,39 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         nameTwoField.delegate = self
         
         diffFadeIn = true; //Stupid animation bug
+        
+        
+        let screenHeight = UIScreen.main().bounds.height
+        
+        //Moves the UI Textfields manually, as SpriteKit cannot automatically scale to different screen sizes
+        switch screenHeight {
+
+        case 568: // 4 inch
+            nameOneField.frame = CGRect(x:self.frame.midX+167, y:self.frame.midY+239, width:115, height:45)
+            nameTwoField.frame = CGRect(x:self.frame.midX+167, y:self.frame.midY+305, width:115, height:45)
+        case 736: // 6+
+            nameOneField.frame = CGRect(x:self.frame.midX+200, y:self.frame.midY+308, width:150, height:60)
+            nameTwoField.frame = CGRect(x:self.frame.midX+200, y:self.frame.midY+400, width:150, height:60)
+        default: //6
+            nameOneField.frame = CGRect(x:self.frame.midX+200, y:self.frame.midY+276, width:150, height:52)
+            nameTwoField.frame = CGRect(x:self.frame.midX+200, y:self.frame.midY+357, width:150, height:52)
+        }
+        
+        
+        
+        //HS settings
+        let hsEasy = defaults.integer(forKey: "hsEasy")
+        let hsMedium = defaults.integer(forKey: "hsMedium")
+        let hsHard = defaults.integer(forKey: "hsHard")
+        
+        easyHS.text = "EASY:  \(hsEasy)"; medHS.text = "MEDIUM:  \(hsMedium)"; hardHS.text = "HARD:  \(hsHard)"
+        easyHS.fontSize = 40; medHS.fontSize = 40; hardHS.fontSize = 40;
+        easyHS.fontColor = UIColor.darkGray(); medHS.fontColor = UIColor.darkGray(); hardHS.fontColor = UIColor.darkGray()
+        easyHS.position = (CGPoint(x:self.frame.midX-250, y:self.frame.midY-450))
+        medHS.position = (CGPoint(x:self.frame.midX, y:self.frame.midY-450))
+        hardHS.position = (CGPoint(x:self.frame.midX+250, y:self.frame.midY-450))
+        easyHS.alpha = 0; medHS.alpha = 0; hardHS.alpha = 0;
+        easyHS.name = "easy"; medHS.name = "med"; hardHS.name = "hard"
         
         
     }
@@ -217,7 +256,6 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             if node == hs {
                 hs.fontColor = UIColor.white()
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
-                comingSoon(thisLabel: hs)
             }
             
             if node == easy {
@@ -275,6 +313,7 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             
             if node == hs {
                 hs.fontColor = UIColor.darkGray()
+                viewHighScores()
             }
             
             if node == checkButton {
@@ -335,6 +374,8 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         easy.run(quickFadeOut)
         med.run(quickFadeOut)
         hard.run(quickFadeOut)
+        diffTree.run(quickFadeOut)
+        hsTree.run(quickFadeOut)
         
         nameTree.addChild(checkButton)
         nameTree.addChild(nameOne)
@@ -367,9 +408,11 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         
         DispatchQueue.main.after(when: delayTimeHalf) {
             if self.diffFadeIn {
+                self.diffTree.run(self.quickFadeIn)
                 self.easy.run(self.quickFadeIn)
                 self.med.run(self.quickFadeIn)
                 self.hard.run(self.quickFadeIn)
+                
             }
         }
 
@@ -377,6 +420,8 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             self.easy.run(self.quickFadeOut)
             self.med.run(self.quickFadeOut)
             self.hard.run(self.quickFadeOut)
+            self.diffTree.run(self.quickFadeOut)
+            
             DispatchQueue.main.after(when: delayTime4) {
                 if self.diffFadeIn {self.diff.run(self.quickFadeIn) }
                 self.diffTree.removeAllChildren()
@@ -385,6 +430,44 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         }
         
     }
+    
+    
+    func viewHighScores() {
+        
+        hs.run(quickFadeOut)
+        hsTree.addChild(easyHS)
+        hsTree.addChild(medHS)
+        hsTree.addChild(hardHS)
+        
+        let delayTime3 = DispatchTime.now() + 3
+        let delayTimeHalf = DispatchTime.now() + 0.5
+        let delayTime4 = DispatchTime.now() + 3.7
+        
+        DispatchQueue.main.after(when: delayTimeHalf) {
+            if self.diffFadeIn {
+                self.hsTree.run(self.quickFadeIn)
+                self.easyHS.run(self.quickFadeIn)
+                self.medHS.run(self.quickFadeIn)
+                self.hardHS.run(self.quickFadeIn)
+
+            }
+        }
+        
+        DispatchQueue.main.after(when: delayTime3) {
+            self.easyHS.run(self.quickFadeOut)
+            self.medHS.run(self.quickFadeOut)
+            self.hardHS.run(self.quickFadeOut)
+            self.hsTree.run(self.quickFadeOut)
+            DispatchQueue.main.after(when: delayTime4) {
+                if self.diffFadeIn {self.hs.run(self.quickFadeIn) }
+                self.hsTree.removeAllChildren()
+            }
+            
+        }
+        
+    }
+    
+    
     
     
     func comingSoon(thisLabel: SKLabelNode) {

@@ -16,6 +16,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UserDefaults.standard.register([
+            "difficulty" : "medium",
+            "hsEasy" : 0,
+            "hsMedium" : 0,
+            "hsHard" : 0,
+            "nameOne" : "Player 1",
+            "nameTwo" : "Player 2",
+            "theme" : "standard",
+            "babyLock" : true,
+            "warriorLock" : true
+            ])
+        
+        
+        
+        
+        
         return true
     }
 

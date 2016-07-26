@@ -139,6 +139,7 @@ class TutorialScene: SKScene {
                         self.simple.run(SKAction.sequence([wait, fadeIn]))
                         self.shot.run(SKAction.sequence([wait, wait, fadeIn]))
                         self.backButton.run(SKAction.sequence([wait, wait, wait, SKAction.repeatForever(SKAction.sequence([fadeIn, fadeOut]))]))
+                        defaults.set(false, forKey: "babyLock")
                     }
                     
                 }
