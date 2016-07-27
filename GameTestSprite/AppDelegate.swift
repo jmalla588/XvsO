@@ -26,7 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "nameTwo" : "Player 2",
             "theme" : "standard",
             "babyLock" : true,
-            "warriorLock" : true
+            "warriorLock" : true,
+            "ballerLock" : true,
+            "greekLock" : true
             ])
         
         

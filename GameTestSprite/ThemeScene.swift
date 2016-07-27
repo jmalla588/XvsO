@@ -29,6 +29,15 @@ class ThemeScene: SKScene {
     let lockBaby = SKSpriteNode(imageNamed: "lockedItem")
     var lockedBaby = Bool()
     
+    let ballerImg = SKSpriteNode(imageNamed: "Xballer")
+    let ballerLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightLight).fontName)
+    let lockBaller = SKSpriteNode(imageNamed: "lockedItem")
+    var lockedBaller = Bool()
+    
+    let greekImg = SKSpriteNode(imageNamed: "Xgreek")
+    let greekLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightLight).fontName)
+    let lockGreek = SKSpriteNode(imageNamed: "lockedItem")
+    var lockedGreek = Bool()
     
     var unlock = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightBold).fontName)
     var Selected = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightUltraLight).fontName)
@@ -60,13 +69,21 @@ class ThemeScene: SKScene {
         babyLabel.position = CGPoint(x:self.frame.midX + 250, y: self.frame.midY+100); babyLabel.alpha = 0;
         warriorLabel.position = CGPoint(x:self.frame.midX, y: self.frame.midY+100); warriorLabel.alpha = 0;
         babyLabel.text = "Baby"; warriorLabel.text = "Warrior"; standardLabel.text = "Standard"
+        ballerLabel.position = CGPoint(x:self.frame.midX - 250, y: self.frame.midY-250); ballerLabel.alpha = 0;
+        greekLabel.position = CGPoint(x:self.frame.midX, y: self.frame.midY-250); greekLabel.alpha = 0;
+        ballerLabel.text = "Baller"; greekLabel.text = "Greek";
+        
+        
         self.addChild(babyLabel); self.addChild(warriorLabel); self.addChild(standardLabel)
+        self.addChild(ballerLabel); self.addChild(greekLabel);
         
         
         delay(1.0) {
             self.standardLabel.run(fadeIn)
             self.babyLabel.run(fadeIn)
             self.warriorLabel.run(fadeIn)
+            self.ballerLabel.run(fadeIn)
+            self.greekLabel.run(fadeIn)
         }
         
         
@@ -79,11 +96,25 @@ class ThemeScene: SKScene {
         self.addChild(warriorImg); self.addChild(standardImg); self.addChild(babyImg);
         warriorImg.run(fadeIn); babyImg.run(fadeIn); standardImg.run(fadeIn)
         
+        ballerImg.xScale = 0.9; ballerImg.yScale = 0.9; ballerImg.alpha = 0;
+        greekImg.xScale = 0.9; greekImg.yScale = 0.9; greekImg.alpha = 0;
+        ballerImg.position = CGPoint(x: self.frame.midX-250, y:self.frame.midY-100);
+        greekImg.position = CGPoint(x: self.frame.midX, y:self.frame.midY-100);
+        self.addChild(ballerImg); self.addChild(greekImg);
+        ballerImg.run(fadeIn); greekImg.run(fadeIn)
+        
+        
         lockWarrior.xScale = 0.9; lockWarrior.yScale = 0.9; lockWarrior.alpha = 0;
         lockBaby.xScale = 0.9; lockBaby.yScale = 0.9; lockBaby.alpha = 0;
         lockWarrior.position = CGPoint(x: self.frame.midX, y:self.frame.midY+250);
         lockBaby.position = CGPoint(x: self.frame.midX+250, y:self.frame.midY+250);
         lockWarrior.zPosition = 2; lockBaby.zPosition = 2;
+        lockBaller.xScale = 0.9; lockBaller.yScale = 0.9; lockBaller.alpha = 0;
+        lockGreek.xScale = 0.9; lockGreek.yScale = 0.9; lockGreek.alpha = 0;
+        lockBaller.position = CGPoint(x: self.frame.midX-250, y:self.frame.midY-100);
+        lockGreek.position = CGPoint(x: self.frame.midX, y:self.frame.midY-100);
+        lockBaller.zPosition = 2; lockGreek.zPosition = 2;
+        
         
         Selected.fontSize = 70; Selected.alpha = 0; Selected.fontColor = UIColor.darkGray();
         Selected.position = CGPoint(x: self.frame.midX, y: self.frame.midY - 400)
@@ -99,6 +130,11 @@ class ThemeScene: SKScene {
         lockedWarrior = defaults.bool(forKey: "warriorLock")
         checkIfLocked(lockedItem: lockWarrior, lock: lockedWarrior)
 
+        lockedBaller = defaults.bool(forKey: "ballerLock")
+        checkIfLocked(lockedItem: lockBaller, lock: lockedBaller)
+        
+        lockedGreek = defaults.bool(forKey: "greekLock")
+        checkIfLocked(lockedItem: lockGreek, lock: lockedGreek)
         
     }
     
@@ -138,12 +174,32 @@ class ThemeScene: SKScene {
                 babyLabel.fontColor = SKColor.darkGray()
             }
             
+            if node == ballerImg {
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+                defaults.set("baller", forKey: "theme")
+                babyLabel.fontColor = SKColor.darkGray()
+            }
+            
+            if node == greekImg {
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+                defaults.set("greek", forKey: "theme")
+                babyLabel.fontColor = SKColor.darkGray()
+            }
+            
             if node == lockWarrior {
                 fadeInfadeOut(label: unlock, textBecomes: "Req: High Score of 5 on \"Hard\"!")
             }
             
             if node == lockBaby {
                 fadeInfadeOut(label: unlock, textBecomes: "Req: Complete the Tutorial!")
+            }
+            
+            if node == lockBaller {
+                fadeInfadeOut(label: unlock, textBecomes: "Req: High Score of 5 on \"Medium\"!")
+            }
+            
+            if node == lockGreek {
+                fadeInfadeOut(label: unlock, textBecomes: "Req: High Score of 5 on \"Easy\"!")
             }
             
         }
@@ -167,6 +223,16 @@ class ThemeScene: SKScene {
             
             if node == babyImg {
                 babyLabel.fontColor = SKColor.white()
+                updateSelected()
+            }
+            
+            if node == greekImg {
+                greekLabel.fontColor = SKColor.white()
+                updateSelected()
+            }
+            
+            if node == ballerImg {
+                ballerLabel.fontColor = SKColor.white()
                 updateSelected()
             }
             
