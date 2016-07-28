@@ -98,7 +98,8 @@ class TutorialScene: SKScene {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 if let view = view {
                     let scene = MenuScene(fileNamed: "MenuScene")
-                    let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.75)
+                    //let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.75)
+                    let transition = SKTransition.push(with: SKTransitionDirection.right, duration: 0.80)
                     scene?.scaleMode = SKSceneScaleMode.aspectFill
                     view.presentScene(scene!, transition: transition)
                 }

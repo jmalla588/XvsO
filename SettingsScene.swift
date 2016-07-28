@@ -217,30 +217,22 @@ class SettingsScene: SKScene, UITextFieldDelegate {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 if let view = view {
                     let scene = MenuScene(fileNamed: "MenuScene")
-                    let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.75)
+                    //let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.75)
+                    let transition = SKTransition.push(with: SKTransitionDirection.right, duration: 0.80)
                     scene?.scaleMode = SKSceneScaleMode.aspectFill
                     view.presentScene(scene!, transition: transition)
                 }
-                
             }
             
             if node == themes {
                 themes.fontColor = UIColor.white()
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
-                //comingSoon(thisLabel: themes)
-                
-                
-                
                 if let view = view {
                     let scene = ThemeScene(fileNamed: "ThemeScene")
                     let transition = SKTransition.fade(with: SKColor.lightGray(), duration: 0.75)
                     scene?.scaleMode = SKSceneScaleMode.aspectFill
                     view.presentScene(scene!, transition: transition)
                 }
-                
-                
-                
-                
             }
             
             if node == pNames {

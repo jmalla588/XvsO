@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         UserDefaults.standard.register([
-            "difficulty" : "medium",
+            "difficulty" : "hard",
             "hsEasy" : 0,
             "hsMedium" : 0,
             "hsHard" : 0,
