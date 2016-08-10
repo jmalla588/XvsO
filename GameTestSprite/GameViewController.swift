@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import AVFoundation
+import GameKit
 
 class GameViewController: UIViewController {
     
@@ -17,6 +18,21 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //GAME CENTER STUFF
+        var localPlayer = GKLocalPlayer.localPlayer()
+        
+        localPlayer.authenticateHandler = {(viewController, error) -> Void in
+            
+            if (viewController != nil) {
+                self.present(viewController!, animated: true, completion: nil)
+            }
+                
+            else {
+             //   println((GKLocalPlayer.localPlayer().authenticated))
+            }
+        }
+
         
         if let scene = MenuScene(fileNamed:"MenuScene") {
             // Configure the view.
@@ -38,7 +54,7 @@ class GameViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        let backgroundMusicURL = Bundle.main.urlForResource("bg.wav", withExtension: nil)
+        let backgroundMusicURL = Bundle.main.url(forResource: "bg.wav", withExtension: nil)
         do {
             backgroundMusicPlayer = try AVAudioPlayer(contentsOf: backgroundMusicURL!)
             backgroundMusicPlayer.numberOfLoops = -1
@@ -50,12 +66,12 @@ class GameViewController: UIViewController {
         }
     }
     
-    override func shouldAutorotate() -> Bool {
-        return true
+    override var shouldAutorotate: Bool {
+        return false
     }
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.current().userInterfaceIdiom == .phone {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
         } else {
             return .all
@@ -67,7 +83,7 @@ class GameViewController: UIViewController {
         // Release any cached data, images, etc that aren't in use.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
 }

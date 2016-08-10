@@ -8,6 +8,7 @@
 
 import SpriteKit
 import AVFoundation
+import GameKit
 
 
 class MenuScene: SKScene {
@@ -112,37 +113,42 @@ class MenuScene: SKScene {
         addChild(background)
         background.zPosition = -1
         
-        let slideOutBG = SKAction.move(by: CGVector(dx: 0, dy: 400), duration: 0.75)
+        let slideOutBG = SKAction.move(by: CGVector(dx: 0, dy: 450), duration: 0.75)
         background.run(slideOutBG)
         
-        
+        //REAL BACKGROUND
+        let bg = SKSpriteNode(imageNamed: "bg")
+        bg.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
+        bg.size = CGSize(width:self.frame.width, height: self.frame.height)
+        self.addChild(bg)
+        bg.zPosition = -2
         
         
         //SETS UP ALL LABELS
-        sPlayer = setUpLabel(labelName: sPlayer, nameOfLabel: "1", withText: "SINGLE PLAYER",
+        sPlayer = setUpLabel(sPlayer, nameOfLabel: "1", withText: "SINGLE PLAYER",
                              isShadow: false, location: CGPoint(x:self.frame.midX, y:self.frame.midY), sizeOfFont: 80)
-        mPlayer = setUpLabel(labelName: mPlayer, nameOfLabel: "2", withText: "MULTIPLAYER",
+        mPlayer = setUpLabel(mPlayer, nameOfLabel: "2", withText: "MULTIPLAYER",
                              isShadow: false, location: CGPoint(x:self.frame.midX, y:(self.frame.midY)-150), sizeOfFont: 80)
-        settings = setUpLabel(labelName: settings, nameOfLabel: "settings", withText: "SETTINGS",
+        settings = setUpLabel(settings, nameOfLabel: "settings", withText: "SETTINGS",
                               isShadow: false, location: CGPoint(x:self.frame.midX + 285, y:(self.frame.midY)-637), sizeOfFont: 30)
-        help = setUpLabel(labelName: help, nameOfLabel: "help", withText: "TUTORIAL",
+        help = setUpLabel(help, nameOfLabel: "help", withText: "TUTORIAL",
                           isShadow: false, location: CGPoint(x:self.frame.midX - 285, y:(self.frame.midY)-637), sizeOfFont: 30)
-        credits = setUpLabel(labelName: credits, nameOfLabel: "credits", withText: "CREDITS",
+        credits = setUpLabel(credits, nameOfLabel: "credits", withText: "CREDITS",
                              isShadow: false, location: CGPoint(x:self.frame.midX, y:(self.frame.midY)-637), sizeOfFont: 30)
         
         
         
         
         //SETS UP ALL LABEL SHADOWS
-        sPlayerShadow = setUpLabel(labelName: sPlayerShadow, nameOfLabel: "1shadow", withText: "SINGLE PLAYER",
+        sPlayerShadow = setUpLabel(sPlayerShadow, nameOfLabel: "1shadow", withText: "SINGLE PLAYER",
                                    isShadow: true, location: CGPoint(x: self.frame.midX+2, y: self.frame.midY-2), sizeOfFont: 80)
-        mPlayerShadow = setUpLabel(labelName: mPlayerShadow, nameOfLabel: "2shadow", withText: "MULTIPLAYER",
+        mPlayerShadow = setUpLabel(mPlayerShadow, nameOfLabel: "2shadow", withText: "MULTIPLAYER",
                                    isShadow: true, location: CGPoint(x: self.frame.midX+2, y: self.frame.midY-152), sizeOfFont: 80)
-        settingsShadow = setUpLabel(labelName: settingsShadow, nameOfLabel: "settingsshadow", withText: "SETTINGS",
+        settingsShadow = setUpLabel(settingsShadow, nameOfLabel: "settingsshadow", withText: "SETTINGS",
                                     isShadow: true, location: CGPoint(x:self.frame.midX + 286, y:(self.frame.midY)-638), sizeOfFont: 30)
-        helpShadow = setUpLabel(labelName: helpShadow, nameOfLabel: "helpshadow", withText: "TUTORIAL",
+        helpShadow = setUpLabel(helpShadow, nameOfLabel: "helpshadow", withText: "TUTORIAL",
                                 isShadow: true, location: CGPoint(x:self.frame.midX - 284, y:(self.frame.midY)-638), sizeOfFont: 30)
-        creditsShadow = setUpLabel(labelName: creditsShadow, nameOfLabel: "creditsshadow", withText: "CREDITS", isShadow: true, location: CGPoint(x:self.frame.midX + 1, y:(self.frame.midY)-638), sizeOfFont: 30)
+        creditsShadow = setUpLabel(creditsShadow, nameOfLabel: "creditsshadow", withText: "CREDITS", isShadow: true, location: CGPoint(x:self.frame.midX + 1, y:(self.frame.midY)-638), sizeOfFont: 30)
         
         
         
@@ -191,7 +197,7 @@ class MenuScene: SKScene {
         
         
         //ADDS PARTICLE EMITTER
-        redfx?.position = CGPoint(x: self.frame.midX, y: self.frame.midY+400)
+        redfx?.position = CGPoint(x: self.frame.midX, y: self.frame.midY+525)
         redfx?.particleAlpha = 0; delay(1.0){self.addChild(self.redfx!); self.redfx?.run(self.fadeIn)}; redfx?.particleZPosition = 1
         
     }
@@ -205,45 +211,45 @@ class MenuScene: SKScene {
             let node = self.atPoint(pos)
             
             if node == sPlayer  {
-                sPlayer.fontColor  = UIColor.lightGray()
+                sPlayer.fontColor  = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 defaults.set(1, forKey: "gametype")
                 overlay1.run(SKAction.scaleX(to: 1.45, duration: 0.3))
                 overlay1.run(SKAction.scaleY(to: 0.55, duration: 0.3))
             }
             if node == mPlayer  {
-                mPlayer.fontColor  = UIColor.lightGray()
+                mPlayer.fontColor  = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 defaults.set(2, forKey: "gametype")
                 overlay2.run(SKAction.scaleX(to: 1.45, duration: 0.3))
                 overlay2.run(SKAction.scaleY(to: 0.55, duration: 0.3))
                 }
             if node == settings {
-                settings.fontColor = UIColor.lightGray()
+                settings.fontColor = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 overlay3.run(SKAction.scaleX(to: 0.4, duration: 0.3))
                 overlay3.run(SKAction.scaleY(to: 0.7, duration: 0.3))
                 }
             if node == gear {
-                settings.fontColor = UIColor.lightGray()
+                settings.fontColor = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 overlay3.run(SKAction.scaleX(to: 0.4, duration: 0.3))
                 overlay3.run(SKAction.scaleY(to: 0.7, duration: 0.3))
             }
             if node == credits  {
-                credits.fontColor  = UIColor.lightGray()
+                credits.fontColor  = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 overlay5.run(SKAction.scaleX(to: 0.4, duration: 0.3))
                 overlay5.run(SKAction.scaleY(to: 0.2, duration: 0.3))
                 }
             if node == help     {
-                help.fontColor     = UIColor.lightGray()
+                help.fontColor     = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 overlay4.run(SKAction.scaleX(to: 0.4, duration: 0.3))
                 overlay4.run(SKAction.scaleY(to: 0.7, duration: 0.3))
                 }
             if node == question {
-                help.fontColor = UIColor.lightGray()
+                help.fontColor = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 overlay4.run(SKAction.scaleX(to: 0.4, duration: 0.3))
                 overlay4.run(SKAction.scaleY(to: 0.7, duration: 0.3))
@@ -253,13 +259,13 @@ class MenuScene: SKScene {
     }
     
     //SIMPLE FUNCTION TO CREATE AND ADD AN SKLABELNODE WITH THE DESIRED CHARACTERISTICS
-    func setUpLabel(labelName: SKLabelNode, nameOfLabel: String, withText: String, isShadow: Bool, location: CGPoint, sizeOfFont: CGFloat) -> SKLabelNode {
+    func setUpLabel(_ labelName: SKLabelNode, nameOfLabel: String, withText: String, isShadow: Bool, location: CGPoint, sizeOfFont: CGFloat) -> SKLabelNode {
         labelName.text = withText;
-        labelName.fontColor = SKColor.darkGray()
+        labelName.fontColor = SKColor.darkGray
         labelName.zPosition = 1
         labelName.fontSize = sizeOfFont;
         if isShadow {
-            labelName.fontColor = SKColor.white()
+            labelName.fontColor = SKColor.white
             labelName.zPosition = 0;
         }
         labelName.position = location;
@@ -274,7 +280,7 @@ class MenuScene: SKScene {
     //SIMPLE DELAY FUNCTION
     func delay(_ delay:Double, closure:()->()) {
         let when = DispatchTime.now() + delay
-        DispatchQueue.main.after(when: when, execute: closure)
+        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
     
     
@@ -356,11 +362,11 @@ class MenuScene: SKScene {
             overlay4.run(SKAction.scaleY(to: 0.65, duration: 0.3))
             overlay5.run(SKAction.scaleX(to: 0.37, duration: 0.3))
             overlay5.run(SKAction.scaleY(to: 0.15, duration: 0.3))
-            sPlayer.fontColor = UIColor.darkGray()
-            mPlayer.fontColor = UIColor.darkGray()
-            settings.fontColor = UIColor.darkGray()
-            credits.fontColor = UIColor.darkGray()
-            help.fontColor = UIColor.darkGray()
+            sPlayer.fontColor = UIColor.darkGray
+            mPlayer.fontColor = UIColor.darkGray
+            settings.fontColor = UIColor.darkGray
+            credits.fontColor = UIColor.darkGray
+            help.fontColor = UIColor.darkGray
             
         }
     }
@@ -368,3 +374,4 @@ class MenuScene: SKScene {
     
     
 }
+

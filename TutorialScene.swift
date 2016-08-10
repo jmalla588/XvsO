@@ -10,6 +10,7 @@ import Foundation
 import SpriteKit
 
 var firstTime = Bool()
+var step1Complete = false;
 
 class TutorialScene: SKScene {
     
@@ -28,10 +29,19 @@ class TutorialScene: SKScene {
     
     override func didMove(to view: SKView) {
         
+        step1Complete = false;
+        
+        //REAL BACKGROUND
+        let bg = SKSpriteNode(imageNamed: "bg")
+        bg.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
+        bg.size = CGSize(width:self.frame.width, height: self.frame.height)
+        self.addChild(bg)
+        bg.zPosition = -2
+        
         firstTime = true;
         
-        Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray();
+        Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
         Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
         Title.text = "Tutorial"
         
@@ -45,13 +55,13 @@ class TutorialScene: SKScene {
         self.addChild(backButton)
         backButton.run(SKAction.fadeAlpha(to: 1, duration: 3))
         
-        tut1 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-        tut1.fontSize = 48; tut1.alpha = 0; tut1.fontColor = UIColor.darkGray();
+        tut1 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        tut1.fontSize = 48; tut1.alpha = 0; tut1.fontColor = UIColor.darkGray;
         tut1.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 450)
         tut1.text = "Tap to place your piece on the board."
         
-        tut2 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-        tut2.fontSize = 48; tut2.alpha = 0; tut2.fontColor = UIColor.darkGray();
+        tut2 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        tut2.fontSize = 48; tut2.alpha = 0; tut2.fontColor = UIColor.darkGray;
         tut2.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 450)
         tut2.text = "Get 3 in a row to win!"
         
@@ -71,15 +81,15 @@ class TutorialScene: SKScene {
         //arrow = SKSpriteNode(imageNamed: "arrow"); arrow.alpha = 0;
         //arrow.position = CGPoint(x: self.frame.midX - 110, y: self.frame.midY - 570)
         
-        fadeTut1(self: self, tut: tut1, img: map, piece1: x, piece2: o)
+        fadeTut1(self, tut: tut1, img: map, piece1: x, piece2: o)
         
-        simple = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
-        simple.fontSize = 48; simple.alpha = 0; simple.fontColor = UIColor.darkGray();
+        simple = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightRegular).fontName)
+        simple.fontSize = 48; simple.alpha = 0; simple.fontColor = UIColor.darkGray;
         simple.position = CGPoint(x:self.frame.midX, y: self.frame.midY + 200)
         simple.text = "Good job! Simple enough, right?"
         
-        shot = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
-        shot.fontSize = 48; shot.alpha = 0; shot.fontColor = UIColor.darkGray();
+        shot = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightRegular).fontName)
+        shot.fontSize = 48; shot.alpha = 0; shot.fontColor = UIColor.darkGray;
         shot.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 100)
         shot.text = "Go ahead and give it a shot!"
 
@@ -108,24 +118,27 @@ class TutorialScene: SKScene {
             if node == x && firstTime == true {
                 run(SKAction.playSoundFileNamed("X.wav", waitForCompletion: false))
                 x.removeAction(forKey: "stopKey")
-                fadeTut2(self: self, outTut: tut1, tut: tut2, img: map, piece1: x, piece2: x2, piece3: x3)
+                fadeTut2(self, outTut: tut1, tut: tut2, img: map, piece1: x, piece2: x2, piece3: x3)
             }
             
-            else if node == x && firstTime == false {
+            else if node == x && firstTime == false && step1Complete == true {
+                
+                step1Complete = false;
                 
                 self.x.run(fadeIn)
                 run(SKAction.playSoundFileNamed("X.wav", waitForCompletion: false))
                 
                 let delayTime = DispatchTime.now() + 1.0
-                DispatchQueue.main.after(when: delayTime) {
+                DispatchQueue.main.asyncAfter(deadline: delayTime) {
                     
                     self.x.run(fadeOut)
                     self.map.run(fadeOut)
                     self.Title.run(fadeOut)
                     self.x2.run(fadeOut);
                     self.x3.run(fadeOut)
+                    self.tut2.run(fadeOut)
                     
-                    DispatchQueue.main.after(when: delayTime + 1.0) {
+                    DispatchQueue.main.asyncAfter(deadline: delayTime + 1.0) {
                         
                         self.x.removeFromParent()
                         self.x2.removeFromParent()
@@ -145,16 +158,13 @@ class TutorialScene: SKScene {
                     
                 }
 
-                
-                
-                
             }
         }
     }
     
 }
 
-func fadeTut1(self: TutorialScene, tut: SKLabelNode, img: SKSpriteNode, piece1: SKSpriteNode, piece2: SKSpriteNode) {
+func fadeTut1(_ self: TutorialScene, tut: SKLabelNode, img: SKSpriteNode, piece1: SKSpriteNode, piece2: SKSpriteNode) {
     
     let fadeSpriteIn = SKAction.fadeAlpha(by: 0.3, duration: 1)
     let fadeSpriteOut = SKAction.fadeAlpha(by: -0.3, duration: 1)
@@ -169,7 +179,7 @@ func fadeTut1(self: TutorialScene, tut: SKLabelNode, img: SKSpriteNode, piece1: 
 
 }
 
-func fadeTut2(self: TutorialScene, outTut: SKLabelNode, tut: SKLabelNode, img: SKSpriteNode, piece1: SKSpriteNode, piece2: SKSpriteNode, piece3: SKSpriteNode) {
+func fadeTut2(_ self: TutorialScene, outTut: SKLabelNode, tut: SKLabelNode, img: SKSpriteNode, piece1: SKSpriteNode, piece2: SKSpriteNode, piece3: SKSpriteNode) {
     
     firstTime = false;
     
@@ -200,9 +210,12 @@ func fadeTut2(self: TutorialScene, outTut: SKLabelNode, tut: SKLabelNode, img: S
 
     self.addChild(piece2); self.addChild(piece3)
     
-
     piece2.run(SKAction.sequence([alpha0, wait4, fadeIn]))
     piece3.run(SKAction.sequence([alpha0, wait4, fadeIn]))
     
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4.0) {
+        step1Complete = true;
+    }
+
 }
 

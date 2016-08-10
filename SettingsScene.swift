@@ -13,38 +13,55 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     let defaults = UserDefaults.standard
     
     var backButton = SKSpriteNode(imageNamed: "arrow")
-    var themes = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-    var pNames = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-    var diff = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-    var hs = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
+    var themes = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
+    var pNames = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
+    var diff = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
+    var hs = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
+    var themesShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
+    var pNamesShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
+    var diffShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
+    var hsShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
     
     let diffTree = SKNode()
     let nameTree = SKNode()
     let themeTree = SKNode()
     let hsTree = SKNode()
     
-    var easy = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
-    var med = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
-    var hard = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
+    var easy = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightSemibold).fontName)
+    var med = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightSemibold).fontName)
+    var hard = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightSemibold).fontName)
     let quickFadeOut = SKAction.fadeAlpha(to: 0, duration: 0.3)
     let quickFadeIn = SKAction.fadeAlpha(to: 1, duration: 0.3)
+    let quickFadeInOverlay = SKAction.fadeAlpha(to: 0.2, duration: 0.3)
     
     var checkButton = SKSpriteNode(imageNamed: "checkGray")
-    var nameOne = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 80, weight: UIFontWeightUltraLight).fontName)
-    var nameTwo = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 80, weight: UIFontWeightUltraLight).fontName)
+    var nameOne = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 80, weight: UIFontWeightLight).fontName)
+    var nameTwo = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 80, weight: UIFontWeightLight).fontName)
     let nameOneField = UITextField()
     let nameTwoField = UITextField()
     
-    var easyHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
-    var medHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
-    var hardHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightLight).fontName)
+    var easyHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightRegular).fontName)
+    var medHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightRegular).fontName)
+    var hardHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightRegular).fontName)
     
     var diffFadeIn = Bool() //Fixes animation bug on quickly tapping diff->names
     
+    var overlay1 = SKSpriteNode(imageNamed: "overlay")
+    var overlay2 = SKSpriteNode(imageNamed: "overlay")
+    var overlay3 = SKSpriteNode(imageNamed: "overlay")
+    var overlay4 = SKSpriteNode(imageNamed: "overlay")
+    
     override func didMove(to view: SKView) {
         
-        let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray();
+        //REAL BACKGROUND
+        let bg = SKSpriteNode(imageNamed: "bg")
+        bg.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
+        bg.size = CGSize(width:self.frame.width, height: self.frame.height)
+        self.addChild(bg)
+        bg.zPosition = -2
+        
+        let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
         Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
         Title.text = "Settings"
         
@@ -61,20 +78,34 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         //backButton.run(SKAction.fadeAlpha(to: 1, duration: 3))
         backButton.run(fadeIn)
         
-        themes.text = "Themes"; pNames.text = "Player Names"; diff.text = "CPU Difficulty"; hs.text = "High Scores"
-        themes.fontSize = 100; pNames.fontSize = 100; diff.fontSize = 100; hs.fontSize = 100;
-        themes.fontColor = UIColor.darkGray(); pNames.fontColor = UIColor.darkGray();
-        diff.fontColor = UIColor.darkGray(); hs.fontColor = UIColor.darkGray()
+        themes.text = "THEMES"; pNames.text = "PLAYER NAMES"; diff.text = "CPU DIFFICULTY"; hs.text = "HIGH SCORES"
+        themes.fontSize = 80; pNames.fontSize = 80; diff.fontSize = 80; hs.fontSize = 80;
+        themes.fontColor = UIColor.darkGray; pNames.fontColor = UIColor.darkGray;
+        diff.fontColor = UIColor.darkGray; hs.fontColor = UIColor.darkGray
         diff.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
         pNames.position = CGPoint(x:self.frame.midX, y:(self.frame.midY)-150)
         themes.position = CGPoint(x:self.frame.midX, y:(self.frame.midY)-300)
-        hs.position = CGPoint(x:self.frame.midX, y:(self.frame.midY)-450)
+        hs.position = CGPoint(x:self.frame.midX, y:(self.frame.midY)-450) 
         themes.name = "themes"; pNames.name = "players"; diff.name = "diff"; hs.name = "hs"
         themes.alpha = 0; pNames.alpha = 0; diff.alpha = 0; hs.alpha = 0;
         
+        themesShadow.text = "THEMES"; pNamesShadow.text = "PLAYER NAMES"; diffShadow.text = "CPU DIFFICULTY"; hsShadow.text = "HIGH SCORES"
+        themesShadow.fontSize = 80; pNamesShadow.fontSize = 80; diffShadow.fontSize = 80; hsShadow.fontSize = 80;
+        themesShadow.fontColor = UIColor.white; pNamesShadow.fontColor = UIColor.white;
+        diffShadow.fontColor = UIColor.white; hsShadow.fontColor = UIColor.white
+        diffShadow.position = CGPoint(x:self.frame.midX+2, y:self.frame.midY-2)
+        pNamesShadow.position = CGPoint(x:self.frame.midX+2, y:(self.frame.midY)-152)
+        themesShadow.position = CGPoint(x:self.frame.midX+2, y:(self.frame.midY)-302)
+        hsShadow.position = CGPoint(x:self.frame.midX+2, y:(self.frame.midY)-452)
+        themesShadow.name = "themesShadow"; pNamesShadow.name = "playersShadow"; diffShadow.name = "diffShadow"; hsShadow.name = "hsShadow"
+        themesShadow.alpha = 0; pNamesShadow.alpha = 0; diffShadow.alpha = 0; hsShadow.alpha = 0;
+        themesShadow.zPosition = -0.5; pNamesShadow.zPosition = -0.5; diffShadow.zPosition = -0.5; hsShadow.zPosition = -0.5;
+        
         self.addChild(themes); self.addChild(pNames); self.addChild(diff); self.addChild(hs)
+        self.addChild(themesShadow); self.addChild(pNamesShadow); self.addChild(diffShadow); self.addChild(hsShadow)
 
         themes.run(fadeIn); pNames.run(fadeIn); diff.run(fadeIn); hs.run(fadeIn)
+        themesShadow.run(fadeIn); pNamesShadow.run(fadeIn); diffShadow.run(fadeIn); hsShadow.run(fadeIn)
         
         let gear = SKSpriteNode(imageNamed: "gear")
         gear.xScale = 0.25; gear.yScale = 0.25; gear.alpha = 0;
@@ -88,12 +119,12 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         
         let spin = SKAction.repeatForever(SKAction.rotate(byAngle: 6.2831853, duration: 4.0))
         gear.run(spin)
-        gear.run(SKAction.fadeAlpha(to: 1, duration: 3))
+        gear.run(SKAction.fadeAlpha(to: 1, duration: 1.5))
         
         //difficulty settings
         easy.text = "EASY"; med.text = "MEDIUM"; hard.text = "HARD"
         easy.fontSize = 40; med.fontSize = 40; hard.fontSize = 40;
-        easy.fontColor = UIColor.darkGray(); med.fontColor = UIColor.darkGray(); hard.fontColor = UIColor.darkGray()
+        easy.fontColor = UIColor.darkGray; med.fontColor = UIColor.darkGray; hard.fontColor = UIColor.darkGray
         easy.position = (CGPoint(x:self.frame.midX-200, y:self.frame.midY))
         med.position = (CGPoint(x:self.frame.midX, y:self.frame.midY))
         hard.position = (CGPoint(x:self.frame.midX+200, y:self.frame.midY))
@@ -101,17 +132,17 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         easy.name = "easy"; med.name = "med"; hard.name = "hard"
         
         if (diffString == "easy") {
-            easy.fontColor = UIColor.white()
-            med.fontColor = UIColor.darkGray()
-            hard.fontColor = UIColor.darkGray()
+            easy.fontColor = UIColor.white
+            med.fontColor = UIColor.darkGray
+            hard.fontColor = UIColor.darkGray
         } else if (diffString == "hard") {
-            easy.fontColor = UIColor.darkGray()
-            med.fontColor = UIColor.darkGray()
-            hard.fontColor = UIColor.white()
+            easy.fontColor = UIColor.darkGray
+            med.fontColor = UIColor.darkGray
+            hard.fontColor = UIColor.white
         } else {
-            med.fontColor = UIColor.white()
-            easy.fontColor = UIColor.darkGray()
-            hard.fontColor = UIColor.darkGray()
+            med.fontColor = UIColor.white
+            easy.fontColor = UIColor.darkGray
+            hard.fontColor = UIColor.darkGray
         }
         
         //name settings
@@ -119,8 +150,8 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         checkButton.alpha = 0; checkButton.xScale = 0.5; checkButton.yScale = 0.5;
         checkButton.name = "checkButton"
         
-        nameOne.fontColor = UIColor.darkGray()
-        nameTwo.fontColor = UIColor.darkGray()
+        nameOne.fontColor = UIColor.darkGray
+        nameTwo.fontColor = UIColor.darkGray
         nameOne.text = "Player 1: "
         nameTwo.text = "Player 2: "
         nameOne.position = CGPoint(x:self.frame.midX - 207, y:self.frame.midY + 30)
@@ -130,12 +161,12 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         nameOne.fontSize = 80; nameTwo.fontSize = 80;
         nameOneField.frame = CGRect(x:self.frame.midX+200, y:self.frame.midY+295, width:150, height:60)
         nameTwoField.frame = CGRect(x:self.frame.midX+200, y:self.frame.midY+395, width:150, height:60)
-        nameOneField.backgroundColor = SKColor.lightGray()
-        nameTwoField.backgroundColor = SKColor.lightGray()
+        nameOneField.backgroundColor = SKColor.lightGray
+        nameTwoField.backgroundColor = SKColor.lightGray
         nameOneField.borderStyle = UITextBorderStyle.roundedRect
         nameTwoField.borderStyle = UITextBorderStyle.roundedRect
-        nameOneField.textColor = SKColor.red()
-        nameTwoField.textColor = SKColor.blue()
+        nameOneField.textColor = SKColor.red
+        nameTwoField.textColor = SKColor.blue
         nameOneField.autocorrectionType = UITextAutocorrectionType.no
         nameTwoField.autocorrectionType = UITextAutocorrectionType.no
         nameOneField.keyboardAppearance = UIKeyboardAppearance.dark
@@ -143,8 +174,8 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         
         let lightRed = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
         let lightBlue = SKColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.2)
-        let p1 = AttributedString(string: "Player 1", attributes: [NSForegroundColorAttributeName:lightRed])
-        let p2 = AttributedString(string: "Player 2", attributes: [NSForegroundColorAttributeName:lightBlue])
+        let p1 = NSAttributedString(string: "Player 1", attributes: [NSForegroundColorAttributeName:lightRed])
+        let p2 = NSAttributedString(string: "Player 2", attributes: [NSForegroundColorAttributeName:lightBlue])
         nameOneField.attributedPlaceholder = p1
         nameTwoField.attributedPlaceholder = p2
         nameOneField.text = defaults.string(forKey: "nameOne")
@@ -155,7 +186,7 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         diffFadeIn = true; //Stupid animation bug
         
         
-        let screenHeight = UIScreen.main().bounds.height
+        let screenHeight = UIScreen.main.bounds.height
         
         //Moves the UI Textfields manually, as SpriteKit cannot automatically scale to different screen sizes
         switch screenHeight {
@@ -178,14 +209,35 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         let hsMedium = defaults.integer(forKey: "hsMedium")
         let hsHard = defaults.integer(forKey: "hsHard")
         
-        easyHS.text = "EASY:  \(hsEasy)"; medHS.text = "MEDIUM:  \(hsMedium)"; hardHS.text = "HARD:  \(hsHard)"
+        easyHS.text = "EASY: \(hsEasy)"; medHS.text = "MEDIUM: \(hsMedium)"; hardHS.text = "HARD: \(hsHard)"
         easyHS.fontSize = 40; medHS.fontSize = 40; hardHS.fontSize = 40;
-        easyHS.fontColor = UIColor.darkGray(); medHS.fontColor = UIColor.darkGray(); hardHS.fontColor = UIColor.darkGray()
-        easyHS.position = (CGPoint(x:self.frame.midX-250, y:self.frame.midY-450))
+        easyHS.fontColor = UIColor.darkGray; medHS.fontColor = UIColor.darkGray; hardHS.fontColor = UIColor.darkGray
+        easyHS.position = (CGPoint(x:self.frame.midX-200, y:self.frame.midY-450))
         medHS.position = (CGPoint(x:self.frame.midX, y:self.frame.midY-450))
-        hardHS.position = (CGPoint(x:self.frame.midX+250, y:self.frame.midY-450))
+        hardHS.position = (CGPoint(x:self.frame.midX+200, y:self.frame.midY-450))
         easyHS.alpha = 0; medHS.alpha = 0; hardHS.alpha = 0;
         easyHS.name = "easy"; medHS.name = "med"; hardHS.name = "hard"
+        
+        
+        //SETS UP ALL OVERLAYS
+        overlay1.position = CGPoint(x:self.frame.midX, y:self.frame.midY+20); overlay1.zPosition = -0.25;
+        overlay1.xScale = 1.35; overlay1.yScale = 0.45; overlay1.alpha = 0;
+        self.addChild(overlay1); overlay1.run(SKAction.fadeAlpha(to: 0.2, duration: 1.0))
+        
+        overlay2.position = CGPoint(x:self.frame.midX, y:self.frame.midY-130); overlay2.zPosition = -0.25;
+        overlay2.xScale = 1.35; overlay2.yScale = 0.45; overlay2.alpha = 0;
+        self.addChild(overlay2); overlay2.run(SKAction.fadeAlpha(to: 0.2, duration: 1.0))
+        
+        overlay3.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 280); overlay3.zPosition = -0.25;
+        overlay3.xScale = 1.35; overlay3.yScale = 0.45; overlay3.alpha = 0;
+        self.addChild(overlay3); overlay3.run(SKAction.fadeAlpha(to: 0.2, duration: 1.0))
+        
+        overlay4.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 430); overlay4.zPosition = -0.25;
+        overlay4.xScale = 1.35; overlay4.yScale = 0.45; overlay4.alpha = 0;
+        self.addChild(overlay4); overlay4.run(SKAction.fadeAlpha(to: 0.2, duration: 1.0))
+        
+        
+        
         
         
     }
@@ -225,52 +277,54 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             }
             
             if node == themes {
-                themes.fontColor = UIColor.white()
+                themes.fontColor = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
-                if let view = view {
-                    let scene = ThemeScene(fileNamed: "ThemeScene")
-                    let transition = SKTransition.fade(with: SKColor.lightGray(), duration: 0.75)
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
-                    view.presentScene(scene!, transition: transition)
-                }
+                overlay3.run(SKAction.scaleX(to: 1.45, duration: 0.3))
+                overlay3.run(SKAction.scaleY(to: 0.55, duration: 0.3))
             }
             
             if node == pNames {
-                pNames.fontColor = UIColor.white()
+                pNames.fontColor = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+                overlay2.run(SKAction.scaleX(to: 1.45, duration: 0.3))
+                overlay2.run(SKAction.scaleY(to: 0.55, duration: 0.3))
             }
             
             if node == diff {
-                diff.fontColor = UIColor.white()
+                diff.fontColor = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+                overlay1.run(SKAction.scaleX(to: 1.45, duration: 0.3))
+                overlay1.run(SKAction.scaleY(to: -0.55, duration: 0.3))
             }
             
             if node == hs {
-                hs.fontColor = UIColor.white()
+                hs.fontColor = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+                overlay4.run(SKAction.scaleX(to: 1.45, duration: 0.3))
+                overlay4.run(SKAction.scaleY(to: -0.55, duration: 0.3))
             }
             
             if node == easy {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
-                easy.fontColor = UIColor.white();
-                med.fontColor = UIColor.darkGray();
-                hard.fontColor = UIColor.darkGray();
+                easy.fontColor = UIColor.white;
+                med.fontColor = UIColor.darkGray;
+                hard.fontColor = UIColor.darkGray;
                 defaults.set("easy", forKey: "difficulty")
             }
             
             if node == med {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
-                easy.fontColor = UIColor.darkGray()
-                med.fontColor = UIColor.white()
-                hard.fontColor = UIColor.darkGray()
+                easy.fontColor = UIColor.darkGray
+                med.fontColor = UIColor.white
+                hard.fontColor = UIColor.darkGray
                 defaults.set("medium", forKey: "difficulty")
             }
             
             if node == hard {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
-                easy.fontColor = UIColor.darkGray()
-                med.fontColor = UIColor.darkGray()
-                hard.fontColor = UIColor.white()
+                easy.fontColor = UIColor.darkGray
+                med.fontColor = UIColor.darkGray
+                hard.fontColor = UIColor.white
                 defaults.set("hard", forKey: "difficulty")
             }
             
@@ -290,21 +344,27 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             let node = self.atPoint(pos)
             
             if node == themes {
-                themes.fontColor = UIColor.darkGray()
+                themes.fontColor = UIColor.darkGray
+                if let view = view {
+                    let scene = ThemeScene(fileNamed: "ThemeScene")
+                    let transition = SKTransition.crossFade(withDuration: 0.50)
+                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    view.presentScene(scene!, transition: transition)
+                }
             }
         
             if node == pNames {
-                pNames.fontColor = UIColor.darkGray()
+                pNames.fontColor = UIColor.darkGray
                 setName()
             }
             
             if node == diff {
-                diff.fontColor = UIColor.darkGray()
+                diff.fontColor = UIColor.darkGray
                 setDiff()
             }
             
             if node == hs {
-                hs.fontColor = UIColor.darkGray()
+                hs.fontColor = UIColor.darkGray
                 viewHighScores()
             }
             
@@ -315,8 +375,26 @@ class SettingsScene: SKScene, UITextFieldDelegate {
                 diffFadeIn = true
             }
             
+            
+            themes.fontColor = UIColor.darkGray;
+            pNames.fontColor = UIColor.darkGray;
+            diff.fontColor = UIColor.darkGray
+            hs.fontColor = UIColor.darkGray;
+            resetOverlays();
+            
         }
 
+    }
+    
+    func resetOverlays() {
+        overlay1.run(SKAction.scaleX(to: 1.35, duration: 0.3))
+        overlay1.run(SKAction.scaleY(to: 0.45, duration: 0.3))
+        overlay2.run(SKAction.scaleX(to: 1.35, duration: 0.3))
+        overlay2.run(SKAction.scaleY(to: 0.45, duration: 0.3))
+        overlay3.run(SKAction.scaleX(to: 1.35, duration: 0.3))
+        overlay3.run(SKAction.scaleY(to: 0.45, duration: 0.3))
+        overlay4.run(SKAction.scaleX(to: 1.35, duration: 0.3))
+        overlay4.run(SKAction.scaleY(to: 0.45, duration: 0.3))
     }
     
     //
@@ -338,12 +416,12 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         nameOneField.removeFromSuperview()
         nameTwoField.removeFromSuperview()
         
-        DispatchQueue.main.after(when: delayTimeHalf) {
+        DispatchQueue.main.asyncAfter(deadline: delayTimeHalf) {
             self.nameTree.removeAllChildren()
-            self.pNames.run(self.quickFadeIn)
-            self.diff.run(self.quickFadeIn)
-            self.themes.run(self.quickFadeIn)
-            self.hs.run(self.quickFadeIn)
+            self.pNames.run(self.quickFadeIn); self.pNamesShadow.run(self.quickFadeIn); self.overlay2.run(self.quickFadeInOverlay)
+            self.diff.run(self.quickFadeIn); self.diffShadow.run(self.quickFadeIn); self.overlay1.run(self.quickFadeInOverlay)
+            self.themes.run(self.quickFadeIn); self.themesShadow.run(self.quickFadeIn); self.overlay3.run(self.quickFadeInOverlay)
+            self.hs.run(self.quickFadeIn); self.hsShadow.run(self.quickFadeIn); self.overlay4.run(self.quickFadeInOverlay)
             self.backButton.run(self.quickFadeIn)
         }
         
@@ -357,10 +435,10 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         
         let delayTimeHalf = DispatchTime.now() + 0.5
         
-        pNames.run(quickFadeOut)
-        themes.run(quickFadeOut)
-        diff.run(quickFadeOut)
-        hs.run(quickFadeOut)
+        pNames.run(quickFadeOut); pNamesShadow.run(quickFadeOut); overlay2.run(quickFadeOut)
+        themes.run(quickFadeOut); themesShadow.run(quickFadeOut); overlay3.run(quickFadeOut)
+        diff.run(quickFadeOut); diffShadow.run(quickFadeOut); overlay1.run(quickFadeOut)
+        hs.run(quickFadeOut); hsShadow.run(quickFadeOut); overlay4.run(quickFadeOut)
         backButton.run(quickFadeOut)
         
         easy.run(quickFadeOut)
@@ -374,7 +452,7 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         nameTree.addChild(nameTwo)
         
         
-        DispatchQueue.main.after(when: delayTimeHalf) {
+        DispatchQueue.main.asyncAfter(deadline: delayTimeHalf) {
             self.checkButton.run(self.quickFadeIn)
             self.nameOne.run(self.quickFadeIn)
             self.nameTwo.run(self.quickFadeIn)
@@ -390,15 +468,17 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     func setDiff() {
         
         diff.run(quickFadeOut)
+        diffShadow.run(quickFadeOut)
+        //overlay1.run(quickFadeOut)
         diffTree.addChild(easy)
         diffTree.addChild(med)
         diffTree.addChild(hard)
         
         let delayTime3 = DispatchTime.now() + 3
-        let delayTimeHalf = DispatchTime.now() + 0.5
+        let delayTimeHalf = DispatchTime.now() + 0.3
         let delayTime4 = DispatchTime.now() + 3.7
         
-        DispatchQueue.main.after(when: delayTimeHalf) {
+        DispatchQueue.main.asyncAfter(deadline: delayTimeHalf) {
             if self.diffFadeIn {
                 self.diffTree.run(self.quickFadeIn)
                 self.easy.run(self.quickFadeIn)
@@ -408,14 +488,14 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             }
         }
 
-        DispatchQueue.main.after(when: delayTime3) {
+        DispatchQueue.main.asyncAfter(deadline: delayTime3) {
             self.easy.run(self.quickFadeOut)
             self.med.run(self.quickFadeOut)
             self.hard.run(self.quickFadeOut)
             self.diffTree.run(self.quickFadeOut)
             
-            DispatchQueue.main.after(when: delayTime4) {
-                if self.diffFadeIn {self.diff.run(self.quickFadeIn) }
+            DispatchQueue.main.asyncAfter(deadline: delayTime4) {
+                if self.diffFadeIn {self.diff.run(self.quickFadeIn); self.diffShadow.run(self.quickFadeIn); self.overlay1.run(self.quickFadeInOverlay) }
                 self.diffTree.removeAllChildren()
             }
             
@@ -427,15 +507,17 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     func viewHighScores() {
         
         hs.run(quickFadeOut)
+        hsShadow.run(quickFadeOut)
+        //overlay4.run(quickFadeOut)
         hsTree.addChild(easyHS)
         hsTree.addChild(medHS)
         hsTree.addChild(hardHS)
         
         let delayTime3 = DispatchTime.now() + 3
-        let delayTimeHalf = DispatchTime.now() + 0.5
+        let delayTimeHalf = DispatchTime.now() + 0.3
         let delayTime4 = DispatchTime.now() + 3.7
         
-        DispatchQueue.main.after(when: delayTimeHalf) {
+        DispatchQueue.main.asyncAfter(deadline: delayTimeHalf) {
             if self.diffFadeIn {
                 self.hsTree.run(self.quickFadeIn)
                 self.easyHS.run(self.quickFadeIn)
@@ -445,13 +527,13 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             }
         }
         
-        DispatchQueue.main.after(when: delayTime3) {
+        DispatchQueue.main.asyncAfter(deadline: delayTime3) {
             self.easyHS.run(self.quickFadeOut)
             self.medHS.run(self.quickFadeOut)
             self.hardHS.run(self.quickFadeOut)
             self.hsTree.run(self.quickFadeOut)
-            DispatchQueue.main.after(when: delayTime4) {
-                if self.diffFadeIn {self.hs.run(self.quickFadeIn) }
+            DispatchQueue.main.asyncAfter(deadline: delayTime4) {
+                if self.diffFadeIn {self.hs.run(self.quickFadeIn); self.hsShadow.run(self.quickFadeIn); self.overlay4.run(self.quickFadeInOverlay) }
                 self.hsTree.removeAllChildren()
             }
             
@@ -462,14 +544,14 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     
     
     
-    func comingSoon(thisLabel: SKLabelNode) {
+    func comingSoon(_ thisLabel: SKLabelNode) {
         let origText = thisLabel.text
         
         if diffFadeIn {
             thisLabel.run(quickFadeOut)
             delay(0.5) {
                 thisLabel.text = "Coming Soon!"
-                thisLabel.fontColor = SKColor.white()
+                thisLabel.fontColor = SKColor.white
                 if self.diffFadeIn {thisLabel.run(self.quickFadeIn) }
 
             }
@@ -478,18 +560,35 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             }
             delay(3.7) {
                 thisLabel.text = origText
-                thisLabel.fontColor = SKColor.darkGray()
+                thisLabel.fontColor = SKColor.darkGray
                 if self.diffFadeIn {thisLabel.run(self.quickFadeIn)}
             }
         }
     }
     
+    
     func delay(_ delay:Double, closure:()->()) {
         let when = DispatchTime.now() + delay
-        DispatchQueue.main.after(when: when, execute: closure)
+        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
     
     
+    
+    func setUpLabel(_ labelName: SKLabelNode, nameOfLabel: String, withText: String, isShadow: Bool, location: CGPoint, sizeOfFont: CGFloat) -> SKLabelNode {
+        labelName.text = withText;
+        labelName.fontColor = SKColor.darkGray
+        labelName.zPosition = 1
+        labelName.fontSize = sizeOfFont;
+        if isShadow {
+            labelName.fontColor = SKColor.white
+            labelName.zPosition = 0;
+        }
+        labelName.position = location;
+        labelName.alpha = 0;
+        self.addChild(labelName); labelName.run(fadeIn)
+        
+        return labelName;
+    }
     
     
     

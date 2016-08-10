@@ -16,38 +16,45 @@ class ThemeScene: SKScene {
     
     var lockTree = SKSpriteNode()
     
-    let standardImg = SKSpriteNode(imageNamed: "X")
-    let standardLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightLight).fontName)
+    let standardImg = SKSpriteNode(imageNamed: "Xeyes")
+    let standardLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
     
     let warriorImg = SKSpriteNode(imageNamed: "Xwarrior")
-    let warriorLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightLight).fontName)
+    let warriorLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
     let lockWarrior = SKSpriteNode(imageNamed: "lockedItem")
     var lockedWarrior = Bool()
     
     let babyImg = SKSpriteNode(imageNamed: "Xbaby")
-    let babyLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightLight).fontName)
+    let babyLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
     let lockBaby = SKSpriteNode(imageNamed: "lockedItem")
     var lockedBaby = Bool()
     
     let ballerImg = SKSpriteNode(imageNamed: "Xballer")
-    let ballerLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightLight).fontName)
+    let ballerLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
     let lockBaller = SKSpriteNode(imageNamed: "lockedItem")
     var lockedBaller = Bool()
     
     let greekImg = SKSpriteNode(imageNamed: "Xgreek")
-    let greekLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightLight).fontName)
+    let greekLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
     let lockGreek = SKSpriteNode(imageNamed: "lockedItem")
     var lockedGreek = Bool()
     
     var unlock = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightBold).fontName)
-    var Selected = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightUltraLight).fontName)
+    var Selected = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightLight).fontName)
     
     let fadeInQuick = SKAction.fadeIn(withDuration: 0.5)
     
     override func didMove(to view: SKView) {
         
-        let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray();
+        //REAL BACKGROUND
+        let bg = SKSpriteNode(imageNamed: "bg")
+        bg.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
+        bg.size = CGSize(width:self.frame.width, height: self.frame.height)
+        self.addChild(bg)
+        bg.zPosition = -2
+        
+        let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
         Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
         Title.text = "Themes"
         
@@ -56,9 +63,9 @@ class ThemeScene: SKScene {
         Title.run(fadeIn);
         
         unlock.position = CGPoint(x: self.frame.midX, y: self.frame.midX - 484)
-        unlock.alpha = 0; unlock.fontSize = 40; unlock.fontColor = SKColor.darkGray();
+        unlock.alpha = 0; unlock.fontSize = 40; unlock.fontColor = SKColor.darkGray;
         self.addChild(unlock)
-        delay(2.0) {self.fadeInfadeOut(label: self.unlock, textBecomes: "Defeat X-O bot to unlock new themes!")}
+        delay(2.0) {self.fadeInfadeOut(self.unlock, textBecomes: "Defeat X-O bot to unlock new themes!")}
         
         backButton.xScale = 1.0; backButton.yScale = 1.0; backButton.alpha = 0;
         backButton.position = CGPoint(x: self.frame.midX - 275, y: self.frame.midY - 550)
@@ -72,6 +79,8 @@ class ThemeScene: SKScene {
         ballerLabel.position = CGPoint(x:self.frame.midX - 250, y: self.frame.midY-250); ballerLabel.alpha = 0;
         greekLabel.position = CGPoint(x:self.frame.midX, y: self.frame.midY-250); greekLabel.alpha = 0;
         ballerLabel.text = "Baller"; greekLabel.text = "Greek";
+        standardLabel.fontColor = SKColor.darkGray; babyLabel.fontColor = SKColor.darkGray; warriorLabel.fontColor = SKColor.darkGray;
+        ballerLabel.fontColor = SKColor.darkGray; greekLabel.fontColor = SKColor.darkGray;
         
         
         self.addChild(babyLabel); self.addChild(warriorLabel); self.addChild(standardLabel)
@@ -116,7 +125,7 @@ class ThemeScene: SKScene {
         lockBaller.zPosition = 2; lockGreek.zPosition = 2;
         
         
-        Selected.fontSize = 70; Selected.alpha = 0; Selected.fontColor = UIColor.darkGray();
+        Selected.fontSize = 70; Selected.alpha = 0; Selected.fontColor = UIColor.darkGray;
         Selected.position = CGPoint(x: self.frame.midX, y: self.frame.midY - 400)
         Selected.text = "Select a Theme"
         updateSelected()
@@ -125,16 +134,16 @@ class ThemeScene: SKScene {
         Selected.run(fadeIn)
         
         lockedBaby = defaults.bool(forKey: "babyLock")
-        checkIfLocked(lockedItem: lockBaby, lock: lockedBaby)
+        checkIfLocked(lockBaby, lock: lockedBaby)
         
         lockedWarrior = defaults.bool(forKey: "warriorLock")
-        checkIfLocked(lockedItem: lockWarrior, lock: lockedWarrior)
+        checkIfLocked(lockWarrior, lock: lockedWarrior)
 
         lockedBaller = defaults.bool(forKey: "ballerLock")
-        checkIfLocked(lockedItem: lockBaller, lock: lockedBaller)
+        checkIfLocked(lockBaller, lock: lockedBaller)
         
         lockedGreek = defaults.bool(forKey: "greekLock")
-        checkIfLocked(lockedItem: lockGreek, lock: lockedGreek)
+        checkIfLocked(lockGreek, lock: lockedGreek)
         
     }
     
@@ -150,7 +159,7 @@ class ThemeScene: SKScene {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 if let view = view {
                     let scene = SettingsScene(fileNamed: "SettingsScene")
-                    let transition = SKTransition.fade(with: SKColor.lightGray(), duration: 0.75)
+                    let transition = SKTransition.crossFade(withDuration: 0.50)
                     scene?.scaleMode = SKSceneScaleMode.aspectFill
                     view.presentScene(scene!, transition: transition)
                 }
@@ -159,47 +168,47 @@ class ThemeScene: SKScene {
             if node == warriorImg {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 defaults.set("warrior", forKey: "theme")
-                warriorLabel.fontColor = SKColor.darkGray()
+                warriorLabel.fontColor = SKColor.white
             }
             
             if node == standardImg {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 defaults.set("standard", forKey: "theme")
-                standardLabel.fontColor = SKColor.darkGray()
+                standardLabel.fontColor = SKColor.white
             }
             
             if node == babyImg {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 defaults.set("baby", forKey: "theme")
-                babyLabel.fontColor = SKColor.darkGray()
+                babyLabel.fontColor = SKColor.white
             }
             
             if node == ballerImg {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 defaults.set("baller", forKey: "theme")
-                babyLabel.fontColor = SKColor.darkGray()
+                babyLabel.fontColor = SKColor.white
             }
             
             if node == greekImg {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 defaults.set("greek", forKey: "theme")
-                babyLabel.fontColor = SKColor.darkGray()
+                babyLabel.fontColor = SKColor.white
             }
             
             if node == lockWarrior {
-                fadeInfadeOut(label: unlock, textBecomes: "Req: High Score of 5 on \"Hard\"!")
+                fadeInfadeOut(unlock, textBecomes: "Req: High Score of 5 on \"Hard\"!")
             }
             
             if node == lockBaby {
-                fadeInfadeOut(label: unlock, textBecomes: "Req: Complete the Tutorial!")
+                fadeInfadeOut(unlock, textBecomes: "Req: Complete the Tutorial!")
             }
             
             if node == lockBaller {
-                fadeInfadeOut(label: unlock, textBecomes: "Req: High Score of 5 on \"Medium\"!")
+                fadeInfadeOut(unlock, textBecomes: "Req: High Score of 5 on \"Medium\"!")
             }
             
             if node == lockGreek {
-                fadeInfadeOut(label: unlock, textBecomes: "Req: High Score of 5 on \"Easy\"!")
+                fadeInfadeOut(unlock, textBecomes: "Req: High Score of 5 on \"Easy\"!")
             }
             
         }
@@ -212,27 +221,27 @@ class ThemeScene: SKScene {
             let node = self.atPoint(pos)
             
             if node == warriorImg {
-                warriorLabel.fontColor = SKColor.white()
+                warriorLabel.fontColor = SKColor.darkGray
                 updateSelected()
             }
             
             if node == standardImg {
-                standardLabel.fontColor = SKColor.white()
+                standardLabel.fontColor = SKColor.darkGray
                 updateSelected()
             }
             
             if node == babyImg {
-                babyLabel.fontColor = SKColor.white()
+                babyLabel.fontColor = SKColor.darkGray
                 updateSelected()
             }
             
             if node == greekImg {
-                greekLabel.fontColor = SKColor.white()
+                greekLabel.fontColor = SKColor.darkGray
                 updateSelected()
             }
             
             if node == ballerImg {
-                ballerLabel.fontColor = SKColor.white()
+                ballerLabel.fontColor = SKColor.darkGray
                 updateSelected()
             }
             
@@ -242,7 +251,7 @@ class ThemeScene: SKScene {
         
     }
 
-    func fadeInfadeOut(label: SKLabelNode, textBecomes: String) {
+    func fadeInfadeOut(_ label: SKLabelNode, textBecomes: String) {
         label.text = textBecomes
         label.run(fadeInQuick)
         delay(3.0) {
@@ -258,7 +267,7 @@ class ThemeScene: SKScene {
 
     }
     
-    func checkIfLocked(lockedItem: SKSpriteNode, lock: Bool) {
+    func checkIfLocked(_ lockedItem: SKSpriteNode, lock: Bool) {
         if (lock == true) {
             self.addChild(lockedItem)
             lockedItem.run(fadeInQuick)

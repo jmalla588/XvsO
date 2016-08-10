@@ -15,8 +15,15 @@ class CreditsScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray();
+        //REAL BACKGROUND
+        let bg = SKSpriteNode(imageNamed: "bg")
+        bg.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
+        bg.size = CGSize(width:self.frame.width, height: self.frame.height)
+        self.addChild(bg)
+        bg.zPosition = -2
+        
+        let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
         Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
         Title.text = "Credits"
         
@@ -30,19 +37,19 @@ class CreditsScene: SKScene {
         self.addChild(backButton)
         backButton.run(SKAction.fadeAlpha(to: 1, duration: 3))
         
-        let aCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-        aCredits.fontSize = 60; aCredits.alpha = 0; aCredits.fontColor = UIColor.darkGray();
+        let aCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        aCredits.fontSize = 60; aCredits.alpha = 0; aCredits.fontColor = UIColor.darkGray;
         aCredits.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 450)
         aCredits.text = "Developed by: Janak Malla"
         
-        let bCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-        bCredits.fontSize = 60; bCredits.alpha = 0; bCredits.fontColor = UIColor.darkGray();
+        let bCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        bCredits.fontSize = 60; bCredits.alpha = 0; bCredits.fontColor = UIColor.darkGray;
         bCredits.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 450)
         bCredits.text = "Artwork by: Janak Malla"
 
         
-        let cCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightUltraLight).fontName)
-        cCredits.fontSize = 60; cCredits.alpha = 0; cCredits.fontColor = UIColor.darkGray();
+        let cCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        cCredits.fontSize = 60; cCredits.alpha = 0; cCredits.fontColor = UIColor.darkGray;
         cCredits.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 450)
         cCredits.text = "Idea by: Romans, probably?"
 
@@ -51,18 +58,17 @@ class CreditsScene: SKScene {
         self.addChild(bCredits)
         self.addChild(cCredits)
     
-        scrollThis(self: self, sCredits: aCredits)
+        scrollThis(self, sCredits: aCredits)
         
         let delayTime = DispatchTime.now() + 2.0
-        DispatchQueue.main.after(when: delayTime) {
-            scrollThis(self: self, sCredits: bCredits)
-        }
+        DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+            scrollThis(self, sCredits: bCredits)
+        })
 
         let delayTime2 = DispatchTime.now() + 3.5
-        DispatchQueue.main.after(when: delayTime2) {
-            scrollThis(self: self, sCredits: cCredits)
-        }
-
+        DispatchQueue.main.asyncAfter(deadline: delayTime2, execute: {
+            scrollThis(self, sCredits: cCredits)
+        })
 
         
     }
@@ -88,7 +94,7 @@ class CreditsScene: SKScene {
     
 }
 
-func scrollThis(self: CreditsScene, sCredits: SKLabelNode) {
+func scrollThis(_ self: CreditsScene, sCredits: SKLabelNode) {
     
     let fadeIn3 = SKAction.fadeAlpha(to: 1.0, duration: 0.5)
     let scrollUp = SKAction.move(by: CGVector(dx:0, dy: 650), duration: 5)
