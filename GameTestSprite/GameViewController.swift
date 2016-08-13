@@ -20,7 +20,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         //GAME CENTER STUFF
-        var localPlayer = GKLocalPlayer.localPlayer()
+        let localPlayer = GKLocalPlayer.localPlayer()
         
         localPlayer.authenticateHandler = {(viewController, error) -> Void in
             
@@ -45,6 +45,12 @@ class GameViewController: UIViewController {
             
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .aspectFill
+            
+            let screenHeight = UIScreen.main.bounds.height
+            
+            if screenHeight == 768 {
+                scene.scaleMode = .aspectFit
+            }
             
             
             skView.presentScene(scene)

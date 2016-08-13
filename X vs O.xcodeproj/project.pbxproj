@@ -33,6 +33,9 @@
 		D694C3991D436804002AE9F8 /* X.wav in Resources */ = {isa = PBXBuildFile; fileRef = D694C3971D436804002AE9F8 /* X.wav */; };
 		D6F1A9401D44D255007D3A88 /* bg.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6F1A93F1D44D255007D3A88 /* bg.wav */; };
 		D6F1A9421D44E043007D3A88 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6F1A9411D44E043007D3A88 /* click.wav */; };
+		D6F4789C1D5D20EE00CA2EEA /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6F4789B1D5D20EE00CA2EEA /* win.wav */; };
+		D6F4789E1D5D22FA00CA2EEA /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6F4789D1D5D22FA00CA2EEA /* lose.wav */; };
+		D6F478A01D5D366100CA2EEA /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F4789F1D5D366100CA2EEA /* CustomScrollView.swift */; };
 		D6FA196C1D14546A007C23CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6FA196B1D14546A007C23CB /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +89,9 @@
 		D694C3971D436804002AE9F8 /* X.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = X.wav; sourceTree = "<group>"; };
 		D6F1A93F1D44D255007D3A88 /* bg.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bg.wav; sourceTree = "<group>"; };
 		D6F1A9411D44E043007D3A88 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
+		D6F4789B1D5D20EE00CA2EEA /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
+		D6F4789D1D5D22FA00CA2EEA /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
+		D6F4789F1D5D366100CA2EEA /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
 		D6FA196B1D14546A007C23CB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				D654DB571D10E8DE00CE3485 /* AppDelegate.swift */,
+				D6F4789F1D5D366100CA2EEA /* CustomScrollView.swift */,
 				D6332F011D24723C00EA8367 /* TestParticle.sks */,
 				D6332F021D24723C00EA8367 /* spark.png */,
 				D68549AC1D1396F000F44353 /* MenuScene.swift */,
@@ -202,6 +209,8 @@
 		D694C3951D4366C1002AE9F8 /* sfx */ = {
 			isa = PBXGroup;
 			children = (
+				D6F4789D1D5D22FA00CA2EEA /* lose.wav */,
+				D6F4789B1D5D20EE00CA2EEA /* win.wav */,
 				D6F1A93F1D44D255007D3A88 /* bg.wav */,
 				D694C3961D436804002AE9F8 /* O.wav */,
 				D694C3971D436804002AE9F8 /* X.wav */,
@@ -341,6 +350,8 @@
 				D6F1A9421D44E043007D3A88 /* click.wav in Resources */,
 				D654DB611D10E8DE00CE3485 /* Main.storyboard in Resources */,
 				D64E4F0E1D46FC8E007E806E /* ThemeScene.sks in Resources */,
+				D6F4789E1D5D22FA00CA2EEA /* lose.wav in Resources */,
+				D6F4789C1D5D20EE00CA2EEA /* win.wav in Resources */,
 				D658F5941D15482F00E602F0 /* SettingsScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +382,7 @@
 				D68549AD1D1396F000F44353 /* MenuScene.swift in Sources */,
 				D658F5981D15B2E700E602F0 /* TutorialScene.swift in Sources */,
 				D64E4F0C1D46B7CB007E806E /* ThemeScene.swift in Sources */,
+				D6F478A01D5D366100CA2EEA /* CustomScrollView.swift in Sources */,
 				D658F5921D15481700E602F0 /* SettingsScene.swift in Sources */,
 				D654DB5E1D10E8DE00CE3485 /* GameViewController.swift in Sources */,
 				D654DB581D10E8DE00CE3485 /* AppDelegate.swift in Sources */,
@@ -517,6 +529,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LG9F9UCJZ5;
 				INFOPLIST_FILE = GameTestSprite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -531,6 +544,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LG9F9UCJZ5;
 				INFOPLIST_FILE = GameTestSprite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

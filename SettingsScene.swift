@@ -7,8 +7,9 @@
 //
 
 import SpriteKit
+import GameKit
 
-class SettingsScene: SKScene, UITextFieldDelegate {
+class SettingsScene: SKScene, UITextFieldDelegate, GKGameCenterControllerDelegate {
     
     let defaults = UserDefaults.standard
     
@@ -51,6 +52,9 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     var overlay3 = SKSpriteNode(imageNamed: "overlay")
     var overlay4 = SKSpriteNode(imageNamed: "overlay")
     
+    var flipMe = true
+    var gear = SKSpriteNode();
+    
     override func didMove(to view: SKView) {
         
         //REAL BACKGROUND
@@ -60,10 +64,14 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         self.addChild(bg)
         bg.zPosition = -2
         
-        let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
-        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
-        Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
-        Title.text = "Settings"
+        let Title = SKSpriteNode(imageNamed: "settingsTitle")
+        Title.xScale = 3.0; Title.yScale = 3.0; Title.run(SKAction.colorize(with: SKColor.green, colorBlendFactor: 0.5, duration: 0))
+        Title.position = CGPoint(x:self.frame.midX, y:self.frame.midY + 500)
+        
+        //let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        //Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
+        //Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
+        //Title.text = "Settings"
         
         let diffString = defaults.string(forKey: "difficulty")
  
@@ -107,7 +115,7 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         themes.run(fadeIn); pNames.run(fadeIn); diff.run(fadeIn); hs.run(fadeIn)
         themesShadow.run(fadeIn); pNamesShadow.run(fadeIn); diffShadow.run(fadeIn); hsShadow.run(fadeIn)
         
-        let gear = SKSpriteNode(imageNamed: "gear")
+        gear = SKSpriteNode(imageNamed: "gear")
         gear.xScale = 0.25; gear.yScale = 0.25; gear.alpha = 0;
         gear.position = CGPoint(x: self.frame.midX, y: (self.frame.midY) + 240)
         
@@ -294,14 +302,14 @@ class SettingsScene: SKScene, UITextFieldDelegate {
                 diff.fontColor = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 overlay1.run(SKAction.scaleX(to: 1.45, duration: 0.3))
-                overlay1.run(SKAction.scaleY(to: -0.55, duration: 0.3))
+                overlay1.run(SKAction.scaleY(to: 0.55, duration: 0.3))
             }
             
             if node == hs {
                 hs.fontColor = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 overlay4.run(SKAction.scaleX(to: 1.45, duration: 0.3))
-                overlay4.run(SKAction.scaleY(to: -0.55, duration: 0.3))
+                overlay4.run(SKAction.scaleY(to: 0.55, duration: 0.3))
             }
             
             if node == easy {
@@ -360,12 +368,23 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             
             if node == diff {
                 diff.fontColor = UIColor.darkGray
+                overlay1.run(SKAction.scaleY(to: -0.55, duration: 0.3))
+                flipMe = false;
                 setDiff()
             }
             
             if node == hs {
                 hs.fontColor = UIColor.darkGray
-                viewHighScores()
+                if GKLocalPlayer.localPlayer().isAuthenticated {
+                    let vc = self.view?.window?.rootViewController
+                    let gc = GKGameCenterViewController()
+                    gc.viewState = GKGameCenterViewControllerState.leaderboards;
+                    gc.gameCenterDelegate = self
+                    vc?.present(gc, animated: true, completion: nil)
+                } else {
+                    viewHighScores()
+                }
+                
             }
             
             if node == checkButton {
@@ -374,6 +393,11 @@ class SettingsScene: SKScene, UITextFieldDelegate {
                 fadeInSettings()
                 diffFadeIn = true
             }
+            
+            //TEMPORARY, REMOVE ME LATER
+            //if node == gear {
+            //    GKAchievement.resetAchievements(completionHandler: nil)
+            //}
             
             
             themes.fontColor = UIColor.darkGray;
@@ -387,8 +411,10 @@ class SettingsScene: SKScene, UITextFieldDelegate {
     }
     
     func resetOverlays() {
-        overlay1.run(SKAction.scaleX(to: 1.35, duration: 0.3))
-        overlay1.run(SKAction.scaleY(to: 0.45, duration: 0.3))
+        if flipMe {
+            overlay1.run(SKAction.scaleX(to: 1.35, duration: 0.3))
+            overlay1.run(SKAction.scaleY(to: 0.45, duration: 0.3))
+        }
         overlay2.run(SKAction.scaleX(to: 1.35, duration: 0.3))
         overlay2.run(SKAction.scaleY(to: 0.45, duration: 0.3))
         overlay3.run(SKAction.scaleX(to: 1.35, duration: 0.3))
@@ -495,7 +521,13 @@ class SettingsScene: SKScene, UITextFieldDelegate {
             self.diffTree.run(self.quickFadeOut)
             
             DispatchQueue.main.asyncAfter(deadline: delayTime4) {
-                if self.diffFadeIn {self.diff.run(self.quickFadeIn); self.diffShadow.run(self.quickFadeIn); self.overlay1.run(self.quickFadeInOverlay) }
+                if self.diffFadeIn {
+                    self.diff.run(self.quickFadeIn);
+                    self.diffShadow.run(self.quickFadeIn);
+                    self.overlay1.run(SKAction.scaleX(to: 1.35, duration: 0.3))
+                    self.overlay1.run(SKAction.scaleY(to: 0.45, duration: 0.3))
+                    self.flipMe = true;
+                }
                 self.diffTree.removeAllChildren()
             }
             
@@ -590,6 +622,11 @@ class SettingsScene: SKScene, UITextFieldDelegate {
         return labelName;
     }
     
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController)
+{
+        gameCenterViewController.dismiss(animated: true, completion: nil)
+        
+    }
     
     
 }

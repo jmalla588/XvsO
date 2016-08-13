@@ -8,6 +8,7 @@
 
 import Foundation
 import SpriteKit
+import GameKit
 
 var firstTime = Bool()
 var step1Complete = false;
@@ -40,10 +41,14 @@ class TutorialScene: SKScene {
         
         firstTime = true;
         
-        Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
-        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
-        Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
-        Title.text = "Tutorial"
+        let Title = SKSpriteNode(imageNamed: "tutorialTitle")
+        Title.xScale = 3.0; Title.yScale = 3.0; Title.run(SKAction.colorize(with: SKColor.green, colorBlendFactor: 0.5, duration: 0))
+        Title.position = CGPoint(x:self.frame.midX, y:self.frame.midY + 500)
+        
+        //Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        //Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
+        //Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
+        //Title.text = "Tutorial"
         
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 1)
         self.addChild(Title)
@@ -154,6 +159,10 @@ class TutorialScene: SKScene {
                         self.shot.run(SKAction.sequence([wait, wait, fadeIn]))
                         self.backButton.run(SKAction.sequence([wait, wait, wait, SKAction.repeatForever(SKAction.sequence([fadeIn, fadeOut]))]))
                         defaults.set(false, forKey: "babyLock")
+                        let babytheme = GKAchievement.init(identifier: "XvsOThemeUnlockbaby")
+                        babytheme.showsCompletionBanner = true;
+                        babytheme.percentComplete = 100.0
+                        GKAchievement.report([babytheme], withCompletionHandler: nil)
                     }
                     
                 }

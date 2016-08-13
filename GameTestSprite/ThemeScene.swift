@@ -10,6 +10,11 @@ import SpriteKit
 
 class ThemeScene: SKScene {
     
+    //Scrollview
+    weak var scrollView: CustomScrollView!
+    let moveableNode = SKNode()
+    
+    
     let defaults = UserDefaults.standard
     var backButton = SKSpriteNode(imageNamed: "arrow")
     var curTheme: String?
@@ -39,8 +44,14 @@ class ThemeScene: SKScene {
     let lockGreek = SKSpriteNode(imageNamed: "lockedItem")
     var lockedGreek = Bool()
     
+    let plainImg = SKSpriteNode(imageNamed: "X")
+    let plainLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+    let lockPlain = SKSpriteNode(imageNamed: "lockedItem")
+    var lockedPlain = Bool();
+    
     var unlock = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightBold).fontName)
     var Selected = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightLight).fontName)
+    var overlaySelected = SKSpriteNode(imageNamed: "overlay")
     
     let fadeInQuick = SKAction.fadeIn(withDuration: 0.5)
     
@@ -53,10 +64,79 @@ class ThemeScene: SKScene {
         self.addChild(bg)
         bg.zPosition = -2
         
-        let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
-        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
-        Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
-        Title.text = "Themes"
+        
+        //Scrollview
+        
+        addChild(moveableNode)
+        
+        
+        
+        
+        scrollView = CustomScrollView(frame: CGRect(x: 0, y: 175, width: self.frame.size.width, height: self.frame.size.height+200), moveableNode: moveableNode, scrollDirection: .horizontal)
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 3, height: scrollView.frame.size.height)
+        view.addSubview(scrollView)
+        
+        scrollView.setContentOffset(CGPoint(x: 0 + self.frame.size.width * 2, y: 0), animated: true)
+        
+        
+        
+        
+        let page1ScrollView = SKSpriteNode(color: SKColor.clear, size: CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height))
+        page1ScrollView.position = CGPoint(x: self.frame.midX - (self.frame.size.width * 2), y: self.frame.midY)
+        moveableNode.addChild(page1ScrollView)
+        
+        let page2ScrollView = SKSpriteNode(color: SKColor.clear, size: CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height))
+        page2ScrollView.position = CGPoint(x: self.frame.midX - (self.frame.size.width), y: self.frame.midY)
+        moveableNode.addChild(page2ScrollView)
+        
+        let page3ScrollView = SKSpriteNode(color: SKColor.clear, size: CGSize(width: scrollView.frame.size.width, height:
+            scrollView.frame.size.height))
+        page3ScrollView.zPosition = -1
+        page3ScrollView.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        moveableNode.addChild(page3ScrollView)
+        
+        
+        
+        
+        
+        /// Test sprites page 2
+        let sprite1Page2 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+        sprite1Page2.fontColor = SKColor.darkGray; sprite1Page2.fontSize = 60;
+        sprite1Page2.text = "COMING SOON!"
+        sprite1Page2.position = CGPoint(x: 0, y: 0)
+        page2ScrollView.addChild(sprite1Page2)
+        
+        
+        /// Test sprites page 3
+        let sprite1Page3 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+        sprite1Page3.fontColor = SKColor.darkGray; sprite1Page3.fontSize = 50;
+        sprite1Page3.text = "Let me know if you have ideas!"
+        sprite1Page3.position = CGPoint(x: 0, y: 0)
+        page3ScrollView.addChild(sprite1Page3)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        let Title = SKSpriteNode(imageNamed: "themesTitle")
+        Title.xScale = 3.0; Title.yScale = 3.0; Title.run(SKAction.colorize(with: SKColor.green, colorBlendFactor: 0.5, duration: 0))
+        Title.position = CGPoint(x:self.frame.midX, y:self.frame.midY + 500)
+        
+        
+        
+        //let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        //Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
+        //Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
+        //Title.text = "Themes"
         
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 1)
         self.addChild(Title);
@@ -72,6 +152,23 @@ class ThemeScene: SKScene {
         self.addChild(backButton)
         backButton.run(fadeIn)
         
+        let scrollButton = SKSpriteNode(imageNamed: "arrow")
+        scrollButton.xScale = -0.5; scrollButton.yScale = 0.5; scrollButton.alpha = 0;
+        scrollButton.position = CGPoint(x:self.frame.midX + 275, y: self.frame.midY - 300)
+        
+        let scrollLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 18, weight: UIFontWeightSemibold).fontName)
+        scrollLabel.position = CGPoint(x:scrollButton.position.x, y: scrollButton.position.y+20)
+        scrollLabel.fontColor = SKColor.darkGray; scrollLabel.text = "SCROLL";
+        scrollLabel.alpha = 0; scrollLabel.fontSize = 18;
+        
+        self.addChild(scrollButton); self.addChild(scrollLabel);
+        scrollButton.run(fadeIn); scrollLabel.run(fadeIn);
+        
+        delay(2.0) {
+            scrollButton.run(SKAction.repeatForever(SKAction.sequence([fadeIn, SKAction.wait(forDuration: 1.0), fadeOut])))
+            scrollLabel.run(SKAction.repeatForever(SKAction.sequence([fadeIn, SKAction.wait(forDuration: 1.0), fadeOut])))
+        }
+        
         standardLabel.position = CGPoint(x:self.frame.midX - 250, y: self.frame.midY+100); standardLabel.alpha = 0;
         babyLabel.position = CGPoint(x:self.frame.midX + 250, y: self.frame.midY+100); babyLabel.alpha = 0;
         warriorLabel.position = CGPoint(x:self.frame.midX, y: self.frame.midY+100); warriorLabel.alpha = 0;
@@ -81,10 +178,12 @@ class ThemeScene: SKScene {
         ballerLabel.text = "Baller"; greekLabel.text = "Greek";
         standardLabel.fontColor = SKColor.darkGray; babyLabel.fontColor = SKColor.darkGray; warriorLabel.fontColor = SKColor.darkGray;
         ballerLabel.fontColor = SKColor.darkGray; greekLabel.fontColor = SKColor.darkGray;
+        plainLabel.position = CGPoint(x:self.frame.midX + 250, y: self.frame.midY-250); plainLabel.alpha = 0;
+        plainLabel.text = "Plain"; plainLabel.fontColor = SKColor.darkGray;
         
         
-        self.addChild(babyLabel); self.addChild(warriorLabel); self.addChild(standardLabel)
-        self.addChild(ballerLabel); self.addChild(greekLabel);
+        page1ScrollView.addChild(babyLabel); page1ScrollView.addChild(warriorLabel); page1ScrollView.addChild(standardLabel)
+        page1ScrollView.addChild(ballerLabel); page1ScrollView.addChild(greekLabel); page1ScrollView.addChild(plainLabel)
         
         
         delay(1.0) {
@@ -93,6 +192,7 @@ class ThemeScene: SKScene {
             self.warriorLabel.run(fadeIn)
             self.ballerLabel.run(fadeIn)
             self.greekLabel.run(fadeIn)
+            self.plainLabel.run(fadeIn)
         }
         
         
@@ -102,15 +202,19 @@ class ThemeScene: SKScene {
         warriorImg.position = CGPoint(x: self.frame.midX, y:self.frame.midY+250);
         babyImg.position = CGPoint(x: self.frame.midX + 250, y:self.frame.midY+250);
         standardImg.position = CGPoint(x: self.frame.midX - 250, y:self.frame.midY+250);
-        self.addChild(warriorImg); self.addChild(standardImg); self.addChild(babyImg);
+        page1ScrollView.addChild(warriorImg); page1ScrollView.addChild(standardImg); page1ScrollView.addChild(babyImg);
         warriorImg.run(fadeIn); babyImg.run(fadeIn); standardImg.run(fadeIn)
         
         ballerImg.xScale = 0.9; ballerImg.yScale = 0.9; ballerImg.alpha = 0;
         greekImg.xScale = 0.9; greekImg.yScale = 0.9; greekImg.alpha = 0;
         ballerImg.position = CGPoint(x: self.frame.midX-250, y:self.frame.midY-100);
         greekImg.position = CGPoint(x: self.frame.midX, y:self.frame.midY-100);
-        self.addChild(ballerImg); self.addChild(greekImg);
+        page1ScrollView.addChild(ballerImg); page1ScrollView.addChild(greekImg);
         ballerImg.run(fadeIn); greekImg.run(fadeIn)
+        
+        plainImg.xScale = 0.9; plainImg.yScale = 0.9; plainImg.alpha = 0;
+        plainImg.position = CGPoint(x: self.frame.midX + 250, y:self.frame.midY-100)
+        page1ScrollView.addChild(plainImg); plainImg.run(fadeIn)
         
         
         lockWarrior.xScale = 0.9; lockWarrior.yScale = 0.9; lockWarrior.alpha = 0;
@@ -120,30 +224,42 @@ class ThemeScene: SKScene {
         lockWarrior.zPosition = 2; lockBaby.zPosition = 2;
         lockBaller.xScale = 0.9; lockBaller.yScale = 0.9; lockBaller.alpha = 0;
         lockGreek.xScale = 0.9; lockGreek.yScale = 0.9; lockGreek.alpha = 0;
+        lockPlain.xScale = 0.9; lockPlain.yScale = 0.9; lockPlain.alpha = 0;
         lockBaller.position = CGPoint(x: self.frame.midX-250, y:self.frame.midY-100);
         lockGreek.position = CGPoint(x: self.frame.midX, y:self.frame.midY-100);
-        lockBaller.zPosition = 2; lockGreek.zPosition = 2;
+        lockPlain.position = CGPoint(x: self.frame.midX+250, y:self.frame.midY-100);
+        lockBaller.zPosition = 2; lockGreek.zPosition = 2; lockPlain.zPosition = 2;
         
+        let staticLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName);
+        staticLabel.fontSize = 70; staticLabel.position = CGPoint(x: self.frame.midX - 180, y: self.frame.midY - 400)
+        staticLabel.fontColor = SKColor.darkGray; staticLabel.text = "selected: "; staticLabel.alpha = 0;
         
         Selected.fontSize = 70; Selected.alpha = 0; Selected.fontColor = UIColor.darkGray;
-        Selected.position = CGPoint(x: self.frame.midX, y: self.frame.midY - 400)
-        Selected.text = "Select a Theme"
+        Selected.position = CGPoint(x: self.frame.midX + 165, y: self.frame.midY - 400)
+        Selected.text = "NONE"
         updateSelected()
         
-        self.addChild(Selected)
-        Selected.run(fadeIn)
+        overlaySelected.position = CGPoint(x:self.frame.midX, y:self.frame.midY - 380)
+        overlaySelected.xScale = 1.55; overlaySelected.yScale = 0.45; overlaySelected.alpha = 0;
+        overlaySelected.zPosition = -1.5;
+        
+        self.addChild(Selected); self.addChild(overlaySelected); self.addChild(staticLabel)
+        Selected.run(fadeIn); overlaySelected.run(SKAction.fadeAlpha(to: 0.2, duration: 1)); staticLabel.run(fadeIn)
         
         lockedBaby = defaults.bool(forKey: "babyLock")
-        checkIfLocked(lockBaby, lock: lockedBaby)
+        checkIfLocked(lockBaby, lock: lockedBaby, page1ScrollView: page1ScrollView)
         
         lockedWarrior = defaults.bool(forKey: "warriorLock")
-        checkIfLocked(lockWarrior, lock: lockedWarrior)
+        checkIfLocked(lockWarrior, lock: lockedWarrior, page1ScrollView: page1ScrollView)
 
         lockedBaller = defaults.bool(forKey: "ballerLock")
-        checkIfLocked(lockBaller, lock: lockedBaller)
+        checkIfLocked(lockBaller, lock: lockedBaller, page1ScrollView: page1ScrollView)
         
         lockedGreek = defaults.bool(forKey: "greekLock")
-        checkIfLocked(lockGreek, lock: lockedGreek)
+        checkIfLocked(lockGreek, lock: lockedGreek, page1ScrollView: page1ScrollView)
+        
+        lockedPlain = defaults.bool(forKey: "plainLock")
+        checkIfLocked(lockPlain, lock: lockedPlain, page1ScrollView: page1ScrollView)
         
     }
     
@@ -157,6 +273,7 @@ class ThemeScene: SKScene {
             
             if node == backButton {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+                scrollView?.removeFromSuperview()
                 if let view = view {
                     let scene = SettingsScene(fileNamed: "SettingsScene")
                     let transition = SKTransition.crossFade(withDuration: 0.50)
@@ -186,13 +303,19 @@ class ThemeScene: SKScene {
             if node == ballerImg {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 defaults.set("baller", forKey: "theme")
-                babyLabel.fontColor = SKColor.white
+                ballerLabel.fontColor = SKColor.white
             }
             
             if node == greekImg {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 defaults.set("greek", forKey: "theme")
-                babyLabel.fontColor = SKColor.white
+                greekLabel.fontColor = SKColor.white
+            }
+            
+            if node == plainImg {
+                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+                defaults.set("plain", forKey: "theme")
+                plainLabel.fontColor = SKColor.white;
             }
             
             if node == lockWarrior {
@@ -211,6 +334,10 @@ class ThemeScene: SKScene {
                 fadeInfadeOut(unlock, textBecomes: "Req: High Score of 5 on \"Easy\"!")
             }
             
+            if node == lockPlain {
+                fadeInfadeOut(unlock, textBecomes: "Req: Play one multiplayer match!")
+            }
+            
         }
         
     }
@@ -221,31 +348,36 @@ class ThemeScene: SKScene {
             let node = self.atPoint(pos)
             
             if node == warriorImg {
-                warriorLabel.fontColor = SKColor.darkGray
                 updateSelected()
             }
             
             if node == standardImg {
-                standardLabel.fontColor = SKColor.darkGray
                 updateSelected()
             }
             
             if node == babyImg {
-                babyLabel.fontColor = SKColor.darkGray
                 updateSelected()
             }
             
             if node == greekImg {
-                greekLabel.fontColor = SKColor.darkGray
                 updateSelected()
             }
             
             if node == ballerImg {
-                ballerLabel.fontColor = SKColor.darkGray
                 updateSelected()
             }
             
-            updateSelected()
+            if node == plainImg {
+                updateSelected()
+            }
+            
+            warriorLabel.fontColor = SKColor.darkGray
+            standardLabel.fontColor = SKColor.darkGray
+            babyLabel.fontColor = SKColor.darkGray
+            greekLabel.fontColor = SKColor.darkGray
+            ballerLabel.fontColor = SKColor.darkGray
+            plainLabel.fontColor = SKColor.darkGray
+            
             
         }
         
@@ -261,15 +393,17 @@ class ThemeScene: SKScene {
     
     
     func updateSelected() {
+        Selected.run(titleChange)
         curTheme = defaults.string(forKey: "theme")
-        
-        Selected.text = curTheme!.capitalized + " theme selected"
+        delay(0.8) {
+            self.Selected.text = self.curTheme!.uppercased()
+        }
 
     }
     
-    func checkIfLocked(_ lockedItem: SKSpriteNode, lock: Bool) {
+    func checkIfLocked(_ lockedItem: SKSpriteNode, lock: Bool, page1ScrollView: SKSpriteNode) {
         if (lock == true) {
-            self.addChild(lockedItem)
+            page1ScrollView.addChild(lockedItem)
             lockedItem.run(fadeInQuick)
         }
     }

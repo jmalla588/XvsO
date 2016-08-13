@@ -25,6 +25,7 @@ class MenuScene: SKScene {
     var helpShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightBold).fontName)
     var redfx = SKEmitterNode(fileNamed: "TestParticle.sks")
     let fadeIn = SKAction.fadeAlpha(to: 1, duration: 1)
+    let fadeOut = SKAction.fadeAlpha(to: 0, duration: 1)
     var overlay1 = SKSpriteNode(imageNamed: "overlay")
     var overlay2 = SKSpriteNode(imageNamed: "overlay")
     var overlay3 = SKSpriteNode(imageNamed: "overlay")
@@ -32,6 +33,7 @@ class MenuScene: SKScene {
     var overlay5 = SKSpriteNode(imageNamed: "overlay")
     var gear = SKSpriteNode(imageNamed: "gear")
     var question = SKSpriteNode(imageNamed: "question")
+    let themeFlash = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
     
     let backAndForth = SKAction.repeatForever(SKAction.sequence([SKAction.scaleX(to: -0.2, duration: 0.5),
                                                                  SKAction.moveBy(x: -330, y: 0, duration: 1.5),
@@ -193,6 +195,17 @@ class MenuScene: SKScene {
         delay(0.4) {testPlayerO.run(self.wag)}
         delay(2.0) {testPlayerX.run(self.backAndForth); testPlayerO.run(self.forthAndBack)}
         
+        
+        //ADDS TEMPORARY FLASHING THEMES SIGN
+        themeFlash.position = CGPoint(x:gear.position.x, y: gear.position.y+75)
+        themeFlash.fontColor = SKColor.darkGray; themeFlash.text = "THEMES!";
+        themeFlash.alpha = 0; themeFlash.fontSize = 22;
+        
+        self.addChild(themeFlash);
+        themeFlash.run(fadeIn);
+        delay(1.0) {
+            self.themeFlash.run(SKAction.repeatForever(SKAction.sequence([self.fadeIn, SKAction.wait(forDuration: 1.0), self.fadeOut])))
+        }
         
         
         

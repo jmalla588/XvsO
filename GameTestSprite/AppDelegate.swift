@@ -28,7 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "babyLock" : true,
             "warriorLock" : true,
             "ballerLock" : true,
-            "greekLock" : true
+            "greekLock" : true,
+            "plainLock" : true,
+            "totalGamesSP" : 0,
+            "totalGamesMP" : 0
             ])
         
         

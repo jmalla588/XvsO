@@ -22,10 +22,14 @@ class CreditsScene: SKScene {
         self.addChild(bg)
         bg.zPosition = -2
         
-        let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
-        Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
-        Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
-        Title.text = "Credits"
+        let Title = SKSpriteNode(imageNamed: "creditsTitle")
+        Title.xScale = 3.0; Title.yScale = 3.0; Title.run(SKAction.colorize(with: SKColor.green, colorBlendFactor: 0.5, duration: 0))
+        Title.position = CGPoint(x:self.frame.midX, y:self.frame.midY + 500)
+        
+        //let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        //Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
+        //Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
+        //Title.text = "Credits"
         
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 1)
         self.addChild(Title)
