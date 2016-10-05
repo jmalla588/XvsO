@@ -599,7 +599,7 @@ class SettingsScene: SKScene, UITextFieldDelegate, GKGameCenterControllerDelegat
     }
     
     
-    func delay(_ delay:Double, closure:()->()) {
+    func delay(_ delay:Double, closure:@escaping ()->()) {
         let when = DispatchTime.now() + delay
         DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }

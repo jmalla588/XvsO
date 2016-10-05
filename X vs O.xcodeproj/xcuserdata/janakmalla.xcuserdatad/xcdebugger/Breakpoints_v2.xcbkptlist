@@ -138,22 +138,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GameTestSprite/GameScene.swift"
-            timestampString = "492688156.759545"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "899"
-            endingLineNumber = "899"
-            landmarkName = "saveHighscore(score:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GameTestSprite/GameScene.swift"
             timestampString = "492650865.975755"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -216,61 +200,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GameTestSprite/GameScene.swift"
-            timestampString = "492650865.975755"
+            filePath = "GameTestSprite/ThemeScene.swift"
+            timestampString = "492742169.447436"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
-            landmarkName = "playGame(_:self:)"
-            landmarkType = "9">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "X_vs_O.playGame (__C.CGPoint, self : X_vs_O.GameScene) -&gt; ()"
-                  moduleName = "X vs O"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/janakmalla/Documents/Swift%20Projects/GameTestSprite/GameTestSprite/GameScene.swift"
-                  timestampString = "492589073.952541"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "309"
-                  endingLineNumber = "309"
-                  offsetFromSymbolStart = "12256">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "X_vs_O.(playGame (__C.CGPoint, self : X_vs_O.GameScene) -&gt; ()).(implicit closure #10)"
-                  moduleName = "X vs O"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/janakmalla/Documents/Swift%20Projects/GameTestSprite/GameTestSprite/GameScene.swift"
-                  timestampString = "492589073.95502"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "309"
-                  endingLineNumber = "309"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "X_vs_O.(playGame (__C.CGPoint, self : X_vs_O.GameScene) -&gt; ()).(implicit closure #11)"
-                  moduleName = "X vs O"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/janakmalla/Documents/Swift%20Projects/GameTestSprite/GameTestSprite/GameScene.swift"
-                  timestampString = "492589073.958887"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "309"
-                  endingLineNumber = "309"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "didMove(to:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -279,12 +216,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GameTestSprite/ThemeScene.swift"
-            timestampString = "492742169.447436"
+            filePath = "TutorialScene.swift"
+            timestampString = "497217374.992706"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "didMove(to:)"
             landmarkType = "7">
          </BreakpointContent>

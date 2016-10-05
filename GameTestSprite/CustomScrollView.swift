@@ -36,15 +36,15 @@ class CustomScrollView: UIScrollView {
     
     // MARK: - Static Properties
 
-    private static var disabledTouches = false
-    private static var scrollView: UIScrollView?
+    fileprivate static var disabledTouches = false
+    fileprivate static var scrollView: UIScrollView?
     
     // MARK: - Properties
     
-    private var currentScene: SKScene?
-    private let moveableNode: SKNode
-    private let scrollDirection: ScrollDirection
-    private var nodesTouched = [AnyObject]() /// Nodes touched. This will forward touches to node subclasses.
+    fileprivate var currentScene: SKScene?
+    fileprivate let moveableNode: SKNode
+    fileprivate let scrollDirection: ScrollDirection
+    fileprivate var nodesTouched = [AnyObject]() /// Nodes touched. This will forward touches to node subclasses.
     
     // MARK: - Init
     
