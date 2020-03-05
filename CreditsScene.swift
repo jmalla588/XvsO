@@ -26,7 +26,7 @@ class CreditsScene: SKScene {
         Title.xScale = 3.0; Title.yScale = 3.0; Title.run(SKAction.colorize(with: SKColor.green, colorBlendFactor: 0.5, duration: 0))
         Title.position = CGPoint(x:self.frame.midX, y:self.frame.midY + 500)
         
-        //let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        //let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).familyName)
         //Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
         //Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
         //Title.text = "Credits"
@@ -41,18 +41,18 @@ class CreditsScene: SKScene {
         self.addChild(backButton)
         backButton.run(SKAction.fadeAlpha(to: 1, duration: 3))
         
-        let aCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        let aCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.light).familyName)
         aCredits.fontSize = 60; aCredits.alpha = 0; aCredits.fontColor = UIColor.darkGray;
         aCredits.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 450)
         aCredits.text = "Developed by: Janak Malla"
         
-        let bCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        let bCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.light).familyName)
         bCredits.fontSize = 60; bCredits.alpha = 0; bCredits.fontColor = UIColor.darkGray;
         bCredits.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 450)
         bCredits.text = "Artwork by: Janak Malla"
 
         
-        let cCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        let cCredits = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.light).familyName)
         cCredits.fontSize = 60; cCredits.alpha = 0; cCredits.fontColor = UIColor.darkGray;
         cCredits.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 450)
         cCredits.text = "Idea by: Romans, probably?"
@@ -88,7 +88,7 @@ class CreditsScene: SKScene {
                     let scene = MenuScene(fileNamed: "MenuScene")
                     //let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.75)
                     let transition = SKTransition.push(with: SKTransitionDirection.right, duration: 0.80)
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transition)
                 }
             }

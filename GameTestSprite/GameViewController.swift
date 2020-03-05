@@ -11,7 +11,7 @@ import SpriteKit
 import AVFoundation
 import GameKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, EGCDelegate {
     
     let defaults = UserDefaults.standard
     var backgroundMusicPlayer = AVAudioPlayer()
@@ -20,7 +20,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         //GAME CENTER STUFF
-        let localPlayer = GKLocalPlayer.localPlayer()
+        let localPlayer = GKLocalPlayer.local
         
         localPlayer.authenticateHandler = {(viewController, error) -> Void in
             
@@ -32,7 +32,15 @@ class GameViewController: UIViewController {
              //   println((GKLocalPlayer.localPlayer().authenticated))
             }
         }
+        
+        //automatically get the name of the game center authenticated player and set as player name
+        let player = EGC.localPlayer
+        if player.isAuthenticated {
+            
+            defaults.set(player.alias, forKey: "nameOne")
+        }
 
+        EGC.sharedInstance(self)
         
         if let scene = MenuScene(fileNamed:"MenuScene") {
             // Configure the view.
@@ -44,15 +52,7 @@ class GameViewController: UIViewController {
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .aspectFill
-            
-            let screenHeight = UIScreen.main.bounds.height
-            
-            if screenHeight == 768 {
-                scene.scaleMode = .aspectFit
-            }
-            
-            
+            scene.scaleMode = .aspectFit
             skView.presentScene(scene)
             
 
@@ -70,6 +70,8 @@ class GameViewController: UIViewController {
         } catch let error as NSError {
             print(error.description)
         }
+        
+        EGC.delegate = self
     }
     
     override var shouldAutorotate: Bool {

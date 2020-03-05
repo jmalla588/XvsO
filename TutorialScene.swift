@@ -45,7 +45,7 @@ class TutorialScene: SKScene {
         Title.xScale = 3.0; Title.yScale = 3.0; Title.run(SKAction.colorize(with: SKColor.green, colorBlendFactor: 0.5, duration: 0))
         Title.position = CGPoint(x:self.frame.midX, y:self.frame.midY + 500)
         
-        //Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        //Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).familyName)
         //Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
         //Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
         //Title.text = "Tutorial"
@@ -60,12 +60,12 @@ class TutorialScene: SKScene {
         self.addChild(backButton)
         backButton.run(SKAction.fadeAlpha(to: 1, duration: 3))
         
-        tut1 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        tut1 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.light).familyName)
         tut1.fontSize = 48; tut1.alpha = 0; tut1.fontColor = UIColor.darkGray;
         tut1.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 450)
         tut1.text = "Tap to place your piece on the board."
         
-        tut2 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        tut2 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.light).familyName)
         tut2.fontSize = 48; tut2.alpha = 0; tut2.fontColor = UIColor.darkGray;
         tut2.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 450)
         tut2.text = "Get 3 in a row to win!"
@@ -88,12 +88,12 @@ class TutorialScene: SKScene {
         
         fadeTut1(self, tut: tut1, img: map, piece1: x, piece2: o)
         
-        simple = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightRegular).fontName)
+        simple = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.regular).familyName)
         simple.fontSize = 48; simple.alpha = 0; simple.fontColor = UIColor.darkGray;
         simple.position = CGPoint(x:self.frame.midX, y: self.frame.midY + 200)
         simple.text = "Good job! Simple enough, right?"
         
-        shot = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightRegular).fontName)
+        shot = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.regular).familyName)
         shot.fontSize = 48; shot.alpha = 0; shot.fontColor = UIColor.darkGray;
         shot.position = CGPoint(x:self.frame.midX, y: self.frame.midY - 100)
         shot.text = "Go ahead and give it a shot!"
@@ -115,7 +115,7 @@ class TutorialScene: SKScene {
                     let scene = MenuScene(fileNamed: "MenuScene")
                     //let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.75)
                     let transition = SKTransition.push(with: SKTransitionDirection.right, duration: 0.80)
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transition)
                 }
             }

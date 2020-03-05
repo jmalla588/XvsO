@@ -11,7 +11,7 @@ import SpriteKit
 class ThemeScene: SKScene {
     
     //Scrollview
-    weak var scrollView: CustomScrollView!
+    var scrollView: CustomScrollView!
     let moveableNode = SKNode()
     
     
@@ -22,35 +22,35 @@ class ThemeScene: SKScene {
     var lockTree = SKSpriteNode()
     
     let standardImg = SKSpriteNode(imageNamed: "Xeyes")
-    let standardLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+    let standardLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.semibold).familyName)
     
     let warriorImg = SKSpriteNode(imageNamed: "Xwarrior")
-    let warriorLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+    let warriorLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.semibold).familyName)
     let lockWarrior = SKSpriteNode(imageNamed: "lockedItem")
     var lockedWarrior = Bool()
     
     let babyImg = SKSpriteNode(imageNamed: "Xbaby")
-    let babyLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+    let babyLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.semibold).familyName)
     let lockBaby = SKSpriteNode(imageNamed: "lockedItem")
     var lockedBaby = Bool()
     
     let ballerImg = SKSpriteNode(imageNamed: "Xballer")
-    let ballerLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+    let ballerLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.semibold).familyName)
     let lockBaller = SKSpriteNode(imageNamed: "lockedItem")
     var lockedBaller = Bool()
     
     let greekImg = SKSpriteNode(imageNamed: "Xgreek")
-    let greekLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+    let greekLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.semibold).familyName)
     let lockGreek = SKSpriteNode(imageNamed: "lockedItem")
     var lockedGreek = Bool()
     
     let plainImg = SKSpriteNode(imageNamed: "X")
-    let plainLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+    let plainLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.semibold).familyName)
     let lockPlain = SKSpriteNode(imageNamed: "lockedItem")
     var lockedPlain = Bool();
     
-    var unlock = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightBold).fontName)
-    var Selected = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightLight).fontName)
+    var unlock = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.bold).familyName)
+    var Selected = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.light).familyName)
     var overlaySelected = SKSpriteNode(imageNamed: "overlay")
     
     let fadeInQuick = SKAction.fadeIn(withDuration: 0.5)
@@ -100,7 +100,7 @@ class ThemeScene: SKScene {
         
         
         /// Test sprites page 2
-        let sprite1Page2 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+        let sprite1Page2 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.semibold).familyName)
         sprite1Page2.fontColor = SKColor.darkGray; sprite1Page2.fontSize = 60;
         sprite1Page2.text = "COMING SOON!"
         sprite1Page2.position = CGPoint(x: 0, y: 0)
@@ -108,7 +108,7 @@ class ThemeScene: SKScene {
         
         
         /// Test sprites page 3
-        let sprite1Page3 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+        let sprite1Page3 = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.semibold).familyName)
         sprite1Page3.fontColor = SKColor.darkGray; sprite1Page3.fontSize = 50;
         sprite1Page3.text = "Let me know if you have ideas!"
         sprite1Page3.position = CGPoint(x: 0, y: 0)
@@ -133,7 +133,7 @@ class ThemeScene: SKScene {
         
         
         
-        //let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        //let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).familyName)
         //Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
         //Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
         //Title.text = "Themes"
@@ -156,7 +156,7 @@ class ThemeScene: SKScene {
         scrollButton.xScale = -0.5; scrollButton.yScale = 0.5; scrollButton.alpha = 0;
         scrollButton.position = CGPoint(x:self.frame.midX + 275, y: self.frame.midY - 300)
         
-        let scrollLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 18, weight: UIFontWeightSemibold).fontName)
+        let scrollLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.semibold).familyName)
         scrollLabel.position = CGPoint(x:scrollButton.position.x, y: scrollButton.position.y+20)
         scrollLabel.fontColor = SKColor.darkGray; scrollLabel.text = "SCROLL";
         scrollLabel.alpha = 0; scrollLabel.fontSize = 18;
@@ -230,7 +230,7 @@ class ThemeScene: SKScene {
         lockPlain.position = CGPoint(x: self.frame.midX+250, y:self.frame.midY-100);
         lockBaller.zPosition = 2; lockGreek.zPosition = 2; lockPlain.zPosition = 2;
         
-        let staticLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName);
+        let staticLabel = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.semibold).familyName);
         staticLabel.fontSize = 70; staticLabel.position = CGPoint(x: self.frame.midX - 180, y: self.frame.midY - 400)
         staticLabel.fontColor = SKColor.darkGray; staticLabel.text = "selected: "; staticLabel.alpha = 0;
         
@@ -277,7 +277,7 @@ class ThemeScene: SKScene {
                 if let view = view {
                     let scene = SettingsScene(fileNamed: "SettingsScene")
                     let transition = SKTransition.crossFade(withDuration: 0.50)
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transition)
                 }
             }

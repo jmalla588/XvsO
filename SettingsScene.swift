@@ -14,36 +14,36 @@ class SettingsScene: SKScene, UITextFieldDelegate, GKGameCenterControllerDelegat
     let defaults = UserDefaults.standard
     
     var backButton = SKSpriteNode(imageNamed: "arrow")
-    var themes = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var pNames = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var diff = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var hs = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var themesShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var pNamesShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var diffShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var hsShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
+    var themes = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+    var pNames = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+    var diff = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+    var hs = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+    var themesShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+    var pNamesShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+    var diffShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+    var hsShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
     
     let diffTree = SKNode()
     let nameTree = SKNode()
     let themeTree = SKNode()
     let hsTree = SKNode()
     
-    var easy = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightSemibold).fontName)
-    var med = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightSemibold).fontName)
-    var hard = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightSemibold).fontName)
+    var easy = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFont.Weight.semibold).familyName)
+    var med = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFont.Weight.semibold).familyName)
+    var hard = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFont.Weight.semibold).familyName)
     let quickFadeOut = SKAction.fadeAlpha(to: 0, duration: 0.3)
     let quickFadeIn = SKAction.fadeAlpha(to: 1, duration: 0.3)
     let quickFadeInOverlay = SKAction.fadeAlpha(to: 0.2, duration: 0.3)
     
     var checkButton = SKSpriteNode(imageNamed: "checkGray")
-    var nameOne = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 80, weight: UIFontWeightLight).fontName)
-    var nameTwo = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 80, weight: UIFontWeightLight).fontName)
+    var nameOne = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 80, weight: UIFont.Weight.light).familyName)
+    var nameTwo = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 80, weight: UIFont.Weight.light).familyName)
     let nameOneField = UITextField()
     let nameTwoField = UITextField()
     
-    var easyHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightRegular).fontName)
-    var medHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightRegular).fontName)
-    var hardHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFontWeightRegular).fontName)
+    var easyHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFont.Weight.regular).familyName)
+    var medHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFont.Weight.regular).familyName)
+    var hardHS = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 40, weight: UIFont.Weight.regular).familyName)
     
     var diffFadeIn = Bool() //Fixes animation bug on quickly tapping diff->names
     
@@ -68,7 +68,7 @@ class SettingsScene: SKScene, UITextFieldDelegate, GKGameCenterControllerDelegat
         Title.xScale = 3.0; Title.yScale = 3.0; Title.run(SKAction.colorize(with: SKColor.green, colorBlendFactor: 0.5, duration: 0))
         Title.position = CGPoint(x:self.frame.midX, y:self.frame.midY + 500)
         
-        //let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).fontName)
+        //let Title = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFontWeightLight).familyName)
         //Title.fontSize = 200; Title.alpha = 0; Title.fontColor = UIColor.darkGray;
         //Title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 400)
         //Title.text = "Settings"
@@ -171,8 +171,8 @@ class SettingsScene: SKScene, UITextFieldDelegate, GKGameCenterControllerDelegat
         nameTwoField.frame = CGRect(x:self.frame.midX+200, y:self.frame.midY+395, width:150, height:60)
         nameOneField.backgroundColor = SKColor.lightGray
         nameTwoField.backgroundColor = SKColor.lightGray
-        nameOneField.borderStyle = UITextBorderStyle.roundedRect
-        nameTwoField.borderStyle = UITextBorderStyle.roundedRect
+        nameOneField.borderStyle = UITextField.BorderStyle.roundedRect
+        nameTwoField.borderStyle = UITextField.BorderStyle.roundedRect
         nameOneField.textColor = SKColor.red
         nameTwoField.textColor = SKColor.blue
         nameOneField.autocorrectionType = UITextAutocorrectionType.no
@@ -182,8 +182,8 @@ class SettingsScene: SKScene, UITextFieldDelegate, GKGameCenterControllerDelegat
         
         let lightRed = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
         let lightBlue = SKColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.2)
-        let p1 = NSAttributedString(string: "Player 1", attributes: [NSForegroundColorAttributeName:lightRed])
-        let p2 = NSAttributedString(string: "Player 2", attributes: [NSForegroundColorAttributeName:lightBlue])
+        let p1 = NSAttributedString(string: "Player 1", attributes: [NSAttributedString.Key.foregroundColor:lightRed])
+        let p2 = NSAttributedString(string: "Player 2", attributes: [NSAttributedString.Key.foregroundColor:lightBlue])
         nameOneField.attributedPlaceholder = p1
         nameTwoField.attributedPlaceholder = p2
         nameOneField.text = defaults.string(forKey: "nameOne")
@@ -256,11 +256,11 @@ class SettingsScene: SKScene, UITextFieldDelegate, GKGameCenterControllerDelegat
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currCharCount = textField.text?.characters.count ?? 0
+        let currCharCount = textField.text?.count ?? 0
         if (range.length + range.location > currCharCount){
             return false
         }
-        let newLength = currCharCount + string.characters.count - range.length
+        let newLength = currCharCount + string.count - range.length
         return newLength <= 8
     }
     
@@ -279,7 +279,7 @@ class SettingsScene: SKScene, UITextFieldDelegate, GKGameCenterControllerDelegat
                     let scene = MenuScene(fileNamed: "MenuScene")
                     //let transition = SKTransition.doorsCloseHorizontal(withDuration: 0.75)
                     let transition = SKTransition.push(with: SKTransitionDirection.right, duration: 0.80)
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transition)
                 }
             }
@@ -356,7 +356,7 @@ class SettingsScene: SKScene, UITextFieldDelegate, GKGameCenterControllerDelegat
                 if let view = view {
                     let scene = ThemeScene(fileNamed: "ThemeScene")
                     let transition = SKTransition.crossFade(withDuration: 0.50)
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transition)
                 }
             }
@@ -375,7 +375,7 @@ class SettingsScene: SKScene, UITextFieldDelegate, GKGameCenterControllerDelegat
             
             if node == hs {
                 hs.fontColor = UIColor.darkGray
-                if GKLocalPlayer.localPlayer().isAuthenticated {
+                if GKLocalPlayer.local.isAuthenticated {
                     let vc = self.view?.window?.rootViewController
                     let gc = GKGameCenterViewController()
                     gc.viewState = GKGameCenterViewControllerState.leaderboards;

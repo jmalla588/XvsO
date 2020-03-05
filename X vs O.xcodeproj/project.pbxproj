@@ -31,6 +31,9 @@
 		D694C38B1D4348DC002AE9F8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D694C38A1D4348DC002AE9F8 /* GameScene.sks */; };
 		D694C3981D436804002AE9F8 /* O.wav in Resources */ = {isa = PBXBuildFile; fileRef = D694C3961D436804002AE9F8 /* O.wav */; };
 		D694C3991D436804002AE9F8 /* X.wav in Resources */ = {isa = PBXBuildFile; fileRef = D694C3971D436804002AE9F8 /* X.wav */; };
+		D6D1D0741EE8C5DE00DFEE02 /* OnlineScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D1D0731EE8C5DE00DFEE02 /* OnlineScene.swift */; };
+		D6D1D0781EEA159600DFEE02 /* EasyGameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D1D0771EEA159600DFEE02 /* EasyGameCenter.swift */; };
+		D6D1D07A1EEA15EB00DFEE02 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D1D0791EEA15EB00DFEE02 /* SystemConfiguration.framework */; };
 		D6F1A9401D44D255007D3A88 /* bg.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6F1A93F1D44D255007D3A88 /* bg.wav */; };
 		D6F1A9421D44E043007D3A88 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6F1A9411D44E043007D3A88 /* click.wav */; };
 		D6F4789C1D5D20EE00CA2EEA /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = D6F4789B1D5D20EE00CA2EEA /* win.wav */; };
@@ -87,6 +90,9 @@
 		D694C38A1D4348DC002AE9F8 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		D694C3961D436804002AE9F8 /* O.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = O.wav; sourceTree = "<group>"; };
 		D694C3971D436804002AE9F8 /* X.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = X.wav; sourceTree = "<group>"; };
+		D6D1D0731EE8C5DE00DFEE02 /* OnlineScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineScene.swift; sourceTree = "<group>"; };
+		D6D1D0771EEA159600DFEE02 /* EasyGameCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyGameCenter.swift; sourceTree = "<group>"; };
+		D6D1D0791EEA15EB00DFEE02 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D6F1A93F1D44D255007D3A88 /* bg.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bg.wav; sourceTree = "<group>"; };
 		D6F1A9411D44E043007D3A88 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		D6F4789B1D5D20EE00CA2EEA /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
@@ -100,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6D1D07A1EEA15EB00DFEE02 /* SystemConfiguration.framework in Frameworks */,
 				D64553311D5ADE1E004D4ACA /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +131,7 @@
 		D645532F1D5ADE1E004D4ACA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D6D1D0791EEA15EB00DFEE02 /* SystemConfiguration.framework */,
 				D64553301D5ADE1E004D4ACA /* GameKit.framework */,
 			);
 			name = Frameworks;
@@ -155,10 +163,12 @@
 			isa = PBXGroup;
 			children = (
 				D654DB571D10E8DE00CE3485 /* AppDelegate.swift */,
+				D6D1D0771EEA159600DFEE02 /* EasyGameCenter.swift */,
 				D6F4789F1D5D366100CA2EEA /* CustomScrollView.swift */,
 				D6332F011D24723C00EA8367 /* TestParticle.sks */,
 				D6332F021D24723C00EA8367 /* spark.png */,
 				D68549AC1D1396F000F44353 /* MenuScene.swift */,
+				D6D1D0731EE8C5DE00DFEE02 /* OnlineScene.swift */,
 				D654DB5B1D10E8DE00CE3485 /* GameScene.swift */,
 				D658F58F1D15221700E602F0 /* CreditsScene.swift */,
 				D658F5911D15481700E602F0 /* SettingsScene.swift */,
@@ -282,14 +292,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Janak Malla";
 				TargetAttributes = {
 					D654DB531D10E8DE00CE3485 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = LG9F9UCJZ5;
 						DevelopmentTeamName = "Janak Malla";
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1130;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 1;
@@ -299,20 +309,20 @@
 					D654DB6B1D10E8DE00CE3485 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = L25F4GYLCH;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1130;
 						TestTargetID = D654DB531D10E8DE00CE3485;
 					};
 					D654DB761D10E8DE00CE3485 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = L25F4GYLCH;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1130;
 						TestTargetID = D654DB531D10E8DE00CE3485;
 					};
 				};
 			};
 			buildConfigurationList = D654DB4F1D10E8DE00CE3485 /* Build configuration list for PBXProject "X vs O" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -382,7 +392,9 @@
 				D68549AD1D1396F000F44353 /* MenuScene.swift in Sources */,
 				D658F5981D15B2E700E602F0 /* TutorialScene.swift in Sources */,
 				D64E4F0C1D46B7CB007E806E /* ThemeScene.swift in Sources */,
+				D6D1D0741EE8C5DE00DFEE02 /* OnlineScene.swift in Sources */,
 				D6F478A01D5D366100CA2EEA /* CustomScrollView.swift in Sources */,
+				D6D1D0781EEA159600DFEE02 /* EasyGameCenter.swift in Sources */,
 				D658F5921D15481700E602F0 /* SettingsScene.swift in Sources */,
 				D654DB5E1D10E8DE00CE3485 /* GameViewController.swift in Sources */,
 				D654DB581D10E8DE00CE3485 /* AppDelegate.swift in Sources */,
@@ -444,18 +456,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -477,7 +500,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -490,18 +513,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -517,7 +551,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -535,7 +569,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MallaInc.XvsO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -551,7 +586,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.MallaInc.XvsO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -565,7 +601,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MallaInc.GameTestSpriteTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/X vs O.app/X vs O";
 			};
 			name = Debug;
@@ -579,7 +616,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = MallaInc.GameTestSpriteTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/X vs O.app/X vs O";
 			};
 			name = Release;
@@ -592,7 +630,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MallaInc.GameTestSpriteUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = GameTestSprite;
 			};
 			name = Debug;
@@ -605,7 +644,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = MallaInc.GameTestSpriteUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = GameTestSprite;
 			};
 			name = Release;

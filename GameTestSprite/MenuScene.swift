@@ -13,16 +13,18 @@ import GameKit
 
 class MenuScene: SKScene {
     
-    var sPlayer = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var mPlayer = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var settings = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightBold).fontName)
-    var credits = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightBold).fontName)
-    var help = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightBold).fontName)
-    var sPlayerShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var mPlayerShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightSemibold).fontName)
-    var settingsShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightBold).fontName)
-    var creditsShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightBold).fontName)
-    var helpShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFontWeightBold).fontName)
+    var sPlayer = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: .bold).familyName)
+    var mPlayer = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+//    var onlinePlay = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+    var settings = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.bold).familyName)
+    var credits = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.bold).familyName)
+    var help = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.bold).familyName)
+    var sPlayerShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+    var mPlayerShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+//    var onlinePlayShadow = SKLabelNode (fontNamed: UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.semibold).familyName)
+    var settingsShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.bold).familyName)
+    var creditsShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.bold).familyName)
+    var helpShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 100, weight: UIFont.Weight.bold).familyName)
     var redfx = SKEmitterNode(fileNamed: "TestParticle.sks")
     let fadeIn = SKAction.fadeAlpha(to: 1, duration: 1)
     let fadeOut = SKAction.fadeAlpha(to: 0, duration: 1)
@@ -31,9 +33,10 @@ class MenuScene: SKScene {
     var overlay3 = SKSpriteNode(imageNamed: "overlay")
     var overlay4 = SKSpriteNode(imageNamed: "overlay")
     var overlay5 = SKSpriteNode(imageNamed: "overlay")
+//    var overlay6 = SKSpriteNode(imageNamed: "overlay")
     var gear = SKSpriteNode(imageNamed: "gear")
     var question = SKSpriteNode(imageNamed: "question")
-    let themeFlash = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFontWeightSemibold).fontName)
+    let themeFlash = SKLabelNode(fontNamed: UIFont.systemFont(ofSize: 70, weight: UIFont.Weight.semibold).familyName)
     
     let backAndForth = SKAction.repeatForever(SKAction.sequence([SKAction.scaleX(to: -0.2, duration: 0.5),
                                                                  SKAction.moveBy(x: -330, y: 0, duration: 1.5),
@@ -125,12 +128,15 @@ class MenuScene: SKScene {
         self.addChild(bg)
         bg.zPosition = -2
         
-        
         //SETS UP ALL LABELS
         sPlayer = setUpLabel(sPlayer, nameOfLabel: "1", withText: "SINGLE PLAYER",
                              isShadow: false, location: CGPoint(x:self.frame.midX, y:self.frame.midY), sizeOfFont: 80)
         mPlayer = setUpLabel(mPlayer, nameOfLabel: "2", withText: "MULTIPLAYER",
                              isShadow: false, location: CGPoint(x:self.frame.midX, y:(self.frame.midY)-150), sizeOfFont: 80)
+        //if GKLocalPlayer.localPlayer().isAuthenticated {
+//            onlinePlay = setUpLabel(onlinePlay, nameOfLabel: "3", withText: "PLAY ONLINE",
+//                                isShadow: false, location:CGPoint(x:self.frame.midX, y:(self.frame.midY)-300), sizeOfFont: 80)
+        //}
         settings = setUpLabel(settings, nameOfLabel: "settings", withText: "SETTINGS",
                               isShadow: false, location: CGPoint(x:self.frame.midX + 285, y:(self.frame.midY)-637), sizeOfFont: 30)
         help = setUpLabel(help, nameOfLabel: "help", withText: "TUTORIAL",
@@ -146,6 +152,10 @@ class MenuScene: SKScene {
                                    isShadow: true, location: CGPoint(x: self.frame.midX+2, y: self.frame.midY-2), sizeOfFont: 80)
         mPlayerShadow = setUpLabel(mPlayerShadow, nameOfLabel: "2shadow", withText: "MULTIPLAYER",
                                    isShadow: true, location: CGPoint(x: self.frame.midX+2, y: self.frame.midY-152), sizeOfFont: 80)
+        //if GKLocalPlayer.localPlayer().isAuthenticated {
+//            onlinePlayShadow = setUpLabel(onlinePlayShadow, nameOfLabel: "3shadow", withText: "PLAY ONLINE",
+//                                isShadow: true, location:CGPoint(x:self.frame.midX+2, y:(self.frame.midY)-302), sizeOfFont: 80)
+        //}
         settingsShadow = setUpLabel(settingsShadow, nameOfLabel: "settingsshadow", withText: "SETTINGS",
                                     isShadow: true, location: CGPoint(x:self.frame.midX + 286, y:(self.frame.midY)-638), sizeOfFont: 30)
         helpShadow = setUpLabel(helpShadow, nameOfLabel: "helpshadow", withText: "TUTORIAL",
@@ -176,6 +186,11 @@ class MenuScene: SKScene {
         overlay5.xScale = 0.37; overlay5.yScale = 0.15; overlay5.alpha = 0;
         self.addChild(overlay5); overlay5.run(SKAction.fadeAlpha(to: 0.2, duration: 1.0))
         
+        //if GKLocalPlayer.localPlayer().isAuthenticated {
+//            overlay6.position = CGPoint(x: self.frame.midX, y: self.frame.midY-280); overlay6.zPosition = 0.5;
+//            overlay6.xScale = 1.35; overlay6.yScale = 0.45; overlay6.alpha = 0;
+//            self.addChild(overlay6); overlay6.run(SKAction.fadeAlpha(to: 0.2, duration: 1.0))
+        //}
         
         //ADDS ANIMATED MENU SPRITES
         gear.position = CGPoint(x:self.frame.midX + 285, y: self.frame.midY-560);
@@ -213,6 +228,7 @@ class MenuScene: SKScene {
         redfx?.position = CGPoint(x: self.frame.midX, y: self.frame.midY+525)
         redfx?.particleAlpha = 0; delay(1.0){self.addChild(self.redfx!); self.redfx?.run(self.fadeIn)}; redfx?.particleZPosition = 1
         
+        
     }
         
     
@@ -237,6 +253,13 @@ class MenuScene: SKScene {
                 overlay2.run(SKAction.scaleX(to: 1.45, duration: 0.3))
                 overlay2.run(SKAction.scaleY(to: 0.55, duration: 0.3))
                 }
+//            if node == onlinePlay {
+//                onlinePlay.fontColor = UIColor.lightGray
+//                self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
+//                defaults.set(2, forKey: "gametype")
+//                overlay6.run(SKAction.scaleX(to: 1.45, duration: 0.3))
+//                overlay6.run(SKAction.scaleY(to: 0.55, duration: 0.3))
+//            }
             if node == settings {
                 settings.fontColor = UIColor.lightGray
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
@@ -308,7 +331,7 @@ class MenuScene: SKScene {
             if node == sPlayer {
                 if let view = view {
                     let scene = GameScene(fileNamed:"GameScene")
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transitionLeft)
                 }
             }
@@ -316,15 +339,23 @@ class MenuScene: SKScene {
             if node == mPlayer {
                 if let view = view {
                     let scene = GameScene(fileNamed:"GameScene")
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transitionLeft)
                 }
             }
             
+//            if node == onlinePlay {
+//                if let view = view {
+//                    let scene = OnlineScene(fileNamed:"GameScene")
+//                    scene?.scaleMode = SKSceneScaleMode.fill
+//                    view.presentScene(scene!, transition: transitionLeft)
+//                }
+//            }
+            
             if node == settings {
                 if let view = view {
                     let scene = SettingsScene(fileNamed: "SettingsScene")
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transitionRight)
                 }
             }
@@ -332,7 +363,7 @@ class MenuScene: SKScene {
             if node == gear {
                 if let view = view {
                     let scene = SettingsScene(fileNamed: "SettingsScene")
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transitionRight)
                 }
             }
@@ -341,7 +372,7 @@ class MenuScene: SKScene {
             if node == credits {
                 if let view = view {
                     let scene = CreditsScene(fileNamed: "CreditsScene")
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transitionRight)
                 }
             }
@@ -350,7 +381,7 @@ class MenuScene: SKScene {
                 self.run(SKAction.playSoundFileNamed("click.wav", waitForCompletion: false))
                 if let view = view {
                     let scene = TutorialScene(fileNamed: "TutorialScene")
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transitionRight)
                 }
             }
@@ -358,7 +389,7 @@ class MenuScene: SKScene {
             if node == question {
                 if let view = view {
                     let scene = TutorialScene(fileNamed: "TutorialScene")
-                    scene?.scaleMode = SKSceneScaleMode.aspectFill
+                    scene?.scaleMode = SKSceneScaleMode.fill
                     view.presentScene(scene!, transition: transitionRight)
                 }
             }
@@ -375,11 +406,14 @@ class MenuScene: SKScene {
             overlay4.run(SKAction.scaleY(to: 0.65, duration: 0.3))
             overlay5.run(SKAction.scaleX(to: 0.37, duration: 0.3))
             overlay5.run(SKAction.scaleY(to: 0.15, duration: 0.3))
+//            overlay6.run(SKAction.scaleX(to: 1.35, duration: 0.3))
+//            overlay6.run(SKAction.scaleY(to: 0.45, duration: 0.3))
             sPlayer.fontColor = UIColor.darkGray
             mPlayer.fontColor = UIColor.darkGray
             settings.fontColor = UIColor.darkGray
             credits.fontColor = UIColor.darkGray
             help.fontColor = UIColor.darkGray
+//            onlinePlay.fontColor = UIColor.darkGray
             
         }
     }

@@ -1,49 +1,49 @@
 //
-//  GameScene.swift
+//  OnlineScene.swift
 //  GameTestSprite
 //
-//  Created by Janak Malla on 6/14/16.
+//  Created by Janak Malla on 6/7/17.
 //  Copyright (c) 2016 Janak Malla. All rights reserved.
 //
 
 import SpriteKit
 import GameKit
 
-var turn = 0
-var isX = true
-var gameOver = Bool()
-let Title = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 60, weight: UIFont.Weight.semibold).familyName)
-let TitleShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 60, weight: UIFont.Weight.semibold).familyName)
-let defaults = UserDefaults.standard
-var myArr = [Int](repeating: 0, count: 9)
-let fadeIn = SKAction.fadeIn(withDuration: 1)
-let fadeOut = SKAction.fadeOut(withDuration: 1)
-let wait = SKAction.wait(forDuration: 1)
-let waitTiny = SKAction.wait(forDuration:0.1)
-let delayTimeHalf = DispatchTime.now() + 1.0
-var gameType = defaults.integer(forKey: "gametype")
-var difficulty = defaults.string(forKey: "difficulty")
-var p1Key = defaults.string(forKey: "nameOne")
-var p2Key = defaults.string(forKey: "nameTwo")
-var score1 = 0
-var score2 = 0
-var totalGamesSP = defaults.integer(forKey: "totalGamesSP")
-var totalGamesMP = defaults.integer(forKey: "totalGamesMP")
-var hsEasy: Int?
-var hsMedium: Int?
-var hsHard: Int?
-var theme: String?
-var scoreOneLabel = SKLabelNode();
-var scoreTwoLabel = SKLabelNode();
-var scoreOneLabelShadow = SKLabelNode();
-var scoreTwoLabelShadow = SKLabelNode();
-var x = SKSpriteNode();
-var o = SKSpriteNode();
-var winner = 0;
-let wag = SKAction.repeatForever(SKAction.sequence([SKAction.rotate(byAngle: 0.2, duration: 0.3),
-                                                    SKAction.rotate(byAngle: -0.4, duration: 0.6),
-                                                    SKAction.rotate(byAngle: 0.2, duration: 0.3)]))
-let titleChange = SKAction.sequence([SKAction.scale(to: 1.1, duration: 0.2), SKAction.scale(to: 0.05, duration: 0.5), SKAction.wait(forDuration: 0.2), SKAction.scale(to: 1.1, duration: 0.5), SKAction.scale(to: 1.0, duration: 0.1)])
+//var turn = 0
+var myTurn = true
+//var gameOver = Bool()
+//let Title = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 60, weight: UIFontWeightSemibold).fontName)
+//let TitleShadow = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 60, weight: UIFontWeightSemibold).fontName)
+//defaults = UserDefaults.standard
+//var myArr = [Int](repeating: 0, count: 9)
+//let fadeIn = SKAction.fadeIn(withDuration: 1)
+//let fadeOut = SKAction.fadeOut(withDuration: 1)
+//let wait = SKAction.wait(forDuration: 1)
+//let waitTiny = SKAction.wait(forDuration:0.1)
+//let delayTimeHalf = DispatchTime.now() + 1.0
+//var gameType = defaults.integer(forKey: "gametype")
+//var difficulty = defaults.string(forKey: "difficulty")
+//var p1Key = defaults.string(forKey: "nameOne")
+//var p2Key = defaults.string(forKey: "nameTwo")
+//var score1 = 0
+//var score2 = 0
+//var totalGamesSP = defaults.integer(forKey: "totalGamesSP")
+//var totalGamesMP = defaults.integer(forKey: "totalGamesMP")
+//var hsEasy: Int?
+//var hsMedium: Int?
+//var hsHard: Int?
+//var theme: String?
+//var scoreOneLabel = SKLabelNode();
+//var scoreTwoLabel = SKLabelNode();
+//var scoreOneLabelShadow = SKLabelNode();
+//var scoreTwoLabelShadow = SKLabelNode();
+//var x = SKSpriteNode();
+//var o = SKSpriteNode();
+//var winner = 0;
+//let wag = SKAction.repeatForever(SKAction.sequence([SKAction.rotate(byAngle: 0.2, duration: 0.3),
+//                                                    SKAction.rotate(byAngle: -0.4, duration: 0.6),
+//                                                    SKAction.rotate(byAngle: 0.2, duration: 0.3)]))
+//let titleChange = SKAction.sequence([SKAction.scale(to: 1.1, duration: 0.2), SKAction.scale(to: 0.05, duration: 0.5), SKAction.wait(forDuration: 0.2), SKAction.scale(to: 1.1, duration: 0.5), SKAction.scale(to: 1.0, duration: 0.1)])
 
 
 /* Create a 9 member array, to match with each spot in the hash table. e.g:
@@ -54,19 +54,30 @@ let titleChange = SKAction.sequence([SKAction.scale(to: 1.1, duration: 0.2), SKA
  -------------------
  6   |   7   |   8         0 = empty, 1 = x, 2 = o     */
 
-class GameScene: SKScene {
+class OnlineScene: SKScene {
     override func didMove(to view: SKView) {
+        
+        EGC.findMatchWithMinPlayers(2, maxPlayers: 2)
+        
+        turn = 0
+        myTurn = true
+        gameOver = Bool()
+
+        //shared array needs to be passed back and forth
+        myArr = [Int](repeating: 0, count: 9)
+        
+        
         //CALLS RESTART
         score1 = 0;
         score2 = 0;
-      //  isX = true;
+        //  myTurn = true;
         theme = defaults.string(forKey: "theme")
         
         restart(self)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       /* Called when a touch begins */
+        /* Called when a touch begins */
         
         for touch in touches {
             
@@ -76,7 +87,7 @@ class GameScene: SKScene {
         }
     }
     
-   
+    
     override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
     }
@@ -85,7 +96,7 @@ class GameScene: SKScene {
 
 
 //PLAYS GAME
-func playGame(_ location: CGPoint, self: GameScene) {
+func playGame(_ location: CGPoint, self: OnlineScene) {
     let touchedNode = self.atPoint(location)
     
     if let name = touchedNode.name {
@@ -114,133 +125,15 @@ func playGame(_ location: CGPoint, self: GameScene) {
     sprite.position = location
     winner = 0
     
-    //FIGURES OUT TURN AND SETS BOOL isX T/F
-    isX = findTurnModifySprite(turn, sprite: sprite)
+    //FIGURES OUT TURN AND SETS BOOL myTurn T/F
+    myTurn = findTurnModifySprite(turn, sprite: sprite)
     
     
     
     //GETS COLUMN AND ROW OF TOUCH INPUT
-    var col = getColumn(location, self: self)
-    var row = getRow(location, self: self)
+    let col = getColumn(location, self: self)
+    let row = getRow(location, self: self)
     
-    
-    //SINGLE PLAYER MODE
-    if (gameType == 1 && !isX){
-        var cont = false
-        if gameOver == false {cont = true}
-        
-        //EASY DIFFICULTY
-        if difficulty == "easy" {
-            while(cont) {
-                let i = Int(arc4random_uniform(9))
-                if myArr[i] == 0 {
-                    col = getColFromArray(i)
-                    row = getRowFromArray(i)
-                    cont = false
-                }
-            }
-        }
-        
-        //MEDIUM DIFFICULTY
-        medlabel: if difficulty == "medium" {
-            var i = 4;
-            var winturn = Bool();
-            var cont = true;
-            
-            for a in 0...8 {
-                if (myArr[a] == 0) {
-                    myArr[a] = 2
-                    let prewin = checkForWin(myArr)
-                    if (prewin == 0) {myArr[a] = 0; winturn = false}
-                    else {myArr[a] = 0; i = a; winturn = true; break;}
-                }
-            }
-            
-            if (winturn) {
-                col = getColFromArray(i)
-                row = getRowFromArray(i)
-                break medlabel;
-            }
-            
-            //PREFER CENTER
-            if myArr[4] == 0 {
-                col = getColFromArray(4)
-                row = getRowFromArray(4)
-                break medlabel;
-            }
-            
-            while(cont) {
-                let i = Int(arc4random_uniform(9))
-                if myArr[i] == 0 {
-                    col = getColFromArray(i)
-                    row = getRowFromArray(i)
-                    cont = false
-                }
-            }
-            
-        }
-        
-        //HARD DIFFICULTY
-        hardlabel: if difficulty == "hard" {
-            var i = 4;
-            var winturn = Bool();
-            var loseturn = Bool();
-            
-            //CHECK FOR EASY WIN
-            for a in 0...8 {
-                if (myArr[a] == 0) {
-                    myArr[a] = 2
-                    let prewin = checkForWin(myArr)
-                    if (prewin == 0) {myArr[a] = 0; winturn = false}
-                    else {myArr[a] = 0; i = a; winturn = true;
-                        break;
-                    }
-                }
-            }
-            if (winturn) {
-                col = getColFromArray(i)
-                row = getRowFromArray(i)
-                break hardlabel;
-            }
-            
-            //CHECK FOR EASY BLOCK
-            for a in 0...8 {
-                if (myArr[a] == 0) {
-                    myArr[a] = 1
-                    let prewin = checkForWin(myArr)
-                    if (prewin == 0) {myArr[a] = 0; loseturn = false}
-                    else {myArr[a] = 0; i = a; loseturn = true;
-                        break;
-                    }
-                }
-            }
-            if (loseturn) {
-                col = getColFromArray(i)
-                row = getRowFromArray(i)
-                break hardlabel;
-            }
-            
-            
-            
-            //PREFER CENTER
-            if myArr[4] == 0 {
-                col = getColFromArray(4)
-                row = getRowFromArray(4)
-                break hardlabel;
-            }
-            
-            
-            while(cont) {
-                let i = Int(arc4random_uniform(9))
-                if myArr[i] == 0 {
-                    col = getColFromArray(i)
-                    row = getRowFromArray(i)
-                    cont = false
-                }
-            }
-        }
-        
-    }
     
     //STOPS IF TOUCH WAS IN AN INVALID LOCATION
     if (col == -1 || row == -1 || gameOver == true) {return}
@@ -266,10 +159,11 @@ func playGame(_ location: CGPoint, self: GameScene) {
     
     //ADD APPROPRIATE PLAYER VALUE TO ARRAY
     
-    if (isX)    {myArr[((3*row) + col)] = 1
+    if (myTurn)    {myArr[((3*row) + col)] = 1
         self.run(SKAction.playSoundFileNamed("X.wav", waitForCompletion: false))
+        
     }
-    if (!isX)   {myArr[((3*row) + col)] = 2
+    if (!myTurn)   {myArr[((3*row) + col)] = 2
         self.run(SKAction.playSoundFileNamed("O.wav", waitForCompletion: false))
     }
     
@@ -343,9 +237,9 @@ func playGame(_ location: CGPoint, self: GameScene) {
                 self.run(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
             }
         }
-
+        
     }
-    
+        
     else if (checkForDraw(myArr)){
         
         //RUN DRAW GAME SCENARIO
@@ -368,34 +262,34 @@ func playGame(_ location: CGPoint, self: GameScene) {
     
     
     //ALLOWS COMPUTER TO AUTOMATICALLY MOVE
-    if (gameType == 1 && isX) {
+    if (gameType == 1 && myTurn) {
         delay(0.6){
             playGame(location, self: self)
         }
     }
-
+    
 }
 
 //INCREASES GAMECOUNT
-func countTotalGames() {
-    if (gameType == 1) {
-        totalGamesSP += 1;
-        defaults.set(totalGamesSP, forKey: "totalGamesSP")
-    }
-    if (gameType == 2) {
-        totalGamesMP += 1;
-        defaults.set(totalGamesMP, forKey: "totalGamesMP")
-    }
-}
+//func countTotalGames() {
+//    if (gameType == 1) {
+//        totalGamesSP += 1;
+//        defaults.set(totalGamesSP, forKey: "totalGamesSP")
+//    }
+//    if (gameType == 2) {
+//        totalGamesMP += 1;
+//        defaults.set(totalGamesMP, forKey: "totalGamesMP")
+//    }
+//}
 
 
 //ANIMATES PLAYER INDICATOR
-func checkIndicator(_ self: GameScene, winner: Int, restart: Bool) {
+func checkIndicator(_ self: OnlineScene, winner: Int, restart: Bool) {
     let scaleUp = SKAction.scale(to: 0.25, duration: 0.2)
     let scaleDown = SKAction.scale(to: 0.1, duration: 0.2)
     var tempBool = Bool()
-
-    if restart {tempBool = !isX} else {tempBool = isX}
+    
+    if restart {tempBool = !myTurn} else {tempBool = myTurn}
     
     if (!tempBool && winner == 0) {
         x.run(scaleUp); o.run(scaleDown)
@@ -406,14 +300,14 @@ func checkIndicator(_ self: GameScene, winner: Int, restart: Bool) {
 
 
 //SIMPLE DELAY FUNCTION
-func delay(_ delay:Double, closure:@escaping ()->()) {
-    let when = DispatchTime.now() + delay
-    DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
-}
+//func delay(_ delay:Double, closure:@escaping ()->()) {
+//    let when = DispatchTime.now() + delay
+//    DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
+//}
 
 
 //SETS UP RETRY BUTTON
-func setupRetryButton(_ retry: SKSpriteNode, self: GameScene) {
+func setupRetryButton(_ retry: SKSpriteNode, self: OnlineScene) {
     
     retry.position = CGPoint(x: self.frame.midX*1.335, y: self.frame.midY*0.15)
     retry.alpha = 0.0; retry.xScale = 0.6; retry.yScale = 0.6; retry.name = "retry"
@@ -422,32 +316,32 @@ func setupRetryButton(_ retry: SKSpriteNode, self: GameScene) {
 }
 
 //DECIDES IF X TURN OR Y TURN
-func findTurnModifySprite(_ turn: Int, sprite: SKSpriteNode) -> Bool {
-    
-    sprite.alpha = 0.0
-    sprite.xScale = 0.5
-    sprite.yScale = 0.5
-    let throwaway = SKSpriteNode()
-    
-    if (turn % 2 == 0) {
-        //Theming
-        if let texture = theme {applyTheme(texture, x: sprite, o: throwaway)}
-        else {sprite.texture = SKTexture(imageNamed: "Xeyes")}
-        
-        return true;
-        
-    } else {
-        //Theming
-        if let texture = theme {applyTheme(texture, x: throwaway, o: sprite)}
-        else {sprite.texture = SKTexture(imageNamed: "Oeyes")}
-
-        return false;
-    }
-}
+//func findTurnModifySprite(_ turn: Int, sprite: SKSpriteNode) -> Bool {
+//    
+//    sprite.alpha = 0.0
+//    sprite.xScale = 0.5
+//    sprite.yScale = 0.5
+//    let throwaway = SKSpriteNode()
+//    
+//    if (turn % 2 == 0) {
+//        //Theming
+//        if let texture = theme {applyTheme(texture, x: sprite, o: throwaway)}
+//        else {sprite.texture = SKTexture(imageNamed: "Xeyes")}
+//        
+//        return true;
+//        
+//    } else {
+//        //Theming
+//        if let texture = theme {applyTheme(texture, x: throwaway, o: sprite)}
+//        else {sprite.texture = SKTexture(imageNamed: "Oeyes")}
+//        
+//        return false;
+//    }
+//}
 
 
 //GETS COLUMN OF TOUCH IN 3x3 PLOT
-func getColumn(_ location: CGPoint, self: GameScene) -> Int {
+func getColumn(_ location: CGPoint, self: OnlineScene) -> Int {
     if (location.x < self.frame.midX*0.87 &&
         location.x > self.frame.midX*0.63) {
         return 0;
@@ -463,7 +357,7 @@ func getColumn(_ location: CGPoint, self: GameScene) -> Int {
 
 
 //GETS ROW OF TOUCH IN 3x3 PLOTt
-func getRow(_ location: CGPoint, self: GameScene) -> Int {
+func getRow(_ location: CGPoint, self: OnlineScene) -> Int {
     if (location.y < (self.frame.midY*1.55)+30 &&
         location.y > (self.frame.midY*1.20)+30) {
         return 0;
@@ -479,64 +373,64 @@ func getRow(_ location: CGPoint, self: GameScene) -> Int {
 
 
 //GETS ROW FROM ARRAY VALUE
-func getRowFromArray(_ i: Int) -> Int {
-    if (i >= 0 && i <= 2) {
-        return 0;
-    }
-    if (i >= 3 && i <= 5) {
-        return 1;
-    }
-    if (i >= 6 && i <= 8) {
-        return 2;
-    }
-    
-    return -1;
-}
+//func getRowFromArray(_ i: Int) -> Int {
+//    if (i >= 0 && i <= 2) {
+//        return 0;
+//    }
+//    if (i >= 3 && i <= 5) {
+//        return 1;
+//    }
+//    if (i >= 6 && i <= 8) {
+//        return 2;
+//    }
+//    
+//    return -1;
+//}
 
 //GETS COLUMN FROM ARRAY VALUE
-func getColFromArray(_ i: Int) -> Int {
-    if (i == 0 || i == 3 || i == 6) {
-        return 0;
-    }
-    if (i == 1 || i == 4 || i == 7) {
-        return 1;
-    }
-    if (i == 2 || i == 5 || i == 8) {
-        return 2;
-    }
+//func getColFromArray(_ i: Int) -> Int {
+//    if (i == 0 || i == 3 || i == 6) {
+//        return 0;
+//    }
+//    if (i == 1 || i == 4 || i == 7) {
+//        return 1;
+//    }
+//    if (i == 2 || i == 5 || i == 8) {
+//        return 2;
+//    }
+//    
+//    return -1;
+//}
 
-    return -1;
-}
 
-
-//CHECKS IF EITHER PLAYER HAS WON
-func checkForWin(_ myArr: [Int]) -> Int {
-
-    if turn < 3 {return 0}
-
-    if ((myArr[0] != 0) || (myArr[4] != 0) || (myArr[8] != 0)) {
-        if (myArr[0] == myArr[1] && myArr[1] == myArr[2] && myArr[2] != 0) ||
-           (myArr[0] == myArr[3] && myArr[3] == myArr[6] && myArr[6] != 0) ||
-           (myArr[0] == myArr[4] && myArr[4] == myArr[8] && myArr[8] != 0) {
-            return myArr[0]
-        }
-        
-        else if (myArr[4] == myArr[0] && myArr[0] == myArr[8]) ||
-           (myArr[4] == myArr[1] && myArr[1] == myArr[7] && myArr[7] != 0) ||
-           (myArr[4] == myArr[6] && myArr[6] == myArr[2] && myArr[2] != 0) ||
-           (myArr[4] == myArr[3] && myArr[3] == myArr[5] && myArr[5] != 0) {
-            return myArr[4]
-        }
-        
-        else if (myArr[8] == myArr[4] && myArr[4] == myArr[0]) ||
-           (myArr[8] == myArr[2] && myArr[2] == myArr[5] && myArr[5] != 0) ||
-           (myArr[8] == myArr[6] && myArr[6] == myArr[7] && myArr[7] != 0) {
-            return myArr[8]
-        }
-    }
-
-return 0
-}
+////CHECKS IF EITHER PLAYER HAS WON
+//func checkForWin(_ myArr: [Int]) -> Int {
+//    
+//    if turn < 3 {return 0}
+//    
+//    if ((myArr[0] != 0) || (myArr[4] != 0) || (myArr[8] != 0)) {
+//        if (myArr[0] == myArr[1] && myArr[1] == myArr[2] && myArr[2] != 0) ||
+//            (myArr[0] == myArr[3] && myArr[3] == myArr[6] && myArr[6] != 0) ||
+//            (myArr[0] == myArr[4] && myArr[4] == myArr[8] && myArr[8] != 0) {
+//            return myArr[0]
+//        }
+//            
+//        else if (myArr[4] == myArr[0] && myArr[0] == myArr[8]) ||
+//            (myArr[4] == myArr[1] && myArr[1] == myArr[7] && myArr[7] != 0) ||
+//            (myArr[4] == myArr[6] && myArr[6] == myArr[2] && myArr[2] != 0) ||
+//            (myArr[4] == myArr[3] && myArr[3] == myArr[5] && myArr[5] != 0) {
+//            return myArr[4]
+//        }
+//            
+//        else if (myArr[8] == myArr[4] && myArr[4] == myArr[0]) ||
+//            (myArr[8] == myArr[2] && myArr[2] == myArr[5] && myArr[5] != 0) ||
+//            (myArr[8] == myArr[6] && myArr[6] == myArr[7] && myArr[7] != 0) {
+//            return myArr[8]
+//        }
+//    }
+//    
+//    return 0
+//}
 
 
 /*
@@ -558,62 +452,62 @@ return 0
  WinLine8 = 246
  
  
-//FINDS THE WINNING COMBINATION */
-func findWinningLine(_ myArr: [Int]) -> Int {
-    
-    //WinLine1
-    if (myArr[0] == myArr[1] && myArr[1] == myArr[2] && myArr[2] != 0) {
-        return 1;
-    }
-    
-    //WinLine2
-    if (myArr[3] == myArr[4] && myArr[4] == myArr[5] && myArr[5] != 0) {
-        return 2;
-    }
-    
-    //WinLine3
-    if (myArr[6] == myArr[7] && myArr[7] == myArr[8] && myArr[8] != 0) {
-        return 3;
-    }
-    
-    //WinLine4
-    if (myArr[0] == myArr[3] && myArr[3] == myArr[6] && myArr[6] != 0) {
-        return 4;
-    }
-    
-    //WinLine5
-    if (myArr[1] == myArr[4] && myArr[4] == myArr[7] && myArr[7] != 0) {
-        return 5;
-    }
-    
-    //WinLine6
-    if (myArr[2] == myArr[5] && myArr[5] == myArr[8] && myArr[8] != 0) {
-        return 6;
-    }
-    
-    //WinLine7
-    if (myArr[0] == myArr[4] && myArr[4] == myArr[8] && myArr[8] != 0) {
-        return 7;
-    }
-    
-    //WinLine8
-    if (myArr[2] == myArr[4] && myArr[4] == myArr[6] && myArr[6] != 0) {
-        return 8;
-    }
-    
-    return 0;
-}
+ //FINDS THE WINNING COMBINATION */
+//func findWinningLine(_ myArr: [Int]) -> Int {
+//    
+//    //WinLine1
+//    if (myArr[0] == myArr[1] && myArr[1] == myArr[2] && myArr[2] != 0) {
+//        return 1;
+//    }
+//    
+//    //WinLine2
+//    if (myArr[3] == myArr[4] && myArr[4] == myArr[5] && myArr[5] != 0) {
+//        return 2;
+//    }
+//    
+//    //WinLine3
+//    if (myArr[6] == myArr[7] && myArr[7] == myArr[8] && myArr[8] != 0) {
+//        return 3;
+//    }
+//    
+//    //WinLine4
+//    if (myArr[0] == myArr[3] && myArr[3] == myArr[6] && myArr[6] != 0) {
+//        return 4;
+//    }
+//    
+//    //WinLine5
+//    if (myArr[1] == myArr[4] && myArr[4] == myArr[7] && myArr[7] != 0) {
+//        return 5;
+//    }
+//    
+//    //WinLine6
+//    if (myArr[2] == myArr[5] && myArr[5] == myArr[8] && myArr[8] != 0) {
+//        return 6;
+//    }
+//    
+//    //WinLine7
+//    if (myArr[0] == myArr[4] && myArr[4] == myArr[8] && myArr[8] != 0) {
+//        return 7;
+//    }
+//    
+//    //WinLine8
+//    if (myArr[2] == myArr[4] && myArr[4] == myArr[6] && myArr[6] != 0) {
+//        return 8;
+//    }
+//    
+//    return 0;
+//}
 
 
 //DRAWS 3 IN A ROW LINE WHEN PLAYER WINS
-func drawWinLine(_ lineNum: Int, self: GameScene) {
+func drawWinLine(_ lineNum: Int, self: OnlineScene) {
     let line = SKSpriteNode(imageNamed: "line")
     line.alpha = 0
     line.zPosition = 2
     line.xScale = 0.15
     line.yScale = 1.05
-
-
+    
+    
     let rotate90 = SKAction.rotate(byAngle: 1.57079632, duration: 0)
     let rotate45 = SKAction.rotate(byAngle: 0.70539816, duration: 0)
     let rotate45ish = SKAction.rotate(byAngle: 0.87839816, duration: 0)
@@ -664,7 +558,7 @@ func drawWinLine(_ lineNum: Int, self: GameScene) {
 
 
 //CALLED BY RESTART TO SETUP SCENE
-func createSceneContents(_ self: GameScene) {
+func createSceneContents(_ self: OnlineScene) {
     
     //self.backgroundColor = UIColor.lightGray
     
@@ -700,8 +594,8 @@ func createSceneContents(_ self: GameScene) {
     if p2Key == nil {p2Key = "Player 2"}
     if gameType == 1 {p2Key = "X-O Bot"}
     
-    let PlayerIndicator1 = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.semibold).familyName)
-    let PlayerIndicator2 = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.semibold).familyName)
+    let PlayerIndicator1 = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.semibold).fontName)
+    let PlayerIndicator2 = SKLabelNode(fontNamed:UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.semibold).fontName)
     PlayerIndicator1.text = p1Key! + ": ";
     PlayerIndicator2.text = p2Key! + ": ";
     PlayerIndicator1.fontSize = 20; PlayerIndicator1.alpha = 0;
@@ -786,51 +680,51 @@ func createSceneContents(_ self: GameScene) {
     checkIndicator(self, winner: winner, restart: true)
 }
 
-func unlockThings() {
-    if (difficulty == "hard" && gameType == 1 && hsHard == 5) {
-        defaults.set(false, forKey: "warriorLock")
-        let warriortheme = GKAchievement.init(identifier: "XvsOThemeUnlockwarrior")
-        warriortheme.showsCompletionBanner = true;
-        warriortheme.percentComplete = 100.0
-        GKAchievement.report([warriortheme], withCompletionHandler: nil)
-    }
-    
-    if (difficulty == "medium" && gameType == 1 && hsMedium == 5) {
-        defaults.set(false, forKey: "ballerLock")
-        let ballertheme = GKAchievement.init(identifier: "XvsOThemeUnlockballer")
-        ballertheme.showsCompletionBanner = true;
-        ballertheme.percentComplete = 100.0
-        GKAchievement.report([ballertheme], withCompletionHandler: nil)
-    }
-    
-    if (difficulty == "easy" && gameType == 1 && hsEasy == 5) {
-        defaults.set(false, forKey: "greekLock")
-        let greektheme = GKAchievement.init(identifier: "XvsOThemeUnlockgreek")
-        greektheme.showsCompletionBanner = true;
-        greektheme.percentComplete = 100.0
-        GKAchievement.report([greektheme], withCompletionHandler: nil)
-    }
-
-    if (gameType == 2 && totalGamesMP == 1) {
-        defaults.set(false, forKey: "plainLock")
-        let plaintheme = GKAchievement.init(identifier: "XvsOThemeUnlockplain")
-        plaintheme.showsCompletionBanner = true;
-        plaintheme.percentComplete = 100.0
-        GKAchievement.report([plaintheme], withCompletionHandler: nil)
-    }
-    
-}
+//func unlockThings() {
+//    if (difficulty == "hard" && gameType == 1 && hsHard == 5) {
+//        defaults.set(false, forKey: "warriorLock")
+//        let warriortheme = GKAchievement.init(identifier: "XvsOThemeUnlockwarrior")
+//        warriortheme.showsCompletionBanner = true;
+//        warriortheme.percentComplete = 100.0
+//        GKAchievement.report([warriortheme], withCompletionHandler: nil)
+//    }
+//    
+//    if (difficulty == "medium" && gameType == 1 && hsMedium == 5) {
+//        defaults.set(false, forKey: "ballerLock")
+//        let ballertheme = GKAchievement.init(identifier: "XvsOThemeUnlockballer")
+//        ballertheme.showsCompletionBanner = true;
+//        ballertheme.percentComplete = 100.0
+//        GKAchievement.report([ballertheme], withCompletionHandler: nil)
+//    }
+//    
+//    if (difficulty == "easy" && gameType == 1 && hsEasy == 5) {
+//        defaults.set(false, forKey: "greekLock")
+//        let greektheme = GKAchievement.init(identifier: "XvsOThemeUnlockgreek")
+//        greektheme.showsCompletionBanner = true;
+//        greektheme.percentComplete = 100.0
+//        GKAchievement.report([greektheme], withCompletionHandler: nil)
+//    }
+//    
+//    if (gameType == 2 && totalGamesMP == 1) {
+//        defaults.set(false, forKey: "plainLock")
+//        let plaintheme = GKAchievement.init(identifier: "XvsOThemeUnlockplain")
+//        plaintheme.showsCompletionBanner = true;
+//        plaintheme.percentComplete = 100.0
+//        GKAchievement.report([plaintheme], withCompletionHandler: nil)
+//    }
+//    
+//}
 
 
 //CALLED ON SCENE MOVING TO VIEW
-func restart(_ self: GameScene) {
-
+func restart(_ self: OnlineScene) {
+    
     self.removeAllChildren()
     self.removeAllActions()
     gameOver = false
     gameType = defaults.integer(forKey: "gametype")
     difficulty = defaults.string(forKey: "difficulty")
-
+    
     
     
     for i in 0...8 {
@@ -838,7 +732,7 @@ func restart(_ self: GameScene) {
     }
     
     createSceneContents(self)
-    if (gameType == 1 && !isX) {
+    if (gameType == 1 && !myTurn) {
         delay(1) {
             playGame(CGPoint(x:self.frame.midX, y:self.frame.midY), self: self)
         }
@@ -847,74 +741,74 @@ func restart(_ self: GameScene) {
 
 
 //CHECKS FOR DRAW IN GAME
-func checkForDraw(_ myArr: [Int]) -> Bool {
-    for i in 0...8 {
-        if myArr[i] == 0 {return false}
-    }
-    return true
-}
+//func checkForDraw(_ myArr: [Int]) -> Bool {
+//    for i in 0...8 {
+//        if myArr[i] == 0 {return false}
+//    }
+//    return true
+//}
 
 
 //APPLIES THEME
-func applyTheme(_ texture: String, x: SKSpriteNode, o: SKSpriteNode) {
-    //Standard theme
-    if texture == "standard" {
-        x.texture = SKTexture(imageNamed: "Xeyes")
-        o.texture = SKTexture(imageNamed: "Oeyes")
-    }
-    
-    //Baby Theme
-    if texture == "baby" {
-        x.texture = SKTexture(imageNamed: "Xbaby")
-        o.texture = SKTexture(imageNamed: "Obaby")
-    }
-    
-    //Warrior Theme
-    if texture == "warrior" {
-        x.texture = SKTexture(imageNamed: "Xwarrior")
-        o.texture = SKTexture(imageNamed: "Owarrior")
-    }
-    
-    //Baller Theme
-    if texture == "baller" {
-        x.texture = SKTexture(imageNamed: "Xballer")
-        o.texture = SKTexture(imageNamed: "Oballer")
-    }
-    
-    //Greek Theme
-    if texture == "greek" {
-        x.texture = SKTexture(imageNamed: "Xgreek")
-        o.texture = SKTexture(imageNamed: "Ogreek")
-    }
-    
-    //Plain Theme
-    if texture == "plain" {
-        x.texture = SKTexture(imageNamed: "X")
-        o.texture = SKTexture(imageNamed: "O")
-    }
-}
+//func applyTheme(_ texture: String, x: SKSpriteNode, o: SKSpriteNode) {
+//    //Standard theme
+//    if texture == "standard" {
+//        x.texture = SKTexture(imageNamed: "Xeyes")
+//        o.texture = SKTexture(imageNamed: "Oeyes")
+//    }
+//    
+//    //Baby Theme
+//    if texture == "baby" {
+//        x.texture = SKTexture(imageNamed: "Xbaby")
+//        o.texture = SKTexture(imageNamed: "Obaby")
+//    }
+//    
+//    //Warrior Theme
+//    if texture == "warrior" {
+//        x.texture = SKTexture(imageNamed: "Xwarrior")
+//        o.texture = SKTexture(imageNamed: "Owarrior")
+//    }
+//    
+//    //Baller Theme
+//    if texture == "baller" {
+//        x.texture = SKTexture(imageNamed: "Xballer")
+//        o.texture = SKTexture(imageNamed: "Oballer")
+//    }
+//    
+//    //Greek Theme
+//    if texture == "greek" {
+//        x.texture = SKTexture(imageNamed: "Xgreek")
+//        o.texture = SKTexture(imageNamed: "Ogreek")
+//    }
+//    
+//    //Plain Theme
+//    if texture == "plain" {
+//        x.texture = SKTexture(imageNamed: "X")
+//        o.texture = SKTexture(imageNamed: "O")
+//    }
+//}
 
 
 //SAVES HIGH SCORES TO GAME CENTER
-func saveHighscore(_ score: Int) {
-    
-    let leaderboardString = "XvsOLeaders" + difficulty!;
-    
-    
-    //check if user is signed in
-    if GKLocalPlayer.local.isAuthenticated {
-        
-        let scoreReporter = GKScore(leaderboardIdentifier: leaderboardString) //leaderboard id here
-        
-        scoreReporter.value = Int64(score) //score variable here (same as above)
-        
-        let scoreArray: [GKScore] = [scoreReporter]
-        
-        GKScore.report(scoreArray, withCompletionHandler: nil)
-        
-    }
-    
-}
+//func saveHighscore(_ score: Int) {
+//    
+//    let leaderboardString = "XvsOLeaders" + difficulty!;
+//    
+//    
+//    //check if user is signed in
+//    if GKLocalPlayer.localPlayer().isAuthenticated {
+//        
+//        let scoreReporter = GKScore(leaderboardIdentifier: leaderboardString) //leaderboard id here
+//        
+//        scoreReporter.value = Int64(score) //score variable here (same as above)
+//        
+//        let scoreArray: [GKScore] = [scoreReporter]
+//        
+//        GKScore.report(scoreArray, withCompletionHandler: nil)
+//        
+//    }
+//    
+//}
 
 
 
